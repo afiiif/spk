@@ -1,0 +1,173 @@
+// Font Size
+.fz {
+	@each $a in ( 8,9,10,11,12,13,14,15,16,17,18,20,22,24,26,28,32,36,40,48,52,56,60,64,72,80,96,128,144 ) {
+		&-#{$a} { font-size: #{$a}px !important; }
+	}
+}
+
+// Font Weight
+.fw {
+	@each $a in ( 3,4,5,6,7,8,9 ) {
+		&-#{$a} { font-weight: #{$a*100} !important; }
+	}
+}
+
+// Line Height
+.lh {
+	@each $a in ( 100,110,120,125,135,150,175,200 ) {
+		&-#{$a} { line-height: #{$a/100} !important; }
+	}
+}
+
+// Opacity
+.op {
+	@each $a in ( 0,1,2,3,4,5,6,7,8,9,10 ) {
+		&-#{$a} { opacity: #{$a/10} !important; }
+		&-hv-#{$a}:hover { opacity: #{$a/10} !important; }
+	}
+}
+
+// Z-Index
+.z {
+	@each $a in ( -1,0,1,2,3,4,5,6,7,8,9,10,1000,1020,1030,1040,1050,1060,1070 ) {
+		&-#{$a} { z-index: #{$a} !important; }
+	}
+}
+
+// Cursor
+.cur {
+	@each $i,$a in ( d:default, a:auto, p:pointer, n:not-allowed, w:wait ) {
+		&-#{$i} { cursor: #{$a} !important; }
+	}
+}
+
+// Overflow
+.ov {
+	@each $i,$a in ( a:auto, h:hidden, s:scroll, v:visible ) {
+		&-#{$i} { overflow: #{$a} !important; }
+		&x-#{$i} { overflow-x: #{$a} !important; }
+		&y-#{$i} { overflow-y: #{$a} !important; }
+	}
+}
+
+// Pointer Event
+.pe {
+	&-a { pointer-events: auto; }
+	&-n { pointer-events: none; }
+}
+
+// Object Position
+.opos {
+	&-top { object-position: top; }
+	&-bottom { object-position: bottom; }
+}
+
+// Margin
+.m {
+	@each $i,$a in $spacing {
+		&-#{$i} { margin: #{$a} !important; }
+		@each $j,$b in ( t:top, b:bottom, l:left, r:right ) {
+			&#{$j}-#{$i} { margin-#{$b}: #{$a} !important; }
+			@if ($i!=0) {
+				&#{$j}--#{$i} { margin-#{$b}: -#{$a} !important; }
+			}
+		}
+		&x-#{$i} { margin-top: #{$a} !important; margin-bottom: #{$a} !important; }
+		&y-#{$i} { margin-left: #{$a} !important; margin-right: #{$a} !important; }
+		@if ($i!=0) {
+			&x--#{$i} { margin-left: -#{$a} !important; margin-right: -#{$a} !important; }
+			&y--#{$i} { margin-top: -#{$a} !important; margin-bottom: -#{$a} !important; }
+		}
+	}
+}
+
+// Padding
+.p {
+	@each $i,$a in $spacing {
+		&-#{$i} { padding: #{$a} !important; }
+		@each $j,$b in ( t:top, b:bottom, l:left, r:right ) {
+			&#{$j}-#{$i} { padding-#{$b}: #{$a} !important; }
+		}
+		&x-#{$i} { padding-left: #{$a} !important; padding-right: #{$a} !important; }
+		&y-#{$i} { padding-top: #{$a} !important; padding-bottom: #{$a} !important; }
+	}
+}
+
+// Table Column Text Align
+@each $i, $ii in $align {
+	.td-#{$i} { td, th { text-align: #{$ii} !important; } }
+	.th-#{$i} { th { text-align: #{$ii} !important; } }
+	@each $j in (1,2,3,4,5,6,7,8,9,10,11,12) {
+		.td#{$j}-#{$i} { td:nth-child(#{$j}), th:nth-child(#{$j}) { text-align: #{$ii} !important; } }
+		.th#{$j}-#{$i} { th:nth-child(#{$j}) { text-align: #{$ii} !important; } }
+		.td#{$j}--#{$i} { td:nth-child(n+#{$j}), th:nth-child(n+#{$j}) { text-align: #{$ii} !important; } }
+		.td#{$j}--#{$i} { th:nth-child(n+#{$j}) { text-align: #{$ii} !important; } }
+	}
+}
+
+// Table Column Hidden
+@each $i in (1,2,3,4,5,6,7,8,9,10,11,12) {
+	.td#{$i}-d-none {
+		td:nth-child(#{$i}), th:nth-child(#{$i}) { display: none !important; }
+	}
+}
+
+
+
+/*-----------------------------------------------------------------------
+|  RESPONSIVE UTILITIES
+|------------------------------------------------------------------------
+*/
+@each $x,$bp in $breakpoints {
+
+	// Display
+	@each $a in (block, inline-block, flex, inline-flex) {
+		.d--#{$x}-#{$a} { display: none !important; }
+	}
+
+	@media (min-width: $bp) {
+
+		// Display
+		@each $a in (block, inline-block, flex, inline-flex) {
+			.d--#{$x}-#{$a} { display: #{$a} !important; }
+		}
+
+		// Font Size
+		@each $a in ( 8,9,10,11,12,13,14,15,16,17,18,20,22,24,26,28,32,36,40,48,52,56,60,64,72,80,96,128,144 ) {
+			.fz-#{$x}-#{$a} { font-size: #{$a}px !important; }
+		}
+
+		// Margin
+		.m {
+			@each $i,$a in $spacing {
+				&-#{$x}-#{$i} { margin: #{$a} !important; }
+				@each $j,$b in ( t:top, b:bottom, l:left, r:right ) {
+					&#{$j}-#{$x}-#{$i} { margin-#{$b}: #{$a} !important; }
+					@if ($i!=0) {
+						&#{$j}-#{$x}--#{$i} { margin-#{$b}: -#{$a} !important; }
+					}
+				}
+				&x-#{$x}-#{$i} { margin-left: #{$a} !important; margin-right: #{$a} !important; }
+				&y-#{$x}-#{$i} { margin-top: #{$a} !important; margin-bottom: #{$a} !important; }
+				@if ($i!=0) {
+					&x-#{$x}--#{$i} { margin-left: -#{$a} !important; margin-right: -#{$a} !important; }
+					&y-#{$x}--#{$i} { margin-top: -#{$a} !important; margin-bottom: -#{$a} !important; }
+				}
+			}
+		}
+
+		// Padding
+		.p {
+			@each $i,$a in $spacing {
+				&-#{$x}-#{$i} { padding: #{$a} !important; }
+				@each $j,$b in ( t:top, b:bottom, l:left, r:right ) {
+					&#{$j}-#{$x}-#{$i} { padding-#{$b}: #{$a} !important; }
+				}
+				&x-#{$x}-#{$i} { padding-left: #{$a} !important; padding-right: #{$a} !important; }
+				&y-#{$x}-#{$i} { padding-top: #{$a} !important; padding-bottom: #{$a} !important; }
+			}
+		}
+
+	}
+
+}

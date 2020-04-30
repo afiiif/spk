@@ -1,0 +1,69 @@
+/*-----------------------------------------------------------------------
+|  BREAKPOINT
+|------------------------------------------------------------------------
+*/
+$breakpoints: (
+	sm  : 576px,
+	md  : 768px,
+	lg  : 992px,
+	xl  : 1200px,
+);
+$breakpoints-max: (
+	xs  : 575.98px,
+	sm  : 767.98px,
+	md  : 991.98px,
+	lg  : 1199.98px,
+);
+$breakpoint-xxs-max: 379.98px;
+$breakpoint-xs: 380px;
+$breakpoint-xs-max: 575.98px;
+$breakpoint-sm: 576px;
+$breakpoint-sm-max: 767.98px;
+$breakpoint-md: 768px;
+$breakpoint-md-max: 991.98px;
+$breakpoint-lg: 992px;
+$breakpoint-lg-max: 1199.98px;
+$breakpoint-xl: 1200px;
+$breakpoint-xl-max: 1439.98px;
+$breakpoint-xxl: 1440px;
+
+
+
+/*-----------------------------------------------------------------------
+|  SPACING
+|------------------------------------------------------------------------
+*/
+$spacing: (
+	0  : 0,
+	1  : .25rem,
+	15 : .375rem,
+	2  : .5rem,
+	25 : .75rem,
+	3  : 1rem,
+	35 : 1.25rem,
+	4  : 1.5rem,
+	45 : 2.25rem,
+	5  : 3rem,
+	55 : 4rem,
+	6  : 5rem,
+	7  : 6rem,
+	a  : 15px,
+);
+
+
+
+/*-----------------------------------------------------------------------
+|  ALIGN
+|------------------------------------------------------------------------
+*/
+$align: (
+	l : left,
+	r : right,
+	c : center,
+	j : justify,
+);
+$valign: (
+	t : top,
+	m : middle,
+	b : bottom,
+);

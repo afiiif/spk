@@ -1,0 +1,135 @@
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    overflow: hidden;
+    transition: height .5s ease-in-out;
+
+    >nav {
+        position: absolute;
+        z-index: 3;
+        top: 0;
+        left: 0;
+        display: flex;
+
+        #nav-brand {
+            font-size: 26px;
+            color: #272727;
+            transition: all .5s ease-in-out;
+            text-transform: uppercase;
+
+            >.icon-eyeglass {
+                display: inline-block;
+                position: relative;
+                top: 1px;
+            }
+
+            &:hover,
+            &:focus {
+                color: #272727;
+                text-decoration: none;
+            }
+
+            &:hover>.icon-eyeglass {
+                animation-name: rubberBand;
+                animation-duration: 1s;
+                animation-fill-mode: both;
+            }
+        }
+    }
+
+    .explore-wrapper {
+        position: absolute;
+        bottom: 18px;
+        right: 15px;
+        font-size: 18px;
+        transition: all .5s ease-in-out;
+
+        >.btn {
+            font-size: inherit;
+            opacity: .7;
+
+            >i {
+                display: inline-block;
+                margin-right: 12px;
+            }
+
+            &:hover {
+                opacity: 1;
+
+                &>i {
+                    animation-name: tada;
+                    animation-duration: 1s;
+                    animation-fill-mode: both;
+                }
+            }
+        }
+    }
+}
+
+.search-active .header {
+    height: 97px;
+
+    #nav-brand {
+        margin-top: 1px;
+        font-size: 14px;
+
+        @media (min-width: $breakpoint-md) {
+            font-size: 20px;
+
+            >.fw-3 {
+                display: block;
+            }
+        }
+    }
+
+    .explore-wrapper {
+        bottom: 55px;
+        font-size: 12px;
+    }
+
+    @media (min-width: $breakpoint-md) {
+
+        height: 80px;
+
+        .explore-wrapper {
+            bottom: 14px;
+            font-size: 24px;
+
+            >.btn {
+                >i {
+                    margin-right: 0;
+                }
+
+                >span {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    @media (min-width: $breakpoint-lg) {
+
+        .explore-wrapper {
+            bottom: 7px;
+
+            >.btn {
+                line-height: 1.35;
+
+                >span {
+                    display: block;
+                    font-size: 13px;
+                }
+            }
+        }
+
+    }
+
+}

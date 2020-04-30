@@ -1,0 +1,24 @@
+#result {
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    @media (min-width: $breakpoint-md) {
+        padding-left: 0;
+        padding-right: 6rem !important;
+    }
+
+    @media (min-width: $breakpoint-lg) {
+        padding-right: 8rem !important;
+    }
+
+    &-summary>div {
+        margin: 0 0 24px;
+
+        @media (min-width: $breakpoint-md) {
+            max-width: 500px;
+            margin: 0 auto 28px;
+        }
+    }
+
+}

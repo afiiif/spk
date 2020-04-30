@@ -1,0 +1,46 @@
+.text {
+	&-gray { color: #999 !important; }
+	&-lightgray { color: #ddd !important; }
+}
+
+.bg {
+	&-gray { background-color: #999 !important; }
+	&-lightgray { background-color: #ddd !important; }
+}
+
+.row {
+	&-2 { margin: 0 -2px; > div { padding: 0 2px; } }
+	&-4 { margin: 0 -4px; > div { padding: 0 4px; } }
+	&-5 { margin: 0 -5px; > div { padding: 0 5px; } }
+	&-8 { margin: 0 -8px; > div { padding: 0 8px; } }
+	&-10 { margin: 0 -10px; > div { padding: 0 10px; } }
+	&-12 { margin: 0 -12px; > div { padding: 0 12px; } }
+	&-15 { margin: 0 -15px; > div { padding: 0 15px; } }
+	@media (min-width: 576px) { &-sm {
+		&-2 { margin: 0 -2px; > div { padding: 0 2px; } }
+		&-4 { margin: 0 -4px; > div { padding: 0 4px; } }
+		&-5 { margin: 0 -5px; > div { padding: 0 5px; } }
+		&-8 { margin: 0 -8px; > div { padding: 0 8px; } }
+		&-10 { margin: 0 -10px; > div { padding: 0 10px; } }
+		&-12 { margin: 0 -12px; > div { padding: 0 12px; } }
+		&-15 { margin: 0 -15px; > div { padding: 0 15px; } }
+	} }
+	@media (min-width: 768px) { &-md {
+		&-2 { margin: 0 -2px; > div { padding: 0 2px; } }
+		&-4 { margin: 0 -4px; > div { padding: 0 4px; } }
+		&-5 { margin: 0 -5px; > div { padding: 0 5px; } }
+		&-8 { margin: 0 -8px; > div { padding: 0 8px; } }
+		&-10 { margin: 0 -10px; > div { padding: 0 10px; } }
+		&-12 { margin: 0 -12px; > div { padding: 0 12px; } }
+		&-15 { margin: 0 -15px; > div { padding: 0 15px; } }
+	} }
+	@media (min-width: 992px) { &-lg {
+		&-2 { margin: 0 -2px; > div { padding: 0 2px; } }
+		&-4 { margin: 0 -4px; > div { padding: 0 4px; } }
+		&-5 { margin: 0 -5px; > div { padding: 0 5px; } }
+		&-8 { margin: 0 -8px; > div { padding: 0 8px; } }
+		&-10 { margin: 0 -10px; > div { padding: 0 10px; } }
+		&-12 { margin: 0 -12px; > div { padding: 0 12px; } }
+		&-15 { margin: 0 -15px; > div { padding: 0 15px; } }
+	} }
+}

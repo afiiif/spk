@@ -1,0 +1,77 @@
+.animated-1s {
+    animation-duration: 1s;
+}
+
+.fa-counter-spin {
+    -webkit-animation: spin-counter 2s infinite linear;
+    -moz-animation: spin-counter 2s infinite linear;
+    -o-animation: spin-counter 2s infinite linear;
+    animation: spin-counter 2s infinite linear;
+}
+
+@-moz-keyframes spin-counter {
+    0% {
+        -moz-transform: rotate(359deg);
+    }
+
+    100% {
+        -moz-transform: rotate(0deg);
+    }
+}
+
+@-webkit-keyframes spin-counter {
+    0% {
+        -webkit-transform: rotate(359deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(0deg);
+    }
+}
+
+@-o-keyframes spin-counter {
+    0% {
+        -o-transform: rotate(359deg);
+    }
+
+    100% {
+        -o-transform: rotate(0deg);
+    }
+}
+
+@-ms-keyframes spin-counter {
+    0% {
+        -ms-transform: rotate(359deg);
+    }
+
+    100% {
+        -ms-transform: rotate(0deg);
+    }
+}
+
+@keyframes spin-counter {
+    0% {
+        transform: rotate(359deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.dotty {
+    text-align: left !important;
+    &::after {
+        display: inline-block;
+        animation: dotty steps(1, end) 2s infinite;
+        content: '';
+    }
+}
+
+@keyframes dotty {
+    0%   { content: ''; }
+    25%  { content: '.'; }
+    50%  { content: '..'; }
+    75%  { content: '...'; }
+    100% { content: ''; }
+}

@@ -1,0 +1,235 @@
+.table-tree {
+
+    &-wrapper {
+        white-space: nowrap;
+        margin: 0 -8px;
+        width: calc(100% + 16px);
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        .table-tree {
+            width: 100%;
+        }
+
+        @media (min-width: $breakpoint-sm) {
+            margin: 0;
+            width: 100%;
+        }
+
+        @media (min-width: $breakpoint-md) {
+            .table-tree {
+                width: auto;
+                min-width: 500px;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    thead {
+        vertical-align: top;
+        font-size: 13px;
+
+        @media (min-width: $breakpoint-sm) {
+            font-size: 14px;
+        }
+
+        th {
+            padding: 6px 18px;
+            border-bottom: 2px solid #dee2e6;
+
+            &:nth-child(2) {
+                padding-left: 8px;
+            }
+        }
+    }
+
+    tbody {
+        vertical-align: top;
+
+        td {
+            cursor: pointer;
+            border-bottom: 1px solid #dee2e6;
+            padding: 6px 18px;
+            position: relative;
+
+            &:first-child {
+                width: 1px;
+            }
+
+            &:nth-child(2) {
+                position: relative;
+                padding-left: 8px;
+                padding-right: 85px;
+
+                @media (min-width: $breakpoint-sm) {
+                    padding-right: 100px;
+                }
+            }
+        }
+
+        @mixin tr($x, $font-size, $font-size-sm, $color, $top, $content, $font-weight: null) {
+            &.lv-#{$x} {
+                color: $color;
+                font-size: $font-size;
+
+                @media (min-width: $breakpoint-sm) {
+                    font-size: $font-size-sm;
+                }
+
+                @if ($font-weight) {
+                    font-weight: $font-weight;
+
+                    >td {
+                        padding-top: 20px;
+                    }
+                }
+
+                mark {
+                    color: $color;
+                }
+
+                >td:first-child {
+                    padding-left: 10px * ($x+1) + 6px;
+
+                    >b {
+                        font-weight: 700;
+                        display: inline-block;
+
+                        @if not ($font-weight) {
+                            margin-left: 2px;
+                        }
+                    }
+                }
+
+                >td:nth-child(2)::after {
+                    content: '';
+                    font-weight: 300;
+                    position: absolute;
+                    right: 16px;
+                }
+
+                &.toggle>td:first-child {
+                    &::before {
+                        @include font-awesome("\f054");
+                        font-size: 12px;
+                        top: $top;
+                        left: 10px * $x + 2px;
+                        transform: rotate(0);
+                        transition: transform .15s ease-in-out;
+                    }
+                }
+
+                &.toggle-expanded>td:first-child {
+                    &::before {
+                        transform: rotate(90deg);
+                    }
+                }
+
+                &:hover {
+                    background: rgba($color, .05);
+
+                    >td:nth-child(2)::after {
+                        content: $content;
+                    }
+                }
+            }
+        }
+
+        tr {
+            &:hover {
+                background: rgba(80, 80, 80, 0.05);
+            }
+
+            @include tr(0, 14px, 18px, #f25961, 25px, '(Provinsi)', 600);
+            @include tr(1, 13px, 16px, #6861ce, 10px, '(Kabupaten)');
+            @include tr(2, 12px, 14px, #23903c, 9px, '(Kecamatan)');
+            @include tr(3, 11px, 12px, #777, 8px, '(Desa)');
+        }
+
+        tr[data-kota].lv-1:hover>td:nth-child(2)::after {
+            content: '(Kota)';
+        }
+
+        tr[data-kota].lv-3:hover>td:nth-child(2)::after {
+            content: '(Kelurahan)';
+        }
+
+        @media (min-width: $breakpoint-sm) {
+
+            @each $x,$top in (0:27px, 1:12px, 2:11px, 3:9px) {
+                tr.lv-#{$x} {
+                    >td:first-child {
+                        padding-left: 15px * ($x+1) + 3px;
+                    }
+
+                    &.toggle>td:first-child::before {
+                        top: $top;
+                        left: 15px * $x + 2px;
+                    }
+                }
+            }
+        }
+
+        @media (min-width: $breakpoint-md) {
+
+            @each $x,$top in (0:27px, 1:12px, 2:11px, 3:9px) {
+                tr.lv-#{$x} {
+                    >td:first-child {
+                        padding-left: 18px * ($x+1);
+                    }
+
+                    &.toggle>td:first-child::before {
+                        left: 18px * $x + 2px;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .with-prefix {
+
+        tr td:nth-child(2) {
+            padding-right: 8px;
+
+            @media (min-width: $breakpoint-sm) {
+                padding-right: 8px;
+            }
+
+            &::before {
+                font-weight: 300;
+                margin-right: 4px;
+            }
+
+            &::after {
+                display: none;
+            }
+        }
+
+        .lv-0 td:nth-child(2)::before {
+            content: 'Provinsi';
+        }
+
+        .lv-1 td:nth-child(2)::before {
+            content: 'Kabupaten';
+        }
+
+        [data-kota].lv-1 td:nth-child(2)::before {
+            content: 'Kota';
+        }
+
+        .lv-2 td:nth-child(2)::before {
+            content: 'Kecamatan';
+        }
+
+        .lv-3 td:nth-child(2)::before {
+            content: 'Desa';
+        }
+
+        [data-kota].lv-3 td:nth-child(2)::before {
+            content: 'Kelurahan';
+        }
+
+    }
+
+}

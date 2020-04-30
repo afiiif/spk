@@ -1,0 +1,15 @@
+.footer {
+    bottom: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0 16px;
+    transition: height .4s ease-in-out, padding .4s ease-in-out;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.search-active .footer {
+    height: 60px;
+    padding: 12px 16px;
+}

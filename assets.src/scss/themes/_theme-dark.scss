@@ -1,0 +1,151 @@
+:root {
+    --dark1: #202124;
+    --dark2: #35363A;
+    --dark3: #616161;
+}
+
+.bg-dark-1 {
+    background: var(--dark1) !important;
+}
+
+.bg-dark-2 {
+    background: var(--dark2) !important;
+}
+
+.bg-dark-2 {
+    background: var(--dark3) !important;
+}
+
+body.dark-mode {
+    background: var(--dark1) !important;
+    color: #eee;
+
+    .modal {
+        &-content {
+            background: var(--dark2);
+            color: #fff;
+
+            label {
+                color: #fff !important;
+            }
+
+            .close {
+                color: #fff;
+                text-shadow: 0 1px 0 #16181b;
+            }
+        }
+
+        &-header,
+        &-footer {
+            border-color: var(--dark3) !important;
+        }
+    }
+
+    .dropdown {
+        &-menu {
+            background: var(--dark2);
+            color: #fff;
+        }
+
+        &-item:hover {
+            color: #16181b;
+        }
+    }
+
+    .border {
+        border-color: var(--dark3);
+
+        &-top,
+        &-bottom {
+            border-color: var(--dark3) !important;
+        }
+    }
+
+    .btn-light {
+        background-color: var(--dark3) !important;
+        color: #fff;
+
+        &.dropdown-toggle {
+            color: #fff;
+        }
+
+        &.dropdown-toggle.bs-placeholder {
+            color: #999;
+        }
+    }
+
+    header {
+        background: var(--dark2) !important;
+    }
+
+    .footer {
+        background: var(--dark2);
+        border-color: var(--dark3) !important;
+        color: #fff;
+    }
+
+    table {
+
+        th,
+        td {
+            border-color: var(--dark3) !important;
+        }
+    }
+
+    .table-tree {
+        @mixin tr($x, $color) {
+            &.lv-#{$x} {
+                color: lighten($color, 12);
+            }
+        }
+
+        tr {
+            @include tr(0, #f25961);
+            @include tr(1, #6861ce);
+            @include tr(2, #23903c);
+            @include tr(3, #aaa);
+        }
+    }
+
+    &.search-active .search-form {
+        &-wrapper {
+            border-bottom-color: var(--dark3);
+
+            @media (min-width: $breakpoint-md) {
+                border-bottom-color: #fff;
+            }
+        }
+    }
+
+    .text {
+        &-primary {
+            color: lighten(#1572e8, 12) !important;
+        }
+
+        &-danger {
+            color: lighten(#F25961, 12) !important;
+        }
+    }
+
+    .btn-primary {
+        background: lighten(#1572e8, 12) !important;
+        border-color: lighten(#1572e8, 12) !important;
+
+        &.btn-border {
+            background: transparent !important;
+            color: lighten(#1572e8, 12) !important;
+            border: 1px solid lighten(#1572e8, 12) !important;
+        }
+    }
+
+    .custom-control-input:checked~.custom-control-label::before {
+        border-color: lighten(#007bff, 12);
+        background-color: lighten(#007bff, 12);
+    }
+
+    #result-summary .text-danger .icon-ban {
+        color: #fff !important;
+        opacity: .2 !important;
+    }
+
+}
