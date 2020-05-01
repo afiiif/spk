@@ -1,0 +1,66 @@
+.icon-stack-file-times {
+    display: inline-block;
+    position: relative;
+    height: 118px;
+
+    &::before {
+        @include font-awesome('\f15c');
+        font-size: 130px;
+        color: #f4c8cc;
+        transform: translateX(-50%);
+    }
+
+    &::after {
+        @include font-awesome('\f057');
+        font-size: 53px;
+        color: #f4c8cc;
+        top: 43px;
+        left: -64px;
+    }
+
+    >div {
+        &::before {
+            @include font-awesome('\f002');
+            font-size: 86px;
+            color: #F25961;
+            top: 35px;
+            left: -72px;
+        }
+
+        &::after {
+            @include font-awesome('\f111');
+            font-size: 53px;
+            color: #F25961;
+            top: 43px;
+            left: -64px;
+        }
+    }
+
+    @media (min-width: $breakpoint-sm) {
+        height: 130px;
+
+        &::before {
+            font-size: 146px;
+        }
+
+        &::after {
+			font-size: 59px;
+			top: 48px;
+			left: -68px;
+        }
+
+        >div {
+            &::before {
+				font-size: 94px;
+				top: 40px;
+				left: -77px;
+            }
+
+            &::after {
+				font-size: 59px;
+				top: 48px;
+				left: -68px;
+            }
+        }
+    }
+}

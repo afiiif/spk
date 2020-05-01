@@ -16,7 +16,7 @@
     }
 
     &-input {
-        font-size: 18px;
+        font-size: 16px;
         background-color: transparent;
         border: none;
         color: #272727;
@@ -87,7 +87,7 @@
         }
 
         &-input {
-            font-size: 24px;
+            font-size: 22px;
             padding: 10px 18px 10px 0;
         }
 
@@ -122,7 +122,7 @@
     }
 
     &-input {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     &-setting {
@@ -142,7 +142,7 @@
     @media (min-width: $breakpoint-md) {
 
         &-wrapper-outer {
-            padding: 11px 10px 11px 0;
+            padding: 11px 10px 11px 15px;
             max-width: 440px;
         }
 
@@ -152,7 +152,7 @@
         }
 
         &-input {
-            font-size: 24px;
+            font-size: 20px;
         }
 
         &-setting {

@@ -25,8 +25,9 @@
             transition: all .5s ease-in-out;
             text-transform: uppercase;
 
-            >.icon-eyeglass {
+            >i {
                 display: inline-block;
+                margin-right: 12px;
                 position: relative;
                 top: 1px;
             }
@@ -37,12 +38,16 @@
                 text-decoration: none;
             }
 
-            &:hover>.icon-eyeglass {
+            &:hover>i {
                 animation-name: rubberBand;
                 animation-duration: 1s;
                 animation-fill-mode: both;
             }
         }
+    }
+
+    #loading {
+        color: #272727;
     }
 
     .explore-wrapper {
@@ -74,6 +79,14 @@
     }
 }
 
+.header.bg-danger-gradient {
+
+    #nav-brand,
+    #loading {
+        color: #fff;
+    }
+}
+
 .search-active .header {
     height: 97px;
 
@@ -81,11 +94,16 @@
         margin-top: 1px;
         font-size: 14px;
 
+        >i {
+            margin-right: 8px;
+        }
+
         @media (min-width: $breakpoint-md) {
             font-size: 20px;
 
             >.fw-3 {
                 display: block;
+                text-align: right;
             }
         }
     }

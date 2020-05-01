@@ -31,9 +31,25 @@ else if (preg_match('/^\/spk\/(kbli-2015|kbji-2014|kbki-barang|kbki-jasa|kbli-20
 			'kbji-2002' => 'Klasifikasi Baku Jabatan Indonesia 2002',
 		][S[1]],
 		'title-short' => explode('-', S[1]),
+		'file' => [
+			'kbli-2015' => 'kbli-2015',
+			'kbji-2014' => 'kbji-2014',
+			'kbki-barang' => 'kbki-barang',
+			'kbki-jasa' => 'kbki-jasa',
+			'kbli-2009' => 'kbli-2009',
+			'kbli-2005' => 'kbli-2005',
+			'kbji-2002' => 'kbji-2002',
+		][S[1]],
 	];
 	include 'views/main.php'; die;
 }
+
+// elseif (PATH === '/spk/sort-csv' && SITE === 'http://localhost' && $_GET['file']) {
+// 	$csv = explode("\n", file_get_contents('assets/csv/'.$_GET['file'].'.csv'));
+// 	natcasesort($csv);
+// 	$csv = array_values($csv);
+// 	dd($csv); die;
+// }
 
 else {
 	http_response_code(404);

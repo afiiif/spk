@@ -27,7 +27,7 @@
 	<header class="header bg-yellow-gradient pb-6">
 		<nav class="p-a p-md-3">
 			<a id="nav-brand" href="" class="d-block lh-120 animated animated-1s bounceInDown">
-				<i class="icon-eyeglass mr-25"></i><span class="fw-8"><?= $data['title-short'][0] ?></span><span class="fw-3"><?= $data['title-short'][1] ?></span>
+				<i class="icon-arrow-left-circle"></i><span class="fw-8"><?= $data['title-short'][0] ?></span><span class="fw-3"><?= $data['title-short'][1] ?></span>
 			</a>
 		</nav>
 		<div id="search-form-wrapper-outer" class="search-form-wrapper-outer d-none"><!-- animated animated-1s bounceIn -->
@@ -43,8 +43,8 @@
 		<div id="explore-wrapper" class="explore-wrapper d-none"><!-- animated animated-1s bounceInUp delay-1s -->
 			<button type="button" id="explore-btn" class="btn p-2 text-black"><i class="icon-book-open"></i><span>Eksplor</span></button>
 		</div>
-		<div id="loading" class="text-black text-center fz-32 fw-3 animated animated-1s fadeIn"><i class="icon-refresh mr-35 fas fa-counter-spin"></i>
-			<div class="d-inline-block dotty" style="width: 141px;">Memuat</div>
+		<div id="loading" class="text-center fz-32 fw-3 animated animated-1s fadeIn">
+			<i class="icon-refresh mr-35 fas fa-counter-spin"></i><div class="d-inline-block dotty" style="width: 141px;">Memuat</div>
 		</div>
 	</header>
 
@@ -66,18 +66,19 @@
 	</main>
 
 	<footer class="footer">
-		<a id="about-btn" class="p-2 px-md-3 text-reset" href="javascript:void(0)"><i class="fas fa-lightbulb mr-2" style="color: #ffc107;"></i>Tentang<b class="fw-8 text-primary ml-1">KODE</b><span class="fw-3 text-primary">WILAYAH</span></a>
+		<a id="about-btn" class="p-2 px-md-3 text-reset" href="javascript:void(0)"><i class="fas fa-lightbulb mr-2" style="color: #ffc107;"></i>Tentang Aplikasi</a>
 	</footer>
 
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
-	<script src="lib/atlantis-lite/mod/atlantis.mod.js?v=<?php include 'views/partials/_version.php'; ?>"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.3.0/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.min.js"></script>
+	<!-- <script src="lib/atlantis-lite/mod/atlantis.mod.js?v=<?php include 'views/partials/_version.php'; ?>"></script> -->
 	<script src="assets/js/main.js?v=<?php include 'views/partials/_version.php'; ?>"></script>
 	<script>
-		const DEV = <?= json_encode(SITE === 'http://localhost' || $_GET['debug'] == 1) ?>,
-			mfdUrl = ['https://docs.google.com/spreadsheets/d/e/2PACX-1vTMQBPE5fuSn_QsCm4VURF7UzEU29PeTmwSqiycT6au2mX6lKokcLccHJxEKmr8nu_DOfXWlv3hrrIL/pub?gid=1196175698&single=true&output=csv', 'assets/csv/mfd-20200429.csv'];
+		const DEV = <?= json_encode(SITE === 'http://localhost' || $_GET['debug'] == 1) ?>, FILE = '<?= $data['path'] ?>';
 	</script>
 
 </body>
