@@ -40,61 +40,61 @@
 			</div>
 		</header>
 		<main class="row row-8 row-md-10 mt-45 mt-md-55 justify-content-center text-center">
-			<div class="col-auto">
-				<a href="kbli-2015" class="text-reset card mb-3 mb-md-35 animated animated-1s flipInY" title="Klasifikasi Baku Lapangan Usaha Indonesia 2015" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+			<div class="col-auto mb-3 mb-md-35">
+				<a href="kbli-2015" class="text-reset card h-100 mb-0 animated animated-1s flipInY" title="Klasifikasi Baku Lapangan Usaha Indonesia 2015" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
 					<div class="card-body">
 						<i class="fas fa-fw fa-briefcase fz-64"></i>
-						<h2 class="fw-9 mb-0 mt-2 text-nowrap fz-16">KBLI 2015</h2>
+						<h2 class="fw-9 mb-0 mt-2 fz-16 lh-120">KBLI 2015</h2>
 					</div>
 				</a>
 			</div>
-			<div class="col-auto">
-				<a href="kbji-2014" class="text-reset card mb-3 mb-md-35 animated animated-1s flipInY" title="Klasifikasi Baku Jabatan Indonesia 2014" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+			<div class="col-auto mb-3 mb-md-35">
+				<a href="kbji-2014" class="text-reset card h-100 mb-0 animated animated-1s flipInY" title="Klasifikasi Baku Jabatan Indonesia 2014" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
 					<div class="card-body">
 						<i class="fab fa-fw fa-black-tie fz-64"></i>
-						<h2 class="fw-9 mb-0 mt-2 text-nowrap fz-16">KBJI 2014</h2>
+						<h2 class="fw-9 mb-0 mt-2 fz-16 lh-120">KBJI 2014</h2>
 					</div>
 				</a>
 			</div>
 			<div class="w-100 d-md-none"></div>
-			<div class="col-auto">
-				<a href="kbki-barang" class="text-reset card mb-3 mb-md-35 animated animated-1s flipInY" title="Klasifikasi Baku Komoditi Indonesia Indonesia - Barang" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+			<div class="col-auto mb-3 mb-md-35">
+				<a href="kbki-2012-barang" class="text-reset card h-100 mb-0 animated animated-1s flipInY" title="Klasifikasi Baku Komoditi Indonesia Indonesia 2012 - Barang" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
 					<div class="card-body">
 						<i class="fas fa-fw fa-cubes fz-64"></i>
-						<h2 class="fw-9 mb-0 mt-2 text-nowrap fz-16">KBKI Barang</h2>
+						<h2 class="fw-9 mb-0 mt-2 fz-16 lh-120">KBKI 2012<div class="fw-4 fz-14 mb--1">BARANG</div></h2>
 					</div>
 				</a>
 			</div>
-			<div class="col-auto">
-				<a href="kbki-jasa" class="text-reset card mb-3 mb-md-35 animated animated-1s flipInY" title="Klasifikasi Baku Komoditi Indonesia - Jasa" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+			<div class="col-auto mb-3 mb-md-35">
+				<a href="kbki-2013-jasa" class="text-reset card h-100 mb-0 animated animated-1s flipInY" title="Klasifikasi Baku Komoditi Indonesia 2013 - Jasa" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
 					<div class="card-body">
 						<i class="fas fa-fw fa-handshake fz-64"></i>
-						<h2 class="fw-9 mb-0 mt-2 text-nowrap fz-16">KBKI Jasa</h2>
+						<h2 class="fw-9 mb-0 mt-2 fz-16 lh-120">KBKI 2013<div class="fw-4 fz-14 mb--1">JASA</div></h2>
 					</div>
 				</a>
 			</div>
 			<div class="w-100"></div>
-			<div class="col-auto">
-				<a href="kbli-2009" class="text-reset card mb-3 mb-md-35 animated animated-1s flipInY" style="background-color: rgba(255,255,255,.8);" title="Klasifikasi Baku Lapangan Usaha Indonesia 2009" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+			<div class="col-auto mb-3 mb-md-35">
+				<a href="kbli-2009" class="text-reset card h-100 mb-0 animated animated-1s flipInY" style="background-color: rgba(255,255,255,.8);" title="Klasifikasi Baku Lapangan Usaha Indonesia 2009" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
 					<div class="card-body">
 						<i class="fas fa-fw fa-briefcase fz-64 text-muted"></i>
-						<h2 class="fw-9 mb-0 mt-2 text-nowrap fz-16">KBLI 2009</h2>
+						<h2 class="fw-9 mb-0 mt-2 fz-16 lh-120">KBLI 2009</h2>
 					</div>
 				</a>
 			</div>
-			<div class="col-auto">
-				<a href="kbli-2005" class="text-reset card mb-3 mb-md-35 animated animated-1s flipInY" style="background-color: rgba(255,255,255,.8);" title="Klasifikasi Baku Lapangan Usaha Indonesia 2005" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+			<div class="col-auto mb-3 mb-md-35">
+				<a href="kbli-2005" class="text-reset card h-100 mb-0 animated animated-1s flipInY" style="background-color: rgba(255,255,255,.8);" title="Klasifikasi Baku Lapangan Usaha Indonesia 2005" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
 					<div class="card-body">
 						<i class="fas fa-fw fa-briefcase fz-64 text-muted"></i>
-						<h2 class="fw-9 mb-0 mt-2 text-nowrap fz-16">KBLI 2005</h2>
+						<h2 class="fw-9 mb-0 mt-2 fz-16 lh-120">KBLI 2005</h2>
 					</div>
 				</a>
 			</div>
-			<div class="col-auto">
-				<a href="kbji-2002" class="text-reset card mb-3 mb-md-35 animated animated-1s flipInY" style="background-color: rgba(255,255,255,.8);" title="Klasifikasi Baku Jabatan Indonesia 2002" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+			<div class="col-auto mb-3 mb-md-35">
+				<a href="kbji-2002" class="text-reset card h-100 mb-0 animated animated-1s flipInY" style="background-color: rgba(255,255,255,.8);" title="Klasifikasi Baku Jabatan Indonesia 2002" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
 					<div class="card-body">
 						<i class="fab fa-fw fa-black-tie fz-64 text-muted"></i>
-						<h2 class="fw-9 mb-0 mt-2 text-nowrap fz-16">KBJI 2002</h2>
+						<h2 class="fw-9 mb-0 mt-2 fz-16 lh-120">KBJI 2002</h2>
 					</div>
 				</a>
 			</div>

@@ -18,14 +18,14 @@ if (PATH === '/spk') {
 	include 'views/home.php'; die;
 }
 
-else if (preg_match('/^\/spk\/(kbli-2015|kbji-2014|kbki-barang|kbki-jasa|kbli-2009|kbli-2005|kbji-2002)$/', PATH)) {
+else if (preg_match('/^\/spk\/(kbli-2015|kbji-2014|kbki-2012-barang|kbki-2013-jasa|kbli-2009|kbli-2005|kbji-2002)$/', PATH)) {
 	$data = [
 		'path' => S[1],
 		'title' => [
 			'kbli-2015' => 'Klasifikasi Baku Lapangan Usaha Indonesia 2015',
 			'kbji-2014' => 'Klasifikasi Baku Jabatan Indonesia 2014',
-			'kbki-barang' => 'Klasifikasi Baku Komoditi Indonesia Indonesia - Barang',
-			'kbki-jasa' => 'Klasifikasi Baku Komoditi Indonesia - Jasa',
+			'kbki-2012-barang' => 'Klasifikasi Baku Komoditi Indonesia Indonesia - Barang',
+			'kbki-2013-jasa' => 'Klasifikasi Baku Komoditi Indonesia - Jasa',
 			'kbli-2009' => 'Klasifikasi Baku Lapangan Usaha Indonesia 2009',
 			'kbli-2005' => 'Klasifikasi Baku Lapangan Usaha Indonesia 2005',
 			'kbji-2002' => 'Klasifikasi Baku Jabatan Indonesia 2002',
@@ -34,8 +34,8 @@ else if (preg_match('/^\/spk\/(kbli-2015|kbji-2014|kbki-barang|kbki-jasa|kbli-20
 		'file' => [
 			'kbli-2015' => 'kbli-2015',
 			'kbji-2014' => 'kbji-2014',
-			'kbki-barang' => 'kbki-barang',
-			'kbki-jasa' => 'kbki-jasa',
+			'kbki-2012-barang' => 'kbki-2012-barang',
+			'kbki-2013-jasa' => 'kbki-2013-jasa',
 			'kbli-2009' => 'kbli-2009',
 			'kbli-2005' => 'kbli-2005',
 			'kbji-2002' => 'kbji-2002',

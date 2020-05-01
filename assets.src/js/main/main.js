@@ -13,9 +13,24 @@ document.addEventListener('DOMContentLoaded', function () {
 	const DATA = [];
 
 	{
-		const success = text => {
-			dbg(`Success read ${FILE}.csv`, 1);
-			dbg(text);
+		const success = csv => {
+			dbg(`Success read ${FILE}.csv`, 0);
+
+			$.csv.toArrays(csv).forEach(a => {
+				DATA.push({
+					cat: a[0],
+					id: a[1],
+					full_id: a[0] + a[1],
+					title: a[2],
+					desc: a[3],
+				});
+			});
+			DATA.sort((a, b) => a.full_id < b.full_id ? -1 : 1);
+			console.table([...DATA.slice(0, 20).map(a => [a.full_id, a.title]), ['...', '...'], ...DATA.slice(-20).map(a => [a.full_id, a.title])]);
+
+			//
+			//
+			//
 
 			document.getElementById('loading').style.display = 'none';
 			document.getElementById('search-form-wrapper-outer').className = 'search-form-wrapper-outer animated animated-1s bounceIn';
@@ -37,18 +52,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		dbg('Requesting zipped CSV...\nassets/csv/' + FILE, 2);
 		let promise = new JSZip.external.Promise(function (resolve, reject) {
-			JSZipUtils.getBinaryContent(`assets/csv/${FILE}.zip`, function(err, data) {
+			JSZipUtils.getBinaryContent(`assets/csv/${FILE}.zip`, function (err, data) {
 				if (err) reject(err);
 				else resolve(data);
 			});
 		});
 
 		promise.then(JSZip.loadAsync)
-		.then(function(zip) {
-			dbg(zip);
-			return zip.file(`${FILE}.csv`).async('string');
-		})
-		.then(success, error);
+			.then(function (zip) {
+				dbg(zip);
+				return zip.file(`${FILE}.csv`).async('string');
+			})
+			.then(success, error);
 	}
 
 	// Search

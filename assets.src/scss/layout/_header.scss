@@ -32,6 +32,16 @@
                 top: 1px;
             }
 
+            >div {
+                display: inline-block;
+                font-weight: 300;
+
+                &:last-child {
+                    font-weight: 400;
+                    margin-left: .3em;
+                }
+            }
+
             &:hover,
             &:focus {
                 color: #272727;
@@ -104,6 +114,17 @@
             >.fw-3 {
                 display: block;
                 text-align: right;
+            }
+
+            >div {
+                &:nth-child(3) {
+                    font-size: 16px;
+                    margin-left: 2px;
+                }
+                &:last-child {
+                    display: block;
+                    margin-left: 28px;
+                }
             }
         }
     }

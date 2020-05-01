@@ -27,7 +27,11 @@
 	<header class="header bg-yellow-gradient pb-6">
 		<nav class="p-a p-md-3">
 			<a id="nav-brand" href="" class="d-block lh-120 animated animated-1s bounceInDown">
+<?php if ($data['title-short'][2]) { ?>
+				<i class="icon-arrow-left-circle"></i><span class="fw-8"><?= $data['title-short'][0] ?></span><div><?= $data['title-short'][1] ?></div><div><?= $data['title-short'][2] ?></div>
+<?php } else { ?>
 				<i class="icon-arrow-left-circle"></i><span class="fw-8"><?= $data['title-short'][0] ?></span><span class="fw-3"><?= $data['title-short'][1] ?></span>
+<?php } ?>
 			</a>
 		</nav>
 		<div id="search-form-wrapper-outer" class="search-form-wrapper-outer d-none"><!-- animated animated-1s bounceIn -->
@@ -75,6 +79,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.3.0/jszip.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.min.js"></script>
 	<!-- <script src="lib/atlantis-lite/mod/atlantis.mod.js?v=<?php include 'views/partials/_version.php'; ?>"></script> -->
 	<script src="assets/js/main.js?v=<?php include 'views/partials/_version.php'; ?>"></script>
 	<script>
