@@ -21,7 +21,7 @@
 
         #nav-brand {
             font-size: 26px;
-            color: #272727;
+            color: $theme-black;
             transition: all .5s ease-in-out;
             text-transform: uppercase;
 
@@ -44,7 +44,7 @@
 
             &:hover,
             &:focus {
-                color: #272727;
+                color: $theme-black;
                 text-decoration: none;
             }
 
@@ -57,7 +57,7 @@
     }
 
     #loading {
-        color: #272727;
+        color: $theme-black;
     }
 
     .explore-wrapper {
@@ -139,28 +139,15 @@
         height: 80px;
 
         .explore-wrapper {
-            bottom: 14px;
+            bottom: 7px;
             font-size: 24px;
 
             >.btn {
+                line-height: 1.35;
+
                 >i {
                     margin-right: 0;
                 }
-
-                >span {
-                    display: none;
-                }
-            }
-        }
-    }
-
-    @media (min-width: $breakpoint-lg) {
-
-        .explore-wrapper {
-            bottom: 7px;
-
-            >.btn {
-                line-height: 1.35;
 
                 >span {
                     display: block;
@@ -168,7 +155,6 @@
                 }
             }
         }
-
     }
 
 }

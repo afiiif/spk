@@ -72,8 +72,8 @@
 				&#{$j}--#{$i} { margin-#{$b}: -#{$a} !important; }
 			}
 		}
-		&x-#{$i} { margin-top: #{$a} !important; margin-bottom: #{$a} !important; }
-		&y-#{$i} { margin-left: #{$a} !important; margin-right: #{$a} !important; }
+		&x-#{$i} { margin-left: #{$a} !important; margin-right: #{$a} !important; }
+		&y-#{$i} { margin-top: #{$a} !important; margin-bottom: #{$a} !important; }
 		@if ($i!=0) {
 			&x--#{$i} { margin-left: -#{$a} !important; margin-right: -#{$a} !important; }
 			&y--#{$i} { margin-top: -#{$a} !important; margin-bottom: -#{$a} !important; }

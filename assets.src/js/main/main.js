@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 			DATA.sort((a, b) => a.full_id < b.full_id ? -1 : 1);
 			console.table([...DATA.slice(0, 20).map(a => [a.full_id, a.title]), ['...', '...'], ...DATA.slice(-20).map(a => [a.full_id, a.title])]);
-
+			
+			// DATA.sort((a, b) => a.title.length - b.title.length);
+			// console.table([...DATA.slice(0, 20).map(a => [a.full_id, a.title]), ['...', '...'], ...DATA.slice(-20).map(a => [a.full_id, a.title])]);
 			//
 			//
 			//
@@ -36,10 +38,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.getElementById('search-form-wrapper-outer').className = 'search-form-wrapper-outer animated animated-1s bounceIn';
 			document.getElementById('explore-wrapper').className = 'explore-wrapper animated animated-1s bounceInUp';
 
-			let q = (new URL(location.href)).searchParams.get('q');
-			if (q) {
-				ELM.search.value = q;
+			let params = (new URL(location.href)).searchParams;
+			if (params.get('q')) {
+				ELM.search.value = params.get('q');
 				document.getElementById('search-btn').click();
+			}
+			else if (params.get('explore')) {
+				document.getElementById('explore-btn').click();
 			}
 			else ELM.search.focus();
 		}
@@ -101,74 +106,74 @@ document.addEventListener('DOMContentLoaded', function () {
 				dbg('Good keyword :)', 1);
 
 				setTimeout(() => {
-					let tree = $.extend(true, [], DATA),
-						counter = { pr: 0, kb: 0, kc: 0, ds: 0 };
-					if (keys.length > 1 && keys.every(a => /^\d{2,7}$/.test(a))) {
-						keys = [keys.join('')];
-						findById = true;
-					}
-					tree.forEach(a => {
-						if (findById && a.full_id == keys[0]) { a.display = 1; a.ch.forEach(b => b.display = 0); counter.pr++; }
-						else {
-							if (setting.pr.length && !setting.pr.includes(a.id)) return false;
-							if (keys.every(key => a.name_lc.includes(key))) { a.display = 0; a.match = 1; counter.pr++; }
-							a.ch.forEach(b => {
-								if (findById && b.full_id == keys[0]) { a.display = 1; b.display = 1; b.ch.forEach(c => c.display = 0); counter.kb++; }
-								else {
-									if (keys.every(key => b.name_lc.includes(key))) { a.display = 1; b.display = 0; b.match = 1; counter.kb++; }
-									if (setting.lv > 1) b.ch.forEach(c => {
-										if (findById && c.full_id == keys[0]) { a.display = 1; b.display = 1; c.display = 1; c.ch.forEach(d => d.display = 0); counter.kc++; }
-										else {
-											if (keys.every(key => c.name_lc.includes(key))) { a.display = 1; b.display = 1; c.display = 0; c.match = 1; counter.kc++; }
-											if (setting.lv > 2) c.ch.forEach(d => {
-												if (findById && d.full_id == keys[0]) { a.display = 1; b.display = 1; c.display = 1; d.display = 0; counter.ds++; }
-												else if (keys.every(key => d.name_lc.includes(key))) { a.display = 1; b.display = 1; c.display = 1; d.display = 0; d.match = 1; counter.ds++; };
-											});
-										}
-									});
-								}
-							});
-						}
-					});
+					// let tree = $.extend(true, [], DATA),
+					// 	counter = { pr: 0, kb: 0, kc: 0, ds: 0 };
+					// if (keys.length > 1 && keys.every(a => /^\d{2,7}$/.test(a))) {
+					// 	keys = [keys.join('')];
+					// 	findById = true;
+					// }
+					// tree.forEach(a => {
+					// 	if (findById && a.full_id == keys[0]) { a.display = 1; a.ch.forEach(b => b.display = 0); counter.pr++; }
+					// 	else {
+					// 		if (setting.pr.length && !setting.pr.includes(a.id)) return false;
+					// 		if (keys.every(key => a.name_lc.includes(key))) { a.display = 0; a.match = 1; counter.pr++; }
+					// 		a.ch.forEach(b => {
+					// 			if (findById && b.full_id == keys[0]) { a.display = 1; b.display = 1; b.ch.forEach(c => c.display = 0); counter.kb++; }
+					// 			else {
+					// 				if (keys.every(key => b.name_lc.includes(key))) { a.display = 1; b.display = 0; b.match = 1; counter.kb++; }
+					// 				if (setting.lv > 1) b.ch.forEach(c => {
+					// 					if (findById && c.full_id == keys[0]) { a.display = 1; b.display = 1; c.display = 1; c.ch.forEach(d => d.display = 0); counter.kc++; }
+					// 					else {
+					// 						if (keys.every(key => c.name_lc.includes(key))) { a.display = 1; b.display = 1; c.display = 0; c.match = 1; counter.kc++; }
+					// 						if (setting.lv > 2) c.ch.forEach(d => {
+					// 							if (findById && d.full_id == keys[0]) { a.display = 1; b.display = 1; c.display = 1; d.display = 0; counter.ds++; }
+					// 							else if (keys.every(key => d.name_lc.includes(key))) { a.display = 1; b.display = 1; c.display = 1; d.display = 0; d.match = 1; counter.ds++; };
+					// 						});
+					// 					}
+					// 				});
+					// 			}
+					// 		});
+					// 	}
+					// });
 
-					let html = '';
-					const getTr = ({ display, full_id, parent_id, id, name, lv, kota, match }) => {
-						if (display === 0) return `<tr${kota ? ' data-kota="1"' : ''} class="lv-${lv}" data-fid="${full_id}" data-parent="${parent_id}"><td>${parent_id}<b>${id}</b></td><td>${name}</td></tr$>`;
-						if (display === 1) return `<tr${kota ? ' data-kota="1"' : ''} class="lv-${lv} toggle toggle-expanded${match ? '' : ' unmark'}" data-fid="${full_id}" data-parent="${parent_id}"><td>${parent_id}<b>${id}</b></td><td>${name}</td></tr$>`;
-						return ``;
-					}
-					tree.forEach(a => {
-						html += getTr(a);
-						a.ch.forEach(b => {
-							html += getTr(b);
-							b.ch.forEach(c => {
-								html += getTr(c);
-								c.ch.forEach(d => {
-									html += getTr(d);
-								});
-							});
-						});
-					});
+					// let html = '';
+					// const getTr = ({ display, full_id, parent_id, id, name, lv, kota, match }) => {
+					// 	if (display === 0) return `<tr${kota ? ' data-kota="1"' : ''} class="lv-${lv}" data-fid="${full_id}" data-parent="${parent_id}"><td>${parent_id}<b>${id}</b></td><td>${name}</td></tr$>`;
+					// 	if (display === 1) return `<tr${kota ? ' data-kota="1"' : ''} class="lv-${lv} toggle toggle-expanded${match ? '' : ' unmark'}" data-fid="${full_id}" data-parent="${parent_id}"><td>${parent_id}<b>${id}</b></td><td>${name}</td></tr$>`;
+					// 	return ``;
+					// }
+					// tree.forEach(a => {
+					// 	html += getTr(a);
+					// 	a.ch.forEach(b => {
+					// 		html += getTr(b);
+					// 		b.ch.forEach(c => {
+					// 			html += getTr(c);
+					// 			c.ch.forEach(d => {
+					// 				html += getTr(d);
+					// 			});
+					// 		});
+					// 	});
+					// });
 
-					const b = text => `<b class="fw-6">${text}</b>`;
-					let { pr, kb, kc, ds } = counter;
-					if (pr + kb + kc + ds) {
-						let counter_kc = setting.lv > 1 ? `, ${b(kc)} kecamatan` : '',
-							counter_ds = setting.lv > 2 ? `, dan ${b(ds)} desa/kelurahan` : '';
-						ELM.search.blur();
-						ELM.result_summary.innerHTML = findById ?
-							`<div>Menampilkan hasil pencarian wilayah dengan kode ${b(keyword)}</div>` :
-							`<div class="text-success">Menemukan ${b(pr)} provinsi, ${b(kb)} kabupaten/kota${counter_kc}${counter_ds}.</div>`;
-						ELM.result_table_body.innerHTML = html;
-						ELM.result_table.style.display = '';
-						if (!findById) keys.forEach(a => markInstance.mark(a));
-					}
-					else {
-						ELM.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Tidak ada hasil untuk pencarian ${b(keyword)}</div>`;
-					}
+					// const b = text => `<b class="fw-6">${text}</b>`;
+					// let { pr, kb, kc, ds } = counter;
+					// if (pr + kb + kc + ds) {
+					// 	let counter_kc = setting.lv > 1 ? `, ${b(kc)} kecamatan` : '',
+					// 		counter_ds = setting.lv > 2 ? `, dan ${b(ds)} desa/kelurahan` : '';
+					// 	ELM.search.blur();
+					// 	ELM.result_summary.innerHTML = findById ?
+					// 		`<div>Menampilkan hasil pencarian wilayah dengan kode ${b(keyword)}</div>` :
+					// 		`<div class="text-success">Menemukan ${b(pr)} provinsi, ${b(kb)} kabupaten/kota${counter_kc}${counter_ds}.</div>`;
+					// 	ELM.result_table_body.innerHTML = html;
+					// 	ELM.result_table.style.display = '';
+					// 	if (!findById) keys.forEach(a => markInstance.mark(a));
+					// }
+					// else {
+					// 	ELM.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Tidak ada hasil untuk pencarian ${b(keyword)}</div>`;
+					// }
 
-					ELM.result_loading.style.display = 'none';
-					ELM.result_summary.style.display = '';
+					// ELM.result_loading.style.display = 'none';
+					// ELM.result_summary.style.display = '';
 
 				}, ELM.body.classList.contains('search-active') ? 200 : 600);
 
@@ -238,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
 						} else {
 							ELM.body.classList.remove('dark-mode');
-							document.querySelector('meta[name="theme-color"]').setAttribute('content', '#1572e8');
+							document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');
 						}
 					}, false);
 				},
@@ -260,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						if (typeof (Storage) !== 'undefined') localStorage.setItem('dark', 1);
 					} else {
 						ELM.body.classList.remove('dark-mode');
-						document.querySelector('meta[name="theme-color"]').setAttribute('content', '#1572e8');
+						document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');
 						if (typeof (Storage) !== 'undefined') localStorage.removeItem('dark');
 					}
 					if (setting.prefix) {
@@ -293,27 +298,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Toggle
 	ELM.result_table_body.addEventListener('click', function (e) {
-		for (var target = e.target; target && target != this; target = target.parentNode) {
-			if (target.matches('tr')) {
-				let d = target.dataset;
-				dbg(d);
-				if (target.classList.contains('toggle-expanded')) document.querySelectorAll(`[data-parent^="${d.fid}"]`).forEach(a => { a.classList.remove('toggle-expanded'); a.style.display = 'none'; });
-				else if (target.classList.contains('toggle-explore')) {
-					target.classList.remove('toggle-explore');
-					target.classList.add('toggle-expanded');
-					let ch = [];
-					if (d.k.length) ch = DATA[d.i].ch[d.j].ch[d.k].ch;
-					else if (d.j.length) ch = DATA[d.i].ch[d.j].ch;
-					else ch = DATA[d.i].ch;
-					const getTr = ({ full_id, parent_id, id, name, lv, kota }, { i, j, k }) => `<tr${kota ? ' data-kota="1"' : ''} class="lv-${lv}${lv === 3 ? '' : ` toggle toggle-explore" data-i="${i}" data-j="${j}" data-k="${k}`}" data-fid="${full_id}" data-parent="${parent_id}"><td>${parent_id}<b>${id}</b></td><td>${name}</td></tr$>`;
-					target.outerHTML += ch.map((a, i) => getTr(a, d.j ? { ...d, k: i } : { ...d, j: i })).join('');
-					break;
-				}
-				else document.querySelectorAll(`[data-parent="${d.fid}"]`).forEach(a => { a.style.display = ''; });
-				target.classList.toggle('toggle-expanded');
-				break;
-			}
-		}
+		// for (var target = e.target; target && target != this; target = target.parentNode) {
+		// 	if (target.matches('tr')) {
+		// 		let d = target.dataset;
+		// 		dbg(d);
+		// 		if (target.classList.contains('toggle-expanded')) document.querySelectorAll(`[data-parent^="${d.fid}"]`).forEach(a => { a.classList.remove('toggle-expanded'); a.style.display = 'none'; });
+		// 		else if (target.classList.contains('toggle-explore')) {
+		// 			target.classList.remove('toggle-explore');
+		// 			target.classList.add('toggle-expanded');
+		// 			let ch = [];
+		// 			if (d.k.length) ch = DATA[d.i].ch[d.j].ch[d.k].ch;
+		// 			else if (d.j.length) ch = DATA[d.i].ch[d.j].ch;
+		// 			else ch = DATA[d.i].ch;
+		// 			const getTr = ({ full_id, parent_id, id, name, lv, kota }, { i, j, k }) => `<tr${kota ? ' data-kota="1"' : ''} class="lv-${lv}${lv === 3 ? '' : ` toggle toggle-explore" data-i="${i}" data-j="${j}" data-k="${k}`}" data-fid="${full_id}" data-parent="${parent_id}"><td>${parent_id}<b>${id}</b></td><td>${name}</td></tr$>`;
+		// 			target.outerHTML += ch.map((a, i) => getTr(a, d.j ? { ...d, k: i } : { ...d, j: i })).join('');
+		// 			break;
+		// 		}
+		// 		else document.querySelectorAll(`[data-parent="${d.fid}"]`).forEach(a => { a.style.display = ''; });
+		// 		target.classList.toggle('toggle-expanded');
+		// 		break;
+		// 	}
+		// }
 	}, false);
 
 	// Tooltip

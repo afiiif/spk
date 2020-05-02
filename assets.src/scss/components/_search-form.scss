@@ -7,8 +7,8 @@
     &-wrapper {
         display: flex;
         font-size: 20px;
-        color: #272727;
-        border-bottom: 2px solid #272727;
+        color: $theme-black;
+        border-bottom: 2px solid $theme-black;
         width: 320px;
         max-width: calc(100vw - 30px);
         position: relative;
@@ -19,7 +19,7 @@
         font-size: 16px;
         background-color: transparent;
         border: none;
-        color: #272727;
+        color: $theme-black;
         padding: 8px 14px 8px 0;
         width: 100%;
         min-width: 50px;
@@ -31,7 +31,7 @@
         background-color: transparent;
         border: none;
         padding: 8px;
-        color: #272727;
+        color: $theme-black;
 
         >i {
             display: inline-block;
@@ -58,7 +58,7 @@
             background-color: transparent;
             border: none;
             padding: 8px;
-            color: #272727;
+            color: $theme-black;
             position: absolute;
             right: 0;
             top: 4px;
@@ -148,7 +148,7 @@
 
         &-wrapper {
             padding: 0;
-            border-bottom-color: #272727;
+            border-bottom-color: $theme-black;
         }
 
         &-input {
