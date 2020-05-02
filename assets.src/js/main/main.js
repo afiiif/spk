@@ -10,29 +10,42 @@ document.addEventListener('DOMContentLoaded', function () {
 		result_table_body: document.getElementById('result-table-body'),
 	}
 
-	const DATA = [];
+	var data = [];
 
 	{
 		const success = csv => {
 			dbg(`Success read ${FILE}.csv`, 0);
 
 			$.csv.toArrays(csv).forEach(a => {
-				DATA.push({
-					cat: a[0],
-					id: a[1],
-					full_id: a[0] + a[1],
+				let id = '',
+					full_id = '' + a[0],
+					parent_id = '';
+				if (a[0] !== a[1]) {
+					id = a[1];
+					full_id += '' + id;
+					let test_id = full_id.substr(0, full_id.length - 1),
+						parent = data.find(b => b.full_id === test_id);
+					if (parent) parent_id = parent.full_id;
+					else {
+						test_id = full_id.substr(0, full_id.length - 2);
+						parent = data.find(b => b.full_id === test_id);
+						if (parent) parent_id = parent.full_id;
+					}
+				}
+				data.push({
+					id,
+					full_id,
 					title: a[2],
 					desc: a[3],
+					parent_id,
 				});
 			});
-			DATA.sort((a, b) => a.full_id < b.full_id ? -1 : 1);
-			console.table([...DATA.slice(0, 20).map(a => [a.full_id, a.title]), ['...', '...'], ...DATA.slice(-20).map(a => [a.full_id, a.title])]);
-			
-			// DATA.sort((a, b) => a.title.length - b.title.length);
-			// console.table([...DATA.slice(0, 20).map(a => [a.full_id, a.title]), ['...', '...'], ...DATA.slice(-20).map(a => [a.full_id, a.title])]);
-			//
-			//
-			//
+			// console.table([...data.slice(0, 50).map(a => [a.full_id, a.title, a.parent_id]), ['...', '...'], ...data.slice(-50).map(a => [a.full_id, a.title, a.parent_id])]);
+			data.sort((a, b) => a.full_id < b.full_id ? -1 : 1);
+			// console.table([...data.slice(0, 50).map(a => [a.full_id, a.title, a.parent_id]), ['...', '...'], ...data.slice(-50).map(a => [a.full_id, a.title, a.parent_id])]);
+
+			// Child without parent:
+			// console.table(data.filter(a => !a.parent_id).map(a => [a.id, a.title]));
 
 			document.getElementById('loading').style.display = 'none';
 			document.getElementById('search-form-wrapper-outer').className = 'search-form-wrapper-outer animated animated-1s bounceIn';
@@ -106,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				dbg('Good keyword :)', 1);
 
 				setTimeout(() => {
-					// let tree = $.extend(true, [], DATA),
+					// let tree = $.extend(true, [], data),
 					// 	counter = { pr: 0, kb: 0, kc: 0, ds: 0 };
 					// if (keys.length > 1 && keys.every(a => /^\d{2,7}$/.test(a))) {
 					// 	keys = [keys.join('')];
@@ -219,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					</div>
 					<div class="fw-6 mt-4 mb-2">Cari di:</div>
 					<div>
-						<select id="setting-pr" class="selectpicker" title="Semua Provinsi" data-width="100%" data-live-search="true" multiple>${DATA.map(a => `<option value="${a.id}" data-subtext="(${a.id})"${pr.includes(a.id) ? ' selected' : ''}>${a.name}</option>`).join('')}</select>
+						<select id="setting-pr" class="selectpicker" title="Semua Provinsi" data-width="100%" data-live-search="true" multiple>${data.map(a => `<option value="${a.id}" data-subtext="(${a.id})"${pr.includes(a.id) ? ' selected' : ''}>${a.name}</option>`).join('')}</select>
 					</div>
 					<div class="mx--3 mt-3 mb--3 py-3 border-top" id="dark-mode-wrapper">
 						<div class="px-3">
@@ -288,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		ELM.result_loading.style.display = '';
 		ELM.search_tooltip.tooltip('hide');
 		setTimeout(() => {
-			// ELM.result_table_body.innerHTML = DATA.map((a, i) => `<tr class="lv-0 toggle toggle-explore" data-i="${i}" data-j="" data-k="" data-fid="${a.full_id}"><td><b>${a.id}</b></td><td>${a.name}</td></tr>`).join('');
+			ELM.result_table_body.innerHTML = data.filter(a => a.id === '').map(a => `<tr data-lv="0" class="toggle toggle-explore desc" data-fid="${a.full_id}"><td><div>${a.full_id}</div></td><td><div>${a.title}</div><span>${a.desc}</span></td></tr>`).join('');
 			ELM.result_loading.style.display = 'none';
 			ELM.result_table.style.display = '';
 		}, ELM.body.classList.contains('search-active') ? 200 : 600);
@@ -298,27 +311,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Toggle
 	ELM.result_table_body.addEventListener('click', function (e) {
-		// for (var target = e.target; target && target != this; target = target.parentNode) {
-		// 	if (target.matches('tr')) {
-		// 		let d = target.dataset;
-		// 		dbg(d);
-		// 		if (target.classList.contains('toggle-expanded')) document.querySelectorAll(`[data-parent^="${d.fid}"]`).forEach(a => { a.classList.remove('toggle-expanded'); a.style.display = 'none'; });
-		// 		else if (target.classList.contains('toggle-explore')) {
-		// 			target.classList.remove('toggle-explore');
-		// 			target.classList.add('toggle-expanded');
-		// 			let ch = [];
-		// 			if (d.k.length) ch = DATA[d.i].ch[d.j].ch[d.k].ch;
-		// 			else if (d.j.length) ch = DATA[d.i].ch[d.j].ch;
-		// 			else ch = DATA[d.i].ch;
-		// 			const getTr = ({ full_id, parent_id, id, name, lv, kota }, { i, j, k }) => `<tr${kota ? ' data-kota="1"' : ''} class="lv-${lv}${lv === 3 ? '' : ` toggle toggle-explore" data-i="${i}" data-j="${j}" data-k="${k}`}" data-fid="${full_id}" data-parent="${parent_id}"><td>${parent_id}<b>${id}</b></td><td>${name}</td></tr$>`;
-		// 			target.outerHTML += ch.map((a, i) => getTr(a, d.j ? { ...d, k: i } : { ...d, j: i })).join('');
-		// 			break;
-		// 		}
-		// 		else document.querySelectorAll(`[data-parent="${d.fid}"]`).forEach(a => { a.style.display = ''; });
-		// 		target.classList.toggle('toggle-expanded');
-		// 		break;
-		// 	}
-		// }
+		for (var target = e.target; target && target != this; target = target.parentNode) {
+
+			if (target.matches('td:last-child')) {
+				if (target.parentNode.classList.contains('desc')) target.parentNode.classList.toggle('desc-exp');
+				break;
+			}
+
+			if (target.matches('td:first-child')) {
+				let tr = target.parentNode,
+					d = tr.dataset;
+				dbg(d);
+				if (tr.classList.contains('toggle-exp')) {
+					document.querySelectorAll(`[data-fid^="${d.fid}"]`).forEach(a => { a.classList.remove('toggle-exp'); a.style.display = 'none'; });
+					tr.style.display = '';
+					break;
+				}
+				if (tr.classList.contains('toggle-explore')) {
+					tr.classList.remove('toggle-explore');
+					tr.classList.add('toggle-exp');
+					let childLv = Number(d.lv) + 1;
+					tr.outerHTML += data
+						.filter(a => a.parent_id === d.fid)
+						.map(b => `<tr data-lv="${childLv}" class="${data.filter(c => c.parent_id === b.full_id).length ? 'toggle toggle-explore' : ''} ${b.desc.length ? 'desc' : ''}" data-fid="${b.full_id}"><td>${b.id}</td><td><div>${b.title}</div><span>${b.desc}</span></td></tr>`)
+						.join('');
+					break;
+				}
+				if (tr.classList.contains('toggle')) {
+					console.log(`[data-fid^="${d.fid}"][data-lv="${Number(d.lv) + 1}"]`);
+					document.querySelectorAll(`[data-fid^="${d.fid}"][data-lv="${Number(d.lv) + 1}"]`).forEach(a => { a.style.display = ''; });
+					tr.classList.add('toggle-exp');
+					break;
+				}
+				break;
+			}
+
+		}
 	}, false);
 
 	// Tooltip
