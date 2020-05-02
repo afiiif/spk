@@ -25,15 +25,29 @@
             border-top: 1px solid #dee2e6;
             position: relative;
             cursor: pointer;
-            overflow: hidden;
 
             &:first-child {
                 padding: 10px 20px 10px 15px;
                 width: 1%;
+                font-weight: 700;
+                padding-left: 29px;
+
+                @media (min-width: $breakpoint-md) {
+                    border-left: 1px solid #f5f6f9;
+                }
+
+                >b {
+                    font-weight: 900;
+                    margin-left: 1px;
+                }
             }
 
             &:last-child {
                 padding: 10px 15px 10px 0;
+
+                @media (min-width: $breakpoint-md) {
+                    border-right: 1px solid #f5f6f9;
+                }
 
                 &:hover>div {
                     font-weight: 700;
@@ -44,15 +58,20 @@
                     margin-top: 10px;
                     padding-top: 8px;
                     border-top: 1px dashed #dee2e6;
-                    font-style: italic;
                     color: #575962;
 
-                    // &::before {
-                    //     content: 'Definisi:';
-                    //     font-style: normal;
-                    //     font-weight: 700;
-                    //     display: block;
-                    // }
+                    &:empty::before {
+                        content: 'Tidak ada keterangan tambahan';
+                        font-style: italic;
+                        color: #999;
+                    }
+
+                    >a {
+                        font-weight: 700;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
                 }
             }
         }
@@ -67,26 +86,29 @@
 
                 >td:first-child {
                     color: $color;
-                    padding-left: 10px * ($x+1) + 9px;
                 }
 
-                &.toggle>td:first-child::after {
-                    left: 10px * $x + 5px;
+                @media (min-width: $breakpoint-md) {
+                    >td:first-child {
+                        padding-left: 10px * ($x+1) + 9px;
+                    }
+
+                    &.toggle>td:first-child::after {
+                        left: 10px * $x + 2px;
+                    }
                 }
             }
         }
 
-        >td:first-child {
-            font-weight: 900;
-        }
-
         &.toggle>td:first-child {
+
             &::after {
                 @include font-awesome("\f054");
                 font-size: 11px;
                 transform: rotate(0);
                 transition: transform .15s ease-in-out;
                 top: 13px;
+                left: 12px;
                 opacity: .3;
             }
 
@@ -96,8 +118,8 @@
         }
 
         @include tr(1, #f25961);
-        @include tr(2, #6861ce);
-        @include tr(3, #23903c);
+        @include tr(2, #28a745);
+        @include tr(3, #6861ce);
         @include tr(4, #fd7e14);
         @include tr(5, #777);
         @include tr(6, #777);
@@ -124,31 +146,7 @@
             text-overflow: ellipsis;
         }
 
-        &.desc>td:last-child {
-            padding-right: 32px;
-
-            &::after {
-                @include font-awesome('\f128');
-                top: 8px;
-                right: 8px;
-                font-size: 13px;
-                opacity: .6;
-            }
-
-            &:hover::after {
-                opacity: 1;
-                transform: rotate(15deg);
-            }
-        }
-
         &.desc-exp>td:last-child {
-            padding-right: 15px;
-
-            &::before,
-            &::after {
-                display: none;
-            }
-
             >div {
                 position: unset;
                 transform: unset;
@@ -167,14 +165,13 @@
             box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
             color: $theme-black;
 
-            @media (min-width: $breakpoint-md) {
-                border-left: 1px solid #dee2e6;
-                border-right: 1px solid #dee2e6;
-            }
-
             >td {
                 &:first-child {
                     padding: 14px 20px 14px 15px;
+
+                    @media (min-width: $breakpoint-md) {
+                        border-left: 1px solid #dee2e6;
+                    }
 
                     >div {
                         background-color: transparent;
@@ -189,11 +186,16 @@
                         line-height: 1;
                         min-width: 38px;
                         text-align: center;
+                        font-weight: 900;
                     }
                 }
 
                 &:last-child {
-                    padding: 14px 48px 14px 0;
+                    padding: 14px 15px 14px 0;
+
+                    @media (min-width: $breakpoint-md) {
+                        border-right: 1px solid #dee2e6;
+                    }
                 }
             }
 
@@ -222,35 +224,17 @@
                 }
             }
 
-            &.desc>td:last-child {
-                padding: 14px 32px 14px 0;
-
-                &::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    width: 68px;
-                    height: 68px;
-                    transform: translate(50%, -50%);
-                    border-radius: 100%;
-                    background: #f5f5f5;
-                }
-
-                &:hover::before {
-                    background: $theme-yellow;
-                }
-
-                &::after {
-                    font-size: 14px;
-                }
-            }
-
             &.desc-exp>td:last-child {
                 >span {
                     margin-top: 16px;
                     padding-top: 14px;
                 }
+            }
+        }
+
+        &[data-lv="1"] {
+            >td:first-child>b {
+                margin-left: 0;
             }
         }
     }
