@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Search
 	{
-		var setting = { cat: [], dark: false };
+		var setting = { cat: [], stopword: true, dark: false };
 
 		if (typeof (Storage) !== 'undefined') {
 			if (localStorage.getItem('dark')) {
@@ -124,14 +124,44 @@ document.addEventListener('DOMContentLoaded', function () {
 		document.getElementById('search-btn').addEventListener('click', function () { search(ELM.search.value); }, false);
 		const search = keyword => {
 
-			let commonWord = ('kelompok,kategori,subgolongan,golongan,mencakup,kegiatan,lihat,sejenisnya,' + 'ada,adalah,adanya,adapun,agak,agaknya,agar,akan,akankah,akhir,akhiri,akhirnya,aku,akulah,amat,amatlah,anda,andalah,antar,antara,antaranya,apa,apaan,apabila,apakah,apalagi,apatah,artinya,asal,asalkan,atas,atau,ataukah,ataupun,awal,awalnya,bagai,bagaikan,bagaimana,bagaimanakah,bagaimanapun,bagi,bagian,bahkan,bahwa,bahwasanya,baik,bakal,bakalan,balik,banyak,bapak,baru,bawah,beberapa,begini,beginian,beginikah,beginilah,begitu,begitukah,begitulah,begitupun,bekerja,belakang,belakangan,belum,belumlah,benar,benarkah,benarlah,berada,berakhir,berakhirlah,berakhirnya,berapa,berapakah,berapalah,berapapun,berarti,berawal,berbagai,berdatangan,beri,berikan,berikut,berikutnya,berjumlah,berkali-kali,berkata,berkehendak,berkeinginan,berkenaan,berlainan,berlalu,berlangsung,berlebihan,bermacam,bermacam-macam,bermaksud,bermula,bersama,bersama-sama,bersiap,bersiap-siap,bertanya,bertanya-tanya,berturut,berturut-turut,bertutur,berujar,berupa,besar,betul,betulkah,biasa,biasanya,bila,bilakah,bisa,bisakah,boleh,bolehkah,bolehlah,buat,bukan,bukankah,bukanlah,bukannya,bulan,bung,cara,caranya,cukup,cukupkah,cukuplah,cuma,dahulu,dalam,dan,dapat,dari,daripada,datang,dekat,demi,demikian,demikianlah,dengan,depan,di,dia,diakhiri,diakhirinya,dialah,diantara,diantaranya,diberi,diberikan,diberikannya,dibuat,dibuatnya,didapat,didatangkan,digunakan,diibaratkan,diibaratkannya,diingat,diingatkan,diinginkan,dijawab,dijelaskan,dijelaskannya,dikarenakan,dikatakan,dikatakannya,dikerjakan,diketahui,diketahuinya,dikira,dilakukan,dilalui,dilihat,dimaksud,dimaksudkan,dimaksudkannya,dimaksudnya,diminta,dimintai,dimisalkan,dimulai,dimulailah,dimulainya,dimungkinkan,dini,dipastikan,diperbuat,diperbuatnya,dipergunakan,diperkirakan,diperlihatkan,diperlukan,diperlukannya,dipersoalkan,dipertanyakan,dipunyai,diri,dirinya,disampaikan,disebut,disebutkan,disebutkannya,disini,disinilah,ditambahkan,ditandaskan,ditanya,ditanyai,ditanyakan,ditegaskan,ditujukan,ditunjuk,ditunjuki,ditunjukkan,ditunjukkannya,ditunjuknya,dituturkan,dituturkannya,diucapkan,diucapkannya,diungkapkan,dong,dua,dulu,empat,enggak,enggaknya,entah,entahlah,guna,gunakan,hal,hampir,hanya,hanyalah,hari,harus,haruslah,harusnya,hendak,hendaklah,hendaknya,hingga,ia,ialah,ibarat,ibaratkan,ibaratnya,ibu,ikut,ingat,ingat-ingat,ingin,inginkah,inginkan,ini,inikah,inilah,itu,itukah,itulah,jadi,jadilah,jadinya,jangan,jangankan,janganlah,jauh,jawab,jawaban,jawabnya,jelas,jelaskan,jelaslah,jelasnya,jika,jikalau,juga,jumlah,jumlahnya,justru,kala,kalau,kalaulah,kalaupun,kalian,kami,kamilah,kamu,kamulah,kan,kapan,kapankah,kapanpun,karena,karenanya,kasus,kata,katakan,katakanlah,katanya,ke,keadaan,kebetulan,kecil,kedua,keduanya,keinginan,kelamaan,kelihatan,kelihatannya,kelima,keluar,kembali,kemudian,kemungkinan,kemungkinannya,kenapa,kepada,kepadanya,kesampaian,keseluruhan,keseluruhannya,keterlaluan,ketika,khususnya,kini,kinilah,kira,kira-kira,kiranya,kita,kitalah,kok,kurang,lagi,lagian,lah,lain,lainnya,lalu,lama,lamanya,lanjut,lanjutnya,lebih,lewat,lima,luar,macam,maka,makanya,makin,malah,malahan,mampu,mampukah,mana,manakala,manalagi,masa,masalah,masalahnya,masih,masihkah,masing,masing-masing,mau,maupun,melainkan,melakukan,melalui,melihat,melihatnya,memang,memastikan,memberi,memberikan,membuat,memerlukan,memihak,meminta,memintakan,memisalkan,memperbuat,mempergunakan,memperkirakan,memperlihatkan,mempersiapkan,mempersoalkan,mempertanyakan,mempunyai,memulai,memungkinkan,menaiki,menambahkan,menandaskan,menanti,menanti-nanti,menantikan,menanya,menanyai,menanyakan,mendapat,mendapatkan,mendatang,mendatangi,mendatangkan,menegaskan,mengakhiri,mengapa,mengatakan,mengatakannya,mengenai,mengerjakan,mengetahui,menggunakan,menghendaki,mengibaratkan,mengibaratkannya,mengingat,mengingatkan,menginginkan,mengira,mengucapkan,mengucapkannya,mengungkapkan,menjadi,menjawab,menjelaskan,menuju,menunjuk,menunjuki,menunjukkan,menunjuknya,menurut,menuturkan,menyampaikan,menyangkut,menyatakan,menyebutkan,menyeluruh,menyiapkan,merasa,mereka,merekalah,merupakan,meski,meskipun,meyakini,meyakinkan,minta,mirip,misal,misalkan,misalnya,mula,mulai,mulailah,mulanya,mungkin,mungkinkah,nah,naik,namun,nanti,nantinya,nyaris,nyatanya,oleh,olehnya,pada,padahal,padanya,pak,paling,panjang,pantas,para,pasti,pastilah,penting,pentingnya,per,percuma,perlu,perlukah,perlunya,pernah,persoalan,pertama,pertama-tama,pertanyaan,pertanyakan,pihak,pihaknya,pukul,pula,pun,punya,rasa,rasanya,rata,rupanya,saat,saatnya,saja,sajalah,saling,sama,sama-sama,sambil,sampai,sampai-sampai,sampaikan,sana,sangat,sangatlah,satu,saya,sayalah,se,sebab,sebabnya,sebagai,sebagaimana,sebagainya,sebagian,sebaik,sebaik-baiknya,sebaiknya,sebaliknya,sebanyak,sebegini,sebegitu,sebelum,sebelumnya,sebenarnya,seberapa,sebesar,sebetulnya,sebisanya,sebuah,sebut,sebutlah,sebutnya,secara,secukupnya,sedang,sedangkan,sedemikian,sedikit,sedikitnya,seenaknya,segala,segalanya,segera,seharusnya,sehingga,seingat,sejak,sejauh,sejenak,sejumlah,sekadar,sekadarnya,sekali,sekali-kali,sekalian,sekaligus,sekalipun,sekarang,sekecil,seketika,sekiranya,sekitar,sekitarnya,sekurang-kurangnya,sekurangnya,sela,selagi,selain,selaku,selalu,selama,selama-lamanya,selamanya,selanjutnya,seluruh,seluruhnya,semacam,semakin,semampu,semampunya,semasa,semasih,semata,semata-mata,semaunya,sementara,semisal,semisalnya,sempat,semua,semuanya,semula,sendiri,sendirian,sendirinya,seolah,seolah-olah,seorang,sepanjang,sepantasnya,sepantasnyalah,seperlunya,seperti,sepertinya,sepihak,sering,seringnya,serta,serupa,sesaat,sesama,sesampai,sesegera,sesekali,seseorang,sesuatu,sesuatunya,sesudah,sesudahnya,setelah,setempat,setengah,seterusnya,setiap,setiba,setibanya,setidak-tidaknya,setidaknya,setinggi,seusai,sewaktu,siap,siapa,siapakah,siapapun,sini,sinilah,soal,soalnya,suatu,sudah,sudahkah,sudahlah,supaya,tadi,tadinya,tahu,tahun,tak,tambah,tambahnya,tampak,tampaknya,tandas,tandasnya,tanpa,tanya,tanyakan,tanyanya,tapi,tegas,tegasnya,telah,tempat,tengah,tentang,tentu,tentulah,tentunya,tepat,terakhir,terasa,terbanyak,terdahulu,terdapat,terdiri,terhadap,terhadapnya,teringat,teringat-ingat,terjadi,terjadilah,terjadinya,terkira,terlalu,terlebih,terlihat,termasuk,ternyata,tersampaikan,tersebut,tersebutlah,tertentu,tertuju,terus,terutama,tetap,tetapi,tiap,tiba,tiba-tiba,tidak,tidakkah,tidaklah,tiga,tinggi,toh,tunjuk,turut,tutur,tuturnya,ucap,ucapnya,ujar,ujarnya,umum,umumnya,ungkap,ungkapnya,untuk,usah,usai,waduh,wah,wahai,waktu,waktunya,walau,walaupun,wong,yaitu,yakin,yakni,yang').split(','),
-				keysUnfiltered = [...new Set(keyword.trim().toLowerCase().split(/[\s,]+/))].filter(a => a.length),
-				keys = keysUnfiltered.filter(a => !commonWord.includes(a)).map(a => a.replace(/\+/g, ' ')),
+			let stopwords = ['di','ia','ke','se','ada','apa','dan','hal','ini','itu','kan','lah','mau','nah','per','pun','sub','tak','agak','agar','akan','asal','atas','atau','bagi','baik','beri','bila','buat','cara','cuma','dari','demi','dulu','guna','ikut','jadi','jauh','jika','juga','kala','kini','kira','lagi','lama','maka','mana','mula','naik','oleh','pada','para','pula','saat','saja','sama','sana','satu','sela','sini','soal','tadi','tapi','tiap','tiba','usai','yang','bagai','bahwa','biasa','dalam','dapat','hanya','ialah','macam','masih','meski','namun','suatu','tidak','untuk','yaitu','adalah','antara','berupa','dengan','kepada','sampai','kelompok','kategori','golongan','subgolongan'],
+				keysUnfiltered = [...new Set(keyword.trim().toLowerCase().replace(/,/g, ' ').replace(/\"(\w+) (\w+)\"/g, '$1+$2').split(/[\s,]+/))].filter(a => a.length),
+				keys = [...keysUnfiltered],
+				keysExcluded = [],
 				findById = keys.length === 1 && /^\d{2,10}$/.test(keys[0]);
-			dbg('Search: ' + keyword, 0);
-			dbg({ keysUnfiltered, keys });
+			
+			if (!findById && setting.stopword) {
+				keysUnfiltered.forEach(key => {
+					for (let i = 0, z = stopwords.length; i < z; i++) {
+						if (stopwords[i].includes(key)) {
+							keysExcluded.push(stopwords[i].replace(key, `<u class="fw-7">${key}</u>`));
+							break;
+						}
+					}
+				});
+				let stopwordsJoined = stopwords.join(',');
+				keys = keysUnfiltered.filter(a => !stopwordsJoined.includes(a));
+			}
 
-			if (keys.filter(a => a.length > 2).length || keys.filter(a => a.length > 1).length > 1 || keys.length > 3 || findById) {
+			keys = keys.map(a => a.replace(/\+/g, ' '));
+
+			dbg('Search: ' + keyword, 0);
+			dbg({ keysUnfiltered, keys, keysExcluded });
+
+			if ((keysUnfiltered.filter(a => a.length > 2).length || keysUnfiltered.filter(a => a.length > 1).length > 1 || keysUnfiltered.length > 3) && (setting.stopword && keysUnfiltered.length === keysExcluded.length)) {
+				ELM.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Kata kunci terlalu umum<div class="mt-15 text-muted fz-12 font-italic">Kata kunci yang terlalu umum tidak diikutkan dalam pencarian: ${keysExcluded.join(', ')}<br>Anda dapat mengubah pengaturan ini pada menu pengaturan<i class="icon-settings ml-15"></i></div></div>`;
+
+				setTimeout(() => {
+					ELM.search_tooltip.tooltip('show');
+				}, ELM.body.classList.contains('search-active') ? 200 : 600);
+
+				ELM.result_summary.style.display = '';
+				ELM.result_loading.style.display = 'none';
+				ELM.result_table.style.display = 'none';
+				ELM.body.classList.add('search-active');
+				$('#result').slideDown();
+			}
+			else if (keys.filter(a => a.length > 2).length || keys.filter(a => a.length > 1).length > 1 || keys.length > 3 || findById) {
 				dbg('Good keyword :)', 1);
 
 				setTimeout(() => {
@@ -151,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
 								parents.unshift(p);
 								current_fid = p.parent_fid;
 							}
-							res = [...parents, { ...node, displayed: true, collapsed: true }, ...childs.map(a => ({ ...a, hidden: true }))];
+							res = [...parents, { ...node, displayed: true }, ...childs.map(a => ({ ...a, last: true }))];
 						}
 					}
 					else {
@@ -192,10 +222,12 @@ document.addEventListener('DOMContentLoaded', function () {
 							</tr>`
 						).join('');
 
+						keysExcluded = keysExcluded.length ? `<div class="mt-15 text-muted fz-12 font-italic">Sebagian kata kunci yang terlalu umum tidak diikutkan dalam pencarian: ${keysExcluded.join(', ')}<br>Anda dapat mengubah pengaturan ini pada menu pengaturan<i class="icon-settings ml-15"></i></div>` : '';
+
 						ELM.search.blur();
 						ELM.result_summary.innerHTML = findById ?
 							`<div>Menampilkan hasil pencarian dengan kode <span class="text-info">${b(keyword)}</span></div>` :
-							`<div class="text-info">Menemukan ${b(res.filter(a => a.displayed).length)} hasil.</div>`;
+							`<div class="text-info">Menemukan ${b(res.filter(a => a.displayed).length)} hasil.${keysExcluded}</div>`;
 						ELM.result_table_body.innerHTML = html;
 						ELM.result_table.style.display = '';
 						if (!findById) keys.forEach(a => markInstance.mark(a, { separateWordSearch: false }));
@@ -204,12 +236,12 @@ document.addEventListener('DOMContentLoaded', function () {
 						document.querySelectorAll('.copy-btn').forEach(a => {
 							new ClipboardJS(a, { text: () => location.origin + location.pathname + '?q=' + a.dataset.text });
 							a.addEventListener('click', function () {
-								a.innerHTML = '<i class="fas fa-check mr-2"></i>Tautan disalin';
+								a.innerHTML = '<i class="fas fa-check mr-2"></i>Tautan berhasil disalin';
 								a.classList.add('btn-success');
-								a.classList.remove('btn-warning');
+								a.classList.remove('btn-outline-warning');
 								setTimeout(() => {
 									a.innerHTML = '<i class="fas fa-share-alt mr-2"></i>Bagikan';
-									a.classList.add('btn-warning');
+									a.classList.add('btn-outline-warning');
 									a.classList.remove('btn-success');
 								}, 2000);
 							}, false);
@@ -381,12 +413,12 @@ document.addEventListener('DOMContentLoaded', function () {
 					document.querySelectorAll('.copy-btn').forEach(a => {
 						new ClipboardJS(a, { text: () => location.origin + location.pathname + '?q=' + a.dataset.text });
 						a.addEventListener('click', function () {
-							a.innerHTML = '<i class="fas fa-check mr-2"></i>Tautan disalin';
+							a.innerHTML = '<i class="fas fa-check mr-2"></i>Tautan berhasil disalin';
 							a.classList.add('btn-success');
-							a.classList.remove('btn-warning');
+							a.classList.remove('btn-outline-warning');
 							setTimeout(() => {
 								a.innerHTML = '<i class="fas fa-share-alt mr-2"></i>Bagikan';
-								a.classList.add('btn-warning');
+								a.classList.add('btn-outline-warning');
 								a.classList.remove('btn-success');
 							}, 2000);
 						}, false);
@@ -406,14 +438,23 @@ document.addEventListener('DOMContentLoaded', function () {
 	}, false);
 
 	// Beautify description
-	const descHtml = (desc, id = '') => desc ?
-		desc
-			.replace(/meliputi \:/g, 'meliputi:')
-			.replace(/ -\s?\t/g, '<br>•&nbsp;&nbsp; ')
-			.replace(/( \w\) )/g, '<br><span class="text-gray">$1</span>&nbsp;')
-			.replace(/(\d{4,9})/g, '<a href="javascript:void(0)" data-id="$1">$1</a>')
-		+ (id ? `<a href="javascript:void(0)" class="btn btn-warning copy-btn" data-text="${id}"><i class="fas fa-link mr-15"></i>Bagikan</a>` : '')
-		: '';
+	const descHtml = (desc, id = '') => {
+		if (desc) {
+			if ((desc.match(/\D\s+-\s+\D/g) || []).length > 1 && (desc.match(/yaitu:|adalah:|meliputi:/g) || []).length > 0) desc = desc.replace(/(\D)\s+-\s+(\D)/g, '$1<br>•&nbsp;&nbsp; $2');
+			return desc
+				.replace(/yaitu \:/g, 'yaitu:')
+				.replace(/adalah \:/g, 'adalah:')
+				.replace(/meliputi \:/g, 'meliputi:')
+				.replace(/(CATATAN|Catatan)\s?\:/g, '<br>$1:')
+				.replace(/\s+(CATATAN|Catatan)/g, '.<br>$1')
+				.replace(/ -\s?\t/g, '<br>•&nbsp;&nbsp; ')
+				.replace(/( \w\) )/g, '<br><span class="text-gray">$1</span>&nbsp;')
+				.replace(/(\d{3,9})/g, '<a href="javascript:void(0)" data-id="$1">$1</a>')
+				.replace(/(\<br\>)+/g, '<br>')
+			+ (id ? `<a href="javascript:void(0)" class="btn btn-outline-warning copy-btn" data-text="${id}"><i class="fas fa-link mr-15"></i>Bagikan</a>` : '');
+		}
+		return '';
+	}
 
 	// Modal
 	ELM.body.addEventListener('click', function (e) {
@@ -436,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						new ClipboardJS('#modal-btn', { text: () => location.origin + location.pathname + '?q=' + id });
 					},
 					action: () => {
-						document.getElementById('modal-btn').innerHTML = '<i class="fas fa-check mr-2"></i>Tautan disalin';
+						document.getElementById('modal-btn').innerHTML = '<i class="fas fa-check mr-2"></i>Tautan berhasil disalin';
 						document.getElementById('modal-btn').classList.add('btn-success');
 						document.getElementById('modal-btn').classList.remove('btn-warning');
 						setTimeout(() => {

@@ -325,9 +325,17 @@
         float: right;
         padding: 3px 7px;
         font-size: 10px;
-        color: #fff !important;
+        color: var(--orange) !important;
         font-weight: 400 !important;
         text-decoration: none !important;
         margin-top: 24px;
+
+        &:hover {
+            color: #fff !important;
+        }
+
+        &.btn-success {
+            color: #fff !important;
+        }
     }
 }
