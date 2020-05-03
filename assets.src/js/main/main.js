@@ -124,61 +124,96 @@ document.addEventListener('DOMContentLoaded', function () {
 		document.getElementById('search-btn').addEventListener('click', function () { search(ELM.search.value); }, false);
 		const search = keyword => {
 
-			let keys = [...new Set(keyword.trim().toLowerCase().split(/[\s,]+/))].filter(a => a.length),
+			let commonWord = ('kelompok,kategori,subgolongan,golongan,mencakup,kegiatan,lihat,sejenisnya,' + 'ada,adalah,adanya,adapun,agak,agaknya,agar,akan,akankah,akhir,akhiri,akhirnya,aku,akulah,amat,amatlah,anda,andalah,antar,antara,antaranya,apa,apaan,apabila,apakah,apalagi,apatah,artinya,asal,asalkan,atas,atau,ataukah,ataupun,awal,awalnya,bagai,bagaikan,bagaimana,bagaimanakah,bagaimanapun,bagi,bagian,bahkan,bahwa,bahwasanya,baik,bakal,bakalan,balik,banyak,bapak,baru,bawah,beberapa,begini,beginian,beginikah,beginilah,begitu,begitukah,begitulah,begitupun,bekerja,belakang,belakangan,belum,belumlah,benar,benarkah,benarlah,berada,berakhir,berakhirlah,berakhirnya,berapa,berapakah,berapalah,berapapun,berarti,berawal,berbagai,berdatangan,beri,berikan,berikut,berikutnya,berjumlah,berkali-kali,berkata,berkehendak,berkeinginan,berkenaan,berlainan,berlalu,berlangsung,berlebihan,bermacam,bermacam-macam,bermaksud,bermula,bersama,bersama-sama,bersiap,bersiap-siap,bertanya,bertanya-tanya,berturut,berturut-turut,bertutur,berujar,berupa,besar,betul,betulkah,biasa,biasanya,bila,bilakah,bisa,bisakah,boleh,bolehkah,bolehlah,buat,bukan,bukankah,bukanlah,bukannya,bulan,bung,cara,caranya,cukup,cukupkah,cukuplah,cuma,dahulu,dalam,dan,dapat,dari,daripada,datang,dekat,demi,demikian,demikianlah,dengan,depan,di,dia,diakhiri,diakhirinya,dialah,diantara,diantaranya,diberi,diberikan,diberikannya,dibuat,dibuatnya,didapat,didatangkan,digunakan,diibaratkan,diibaratkannya,diingat,diingatkan,diinginkan,dijawab,dijelaskan,dijelaskannya,dikarenakan,dikatakan,dikatakannya,dikerjakan,diketahui,diketahuinya,dikira,dilakukan,dilalui,dilihat,dimaksud,dimaksudkan,dimaksudkannya,dimaksudnya,diminta,dimintai,dimisalkan,dimulai,dimulailah,dimulainya,dimungkinkan,dini,dipastikan,diperbuat,diperbuatnya,dipergunakan,diperkirakan,diperlihatkan,diperlukan,diperlukannya,dipersoalkan,dipertanyakan,dipunyai,diri,dirinya,disampaikan,disebut,disebutkan,disebutkannya,disini,disinilah,ditambahkan,ditandaskan,ditanya,ditanyai,ditanyakan,ditegaskan,ditujukan,ditunjuk,ditunjuki,ditunjukkan,ditunjukkannya,ditunjuknya,dituturkan,dituturkannya,diucapkan,diucapkannya,diungkapkan,dong,dua,dulu,empat,enggak,enggaknya,entah,entahlah,guna,gunakan,hal,hampir,hanya,hanyalah,hari,harus,haruslah,harusnya,hendak,hendaklah,hendaknya,hingga,ia,ialah,ibarat,ibaratkan,ibaratnya,ibu,ikut,ingat,ingat-ingat,ingin,inginkah,inginkan,ini,inikah,inilah,itu,itukah,itulah,jadi,jadilah,jadinya,jangan,jangankan,janganlah,jauh,jawab,jawaban,jawabnya,jelas,jelaskan,jelaslah,jelasnya,jika,jikalau,juga,jumlah,jumlahnya,justru,kala,kalau,kalaulah,kalaupun,kalian,kami,kamilah,kamu,kamulah,kan,kapan,kapankah,kapanpun,karena,karenanya,kasus,kata,katakan,katakanlah,katanya,ke,keadaan,kebetulan,kecil,kedua,keduanya,keinginan,kelamaan,kelihatan,kelihatannya,kelima,keluar,kembali,kemudian,kemungkinan,kemungkinannya,kenapa,kepada,kepadanya,kesampaian,keseluruhan,keseluruhannya,keterlaluan,ketika,khususnya,kini,kinilah,kira,kira-kira,kiranya,kita,kitalah,kok,kurang,lagi,lagian,lah,lain,lainnya,lalu,lama,lamanya,lanjut,lanjutnya,lebih,lewat,lima,luar,macam,maka,makanya,makin,malah,malahan,mampu,mampukah,mana,manakala,manalagi,masa,masalah,masalahnya,masih,masihkah,masing,masing-masing,mau,maupun,melainkan,melakukan,melalui,melihat,melihatnya,memang,memastikan,memberi,memberikan,membuat,memerlukan,memihak,meminta,memintakan,memisalkan,memperbuat,mempergunakan,memperkirakan,memperlihatkan,mempersiapkan,mempersoalkan,mempertanyakan,mempunyai,memulai,memungkinkan,menaiki,menambahkan,menandaskan,menanti,menanti-nanti,menantikan,menanya,menanyai,menanyakan,mendapat,mendapatkan,mendatang,mendatangi,mendatangkan,menegaskan,mengakhiri,mengapa,mengatakan,mengatakannya,mengenai,mengerjakan,mengetahui,menggunakan,menghendaki,mengibaratkan,mengibaratkannya,mengingat,mengingatkan,menginginkan,mengira,mengucapkan,mengucapkannya,mengungkapkan,menjadi,menjawab,menjelaskan,menuju,menunjuk,menunjuki,menunjukkan,menunjuknya,menurut,menuturkan,menyampaikan,menyangkut,menyatakan,menyebutkan,menyeluruh,menyiapkan,merasa,mereka,merekalah,merupakan,meski,meskipun,meyakini,meyakinkan,minta,mirip,misal,misalkan,misalnya,mula,mulai,mulailah,mulanya,mungkin,mungkinkah,nah,naik,namun,nanti,nantinya,nyaris,nyatanya,oleh,olehnya,pada,padahal,padanya,pak,paling,panjang,pantas,para,pasti,pastilah,penting,pentingnya,per,percuma,perlu,perlukah,perlunya,pernah,persoalan,pertama,pertama-tama,pertanyaan,pertanyakan,pihak,pihaknya,pukul,pula,pun,punya,rasa,rasanya,rata,rupanya,saat,saatnya,saja,sajalah,saling,sama,sama-sama,sambil,sampai,sampai-sampai,sampaikan,sana,sangat,sangatlah,satu,saya,sayalah,se,sebab,sebabnya,sebagai,sebagaimana,sebagainya,sebagian,sebaik,sebaik-baiknya,sebaiknya,sebaliknya,sebanyak,sebegini,sebegitu,sebelum,sebelumnya,sebenarnya,seberapa,sebesar,sebetulnya,sebisanya,sebuah,sebut,sebutlah,sebutnya,secara,secukupnya,sedang,sedangkan,sedemikian,sedikit,sedikitnya,seenaknya,segala,segalanya,segera,seharusnya,sehingga,seingat,sejak,sejauh,sejenak,sejumlah,sekadar,sekadarnya,sekali,sekali-kali,sekalian,sekaligus,sekalipun,sekarang,sekecil,seketika,sekiranya,sekitar,sekitarnya,sekurang-kurangnya,sekurangnya,sela,selagi,selain,selaku,selalu,selama,selama-lamanya,selamanya,selanjutnya,seluruh,seluruhnya,semacam,semakin,semampu,semampunya,semasa,semasih,semata,semata-mata,semaunya,sementara,semisal,semisalnya,sempat,semua,semuanya,semula,sendiri,sendirian,sendirinya,seolah,seolah-olah,seorang,sepanjang,sepantasnya,sepantasnyalah,seperlunya,seperti,sepertinya,sepihak,sering,seringnya,serta,serupa,sesaat,sesama,sesampai,sesegera,sesekali,seseorang,sesuatu,sesuatunya,sesudah,sesudahnya,setelah,setempat,setengah,seterusnya,setiap,setiba,setibanya,setidak-tidaknya,setidaknya,setinggi,seusai,sewaktu,siap,siapa,siapakah,siapapun,sini,sinilah,soal,soalnya,suatu,sudah,sudahkah,sudahlah,supaya,tadi,tadinya,tahu,tahun,tak,tambah,tambahnya,tampak,tampaknya,tandas,tandasnya,tanpa,tanya,tanyakan,tanyanya,tapi,tegas,tegasnya,telah,tempat,tengah,tentang,tentu,tentulah,tentunya,tepat,terakhir,terasa,terbanyak,terdahulu,terdapat,terdiri,terhadap,terhadapnya,teringat,teringat-ingat,terjadi,terjadilah,terjadinya,terkira,terlalu,terlebih,terlihat,termasuk,ternyata,tersampaikan,tersebut,tersebutlah,tertentu,tertuju,terus,terutama,tetap,tetapi,tiap,tiba,tiba-tiba,tidak,tidakkah,tidaklah,tiga,tinggi,toh,tunjuk,turut,tutur,tuturnya,ucap,ucapnya,ujar,ujarnya,umum,umumnya,ungkap,ungkapnya,untuk,usah,usai,waduh,wah,wahai,waktu,waktunya,walau,walaupun,wong,yaitu,yakin,yakni,yang').split(','),
+				keysUnfiltered = [...new Set(keyword.trim().toLowerCase().split(/[\s,]+/))].filter(a => a.length),
+				keys = keysUnfiltered.filter(a => !commonWord.includes(a)).map(a => a.replace(/\+/g, ' ')),
 				findById = keys.length === 1 && /^\d{2,10}$/.test(keys[0]);
 			dbg('Search: ' + keyword, 0);
-			dbg(keys);
+			dbg({ keysUnfiltered, keys });
 
 			if (keys.filter(a => a.length > 2).length || keys.filter(a => a.length > 1).length > 1 || keys.length > 3 || findById) {
 				dbg('Good keyword :)', 1);
 
 				setTimeout(() => {
 
-					let res = [];
+					let data2 = $.extend(true, [], data),
+						res = [];
 					if (keys.length > 1 && keys.every(a => /^\d{2,7}$/.test(a))) { keys = [keys.join('')]; findById = true; }
 
 					if (findById) {
-						res = [data.find(a => a.id == keys[0])];
-						if (res.length) {
-							res[0].display = 1;
-							let current_fid = res[0].parent_fid,
+						let node = data2.find(a => a.id == keys[0]);
+						if (node) {
+							let current_fid = node.parent_fid,
 								parents = [],
-								childs = data.filter(a => a.parent_fid === res[0].fid);
+								childs = data2.filter(a => a.parent_fid === node.fid);
 							while (current_fid) {
-								let p = data.find(a => a.fid === current_fid);
+								let p = data2.find(a => a.fid === current_fid);
 								parents.unshift(p);
 								current_fid = p.parent_fid;
 							}
-							res = [...parents, res[0], ...childs.map(a => ({ ...a, collapsed: 1 }))];
+							res = [...parents, { ...node, displayed: true, collapsed: true }, ...childs.map(a => ({ ...a, hidden: true }))];
 						}
 					}
 					else {
-						res = data.filter(a => {
-							let content = a.title + a.desc;
-							return keys.every(key => content.includes(key));
+						data2.reverse().forEach(a => {
+							let content = (a.title + a.desc).toLowerCase();
+							if (keys.every(key => content.includes(key))) {
+								let node = res.find(b => b.fid === a.fid);
+								if (node) node.displayed = true;
+								else {
+									res.push({ ...a, displayed: true, last: true });
+									let current_fid = a.parent_fid,
+										parents = [];
+									while (current_fid) {
+										let p = data2.find(a => a.fid === current_fid);
+										parents.unshift(p);
+										current_fid = p.parent_fid;
+									}
+									res = res.concat(parents);
+								}
+							}
 						});
+						if (res.length) {
+							res = res.filter((a, i, self) => i === self.findIndex(b => b.fid === a.fid));
+							res.sort((a, b) => a.fid < b.fid ? -1 : 1);
+						}
 					}
 
-					dbg(res);
+					const b = text => `<b class="fw-6">${text}</b>`;
 
-					let html = res.map(b => `
+					if (res.length) {
+
+						let html = res.map(b => `
 							<tr data-lv="${b.lv}" data-fid="${b.fid}"
-								class="${b.desc.length ? 'desc' : ''} ${b.display ? 'desc-exp' : 'mini'} ${b.last || b.collapsed ? '' : 'toggle'}"
-								${b.collapsed ? 'style="display:none"' : ''}>
+								class="${b.desc.length ? 'desc' : ''} ${b.displayed ? 'desc-exp' : 'mini'} ${b.last || b.hidden ? '' : (b.collapsed ? 'toggle' : 'toggle toggle-exp')}"
+								${b.hidden ? 'style="display:none"' : ''}>
 								<td><div>${b.parent_id}<b>${b.id.substr(b.parent_id.length) || b.fid}</b></div></td>
-								<td><div>${b.title}</div><span>${descHtml(b.desc)}</span></td>
+								<td><div class="desc-toggle">${b.title}</div><span class="desc-container">${descHtml(b.desc, b.id)}</span></td>
 							</tr>`
 						).join('');
 
-					const b = text => `<b class="fw-6">${text}</b>`;
-					if (res.length) {
 						ELM.search.blur();
 						ELM.result_summary.innerHTML = findById ?
-							`<div>Menampilkan hasil pencarian dengan kode ${b(keyword)}</div>` :
-							`<div class="text-success">Menemukan ${b(res.length)} hasil.</div>`;
+							`<div>Menampilkan hasil pencarian dengan kode <span class="text-info">${b(keyword)}</span></div>` :
+							`<div class="text-info">Menemukan ${b(res.filter(a => a.displayed).length)} hasil.</div>`;
 						ELM.result_table_body.innerHTML = html;
 						ELM.result_table.style.display = '';
-						if (!findById) keys.forEach(a => markInstance.mark(a));
+						if (!findById) keys.forEach(a => markInstance.mark(a, { separateWordSearch: false }));
+
+						// Clipboard.js
+						document.querySelectorAll('.copy-btn').forEach(a => {
+							new ClipboardJS(a, { text: () => location.origin + location.pathname + '?q=' + a.dataset.text });
+							a.addEventListener('click', function () {
+								a.innerHTML = '<i class="fas fa-check mr-2"></i>Tautan disalin';
+								a.classList.add('btn-success');
+								a.classList.remove('btn-warning');
+								setTimeout(() => {
+									a.innerHTML = '<i class="fas fa-share-alt mr-2"></i>Bagikan';
+									a.classList.add('btn-warning');
+									a.classList.remove('btn-success');
+								}, 2000);
+							}, false);
+						});
 					}
 					else {
 						ELM.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Tidak ada hasil untuk pencarian ${b(keyword)}</div>`;
@@ -197,8 +232,10 @@ document.addEventListener('DOMContentLoaded', function () {
 				ELM.search_tooltip.tooltip('hide');
 			}
 			else {
-				dbg('Bad keyword :(', 1);
-				ELM.search_tooltip.tooltip('show');
+				if (keyword) {
+					dbg('Bad keyword :(', 1);
+					ELM.search_tooltip.tooltip('show');
+				}
 				ELM.search.focus();
 			}
 		}
@@ -206,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		const updateSetting = (newSetting = false) => {
 			if (newSetting) setting = newSetting;
 			else setting = { cat: [], dark: false };
-			document.getElementById('setting-btn').classList[setting.cat.length === 0 ? 'remove' : 'add']('text-success');
+			document.getElementById('setting-btn').classList[setting.cat.length === 0 ? 'remove' : 'add']('text-secondary');
 		}
 		document.getElementById('setting-btn').addEventListener('click', function () {
 			ELM.search_tooltip.tooltip('hide');
@@ -300,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		ELM.result_loading.style.display = '';
 		ELM.search_tooltip.tooltip('hide');
 		setTimeout(() => {
-			ELM.result_table_body.innerHTML = data.filter(a => a.id === '').map(a => `<tr data-lv="0" class="toggle toggle-explore desc" data-fid="${a.fid}"><td><div>${a.fid}</div></td><td><div>${a.title}</div><span>${descHtml(a.desc)}</span></td></tr>`).join('');
+			ELM.result_table_body.innerHTML = data.filter(a => a.id === '').map(a => `<tr data-lv="0" class="toggle toggle-explore desc" data-fid="${a.fid}"><td><div>${a.fid}</div></td><td><div class="desc-toggle">${a.title}</div><span class="desc-container">${descHtml(a.desc)}</span></td></tr>`).join('');
 			ELM.result_loading.style.display = 'none';
 			ELM.result_table.style.display = '';
 		}, ELM.body.classList.contains('search-active') ? 200 : 600);
@@ -312,10 +349,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	ELM.result_table_body.addEventListener('click', function (e) {
 		for (var target = e.target; target && target != this; target = target.parentNode) {
 
-			if (target.matches('a[data-id]')) {
-				dbg(target);
-				break;
-			}
+			if (target.matches('a[data-id]') || target.matches('.desc-container')) break;
 
 			if (target.matches('td:last-child')) {
 				if (target.parentNode.classList.contains('desc')) target.parentNode.classList.toggle('desc-exp');
@@ -340,9 +374,23 @@ document.addEventListener('DOMContentLoaded', function () {
 							<tr data-lv="${b.lv}" data-fid="${b.fid}"
 								class="${b.last ? '' : 'toggle toggle-explore'} ${b.desc.length ? 'desc' : ''}">
 								<td>${b.parent_id}<b>${b.id.substr(b.parent_id.length)}</b></td>
-								<td><div>${b.title}</div><span>${descHtml(b.desc)}</span></td>
+								<td><div class="desc-toggle">${b.title}</div><span class="desc-container">${descHtml(b.desc, b.id)}</span></td>
 							</tr>`
 						).join('');
+					// Clipboard.js
+					document.querySelectorAll('.copy-btn').forEach(a => {
+						new ClipboardJS(a, { text: () => location.origin + location.pathname + '?q=' + a.dataset.text });
+						a.addEventListener('click', function () {
+							a.innerHTML = '<i class="fas fa-check mr-2"></i>Tautan disalin';
+							a.classList.add('btn-success');
+							a.classList.remove('btn-warning');
+							setTimeout(() => {
+								a.innerHTML = '<i class="fas fa-share-alt mr-2"></i>Bagikan';
+								a.classList.add('btn-warning');
+								a.classList.remove('btn-success');
+							}, 2000);
+						}, false);
+					});
 					break;
 				}
 				if (tr.classList.contains('toggle')) {
@@ -358,7 +406,62 @@ document.addEventListener('DOMContentLoaded', function () {
 	}, false);
 
 	// Beautify description
-	const descHtml = desc => desc ? desc.replace(/ -\s?\t/g, '<br>- ').replace(/lihat (\d*)/g, 'lihat <a data-id="$1">$1</a>') : '';
+	const descHtml = (desc, id = '') => desc ?
+		desc
+			.replace(/meliputi \:/g, 'meliputi:')
+			.replace(/ -\s?\t/g, '<br>•&nbsp;&nbsp; ')
+			.replace(/( \w\) )/g, '<br><span class="text-gray">$1</span>&nbsp;')
+			.replace(/(\d{4,9})/g, '<a href="javascript:void(0)" data-id="$1">$1</a>')
+		+ (id ? `<a href="javascript:void(0)" class="btn btn-warning copy-btn" data-text="${id}"><i class="fas fa-link mr-15"></i>Bagikan</a>` : '')
+		: '';
+
+	// Modal
+	ELM.body.addEventListener('click', function (e) {
+		for (var target = e.target; target && target != this; target = target.parentNode) {
+
+			if (target.matches('a[data-id]')) {
+				let { id } = target.dataset,
+					node = data.find(a => a.id === id);
+				dbg(id, 0);
+				if (node) utils.modal.init({
+					title: id,
+					body: `
+						<div class="fw-7 mb-25">${node.title}</div>
+						<div class="fz-12">${descHtml(node.desc)}</div>
+					`,
+					dialogClass: 'modal-lg',
+					btnCloseLabel: 'Tutup',
+					btnLabel: '<i class="fas fa-share-alt mr-2"></i>Bagikan',
+					show: () => {
+						new ClipboardJS('#modal-btn', { text: () => location.origin + location.pathname + '?q=' + id });
+					},
+					action: () => {
+						document.getElementById('modal-btn').innerHTML = '<i class="fas fa-check mr-2"></i>Tautan disalin';
+						document.getElementById('modal-btn').classList.add('btn-success');
+						document.getElementById('modal-btn').classList.remove('btn-warning');
+						setTimeout(() => {
+							document.getElementById('modal-btn').innerHTML = '<i class="fas fa-share-alt mr-2"></i>Bagikan';
+							document.getElementById('modal-btn').classList.add('btn-warning');
+							document.getElementById('modal-btn').classList.remove('btn-success');
+						}, 2000);
+					},
+				});
+				else utils.modal.init({
+					title: id,
+					body: `
+						<div class="d-flex justify-content-center flex-wrap">
+							<div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>
+						</div>
+						<div class="w-100 text-danger text-center mt--2">Sistem tidak dapat menemukan kode <span class="fw-7">0123</span></div>
+					`,
+					dialogClass: 'modal-sm',
+					btnCloseLabel: 'Tutup',
+					btnClass: 'd-none',
+				});
+				break;
+			}
+		}
+	}, false);
 
 	// Tooltip
 	ELM.search_tooltip.tooltip({

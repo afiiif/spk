@@ -15,6 +15,7 @@
 
     &-summary>div {
         margin: 0 0 24px;
+        max-width: 960px;
 
         @media (min-width: $breakpoint-md) {
             margin: 0 auto 28px;
