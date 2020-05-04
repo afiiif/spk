@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Search
 	{
-		var setting = { cat: [], stopword: true, dark: false };
+		var setting = { cat: [], stopword: true, highlight: true, dark: false };
 
 		if (typeof (Storage) !== 'undefined') {
 			if (localStorage.getItem('spk-dark')) {
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							`<div class="text-info">Menemukan ${b(res.filter(a => a.displayed).length)} hasil.${keysExcluded}</div>`;
 						ELM.result_table_body.innerHTML = html;
 						ELM.result_table.style.display = '';
-						if (!findById) keys.forEach(a => markInstance.mark(a, { separateWordSearch: false }));
+						if (!findById && setting.highlight) keys.forEach(a => markInstance.mark(a, { separateWordSearch: false }));
 
 						// Clipboard.js
 						document.querySelectorAll('.copy-btn').forEach(a => {
@@ -303,12 +303,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const updateSetting = (newSetting = false) => {
 			if (newSetting) setting = newSetting;
-			else setting = { cat: [], stopword: true, dark: false };
+			else setting = { cat: [], stopword: true, highlight: true, dark: false };
 			document.getElementById('setting-btn').classList[setting.cat.length === 0 && setting.stopword ? 'remove' : 'add']('text-info');
 		}
 		document.getElementById('setting-btn').addEventListener('click', function () {
 			ELM.search_tooltip.tooltip('hide');
-			let { cat, stopword, dark } = setting;
+			let { cat, stopword, highlight, dark } = setting;
 			utils.modal.init({
 				title: 'Pengaturan',
 				body: /*html*/`
@@ -324,6 +324,10 @@ document.addEventListener('DOMContentLoaded', function () {
 					<div class="mx--3 mt-3 mb--3 py-3 border-top" id="dark-mode-wrapper">
 						<div class="px-3">
 							<div class="fw-6 mb-2">Tampilan:</div>
+							<div class="custom-control custom-switch mb-25">
+								<input type="checkbox" class="custom-control-input" id="highlight-toggle"${highlight ? ' checked' : ''}>
+								<label class="custom-control-label cur-p d-block" for="highlight-toggle">Tandai kata kunci<div class="fz-12 fw-3">(Kata kunci pada hasil pencarian akan ditandai <mark data-markjs="true">seperti ini</mark>)</div></label>
+							</div>
 							<div class="custom-control custom-switch">
 								<input type="checkbox" class="custom-control-input" id="dark-mode-toggle"${dark ? ' checked' : ''}>
 								<label class="custom-control-label cur-p d-block" for="dark-mode-toggle">Mode gelap</label>
@@ -347,6 +351,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					updateSetting({
 						cat: $('#setting-cat').val(),
 						stopword: document.getElementById('stopword-toggle').checked,
+						highlight: document.getElementById('highlight-toggle').checked,
 						dark: document.getElementById('dark-mode-toggle').checked,
 					});
 					utils.modal.hide();
@@ -523,11 +528,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	// About
 	document.getElementById('about-btn').addEventListener('click', function () {
 		utils.modal.init({
-			dialogClass: 'modal-sm',
 			title: 'Tentang',
-			body: /*html*/`
-				<div class="mb-3"><span class="fw-7">Sistem Pencarian Kode Klasifikasi</span> (<i>unofficial</i>) merupakan aplikasi berbasis website (WebApp) yang dapat dimanfaatkan untuk pencarian kode berbagai jenis klasifikasi statistik seperti <span class="text-info">KBLI</span>, <span class="text-info">KBJI</span>, dan <span class="text-info">KBKI</span>.</div>
-				<div>WebApp ini dikembangkan oleh <span class="fw-6">Muhammad Afifudin</span> — Staf IPDS BPS Kabupaten Kayong Utara. WebApp ini memiliki fitur pencarian klasifikasi dengan memasukkan kata kunci ataupun kode klasifikasi. Terdapat juga fitur eksplorasi yang memungkinkan pengguna melihat hierarki klasifikasi.</div>`,
+			body: document.getElementById('about').innerHTML,
 			btnCloseLabel: 'Tutup',
 			btnClass: 'd-none',
 		});

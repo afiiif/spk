@@ -109,6 +109,10 @@ body.dark-mode {
 
         &-item:hover {
             color: #16181b;
+
+            .text-muted {
+                color: var(--dark2) !important;
+            }
         }
     }
 

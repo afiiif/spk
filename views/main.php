@@ -78,13 +78,15 @@
 				</div>
 			</section>
 		</div>
-		<!-- <div id="help-section" class="pt-4 pb-3 px-a px-md-4">
-			<div class="mx-auto" style="max-width: 960px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis in laboriosam repudiandae reprehenderit maiores labore voluptatibus velit, obcaecati deleniti fugit laborum possimus pariatur amet reiciendis dolorem. Excepturi consequuntur nemo sequi!</div>
-		</div> -->
 	</main>
 
+	<section id="about" class="d-none">
+		<div><span class="fw-7">Sistem Pencarian Kode Klasifikasi</span> (<i>unofficial</i>) merupakan aplikasi berbasis website (WebApp) yang dapat dimanfaatkan untuk pencarian kode berbagai jenis klasifikasi statistik seperti <span class="text-info">KBLI</span>, <span class="text-info">KBJI</span>, dan <span class="text-info">KBKI</span>.</div>
+		<div class="my-3">WebApp ini memiliki fitur pencarian klasifikasi dengan memasukkan kata kunci ataupun kode klasifikasi. Terdapat juga fitur eksplorasi yang memungkinkan pengguna melihat hierarki klasifikasi.</div>
+		<div>WebApp ini dikembangkan oleh <span class="fw-6">Muhammad Afifudin</span> — Staf IPDS BPS Kabupaten Kayong Utara. Masukan terkait fitur, atau pelaporan <i>bug</i> pada WebApp ini dapat disampaikan melalui email ke <span class="fw-7 text-info">muhammad.afifudin@bps.go.id</span></div>
+	</section>
+
 	<footer class="footer">
-		<!-- <a href="javascript:void(0)" id="help-btn" class="mr-auto p-2 px-md-3"><i class="fas fa-lightbulb mr-2" style="color: #ffc107;"></i>Bantuan</a> -->
 		<a id="about-btn" class="p-2 px-md-3 text-reset ml-auto" href="javascript:void(0)"><i class="fas fa-lightbulb mr-2" style="color: #ffc107;"></i>Tentang Aplikasi</a>
 	</footer>
 
