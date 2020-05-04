@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		result_table_body: document.getElementById('result-table-body'),
 	}
 
-	var data = [];
+	var data = [],
+		displayNavGuide = true;
 
 	{
 		const ext = 'json';
@@ -73,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (params.get('q')) {
 				ELM.search.value = params.get('q');
 				document.getElementById('search-btn').click();
+				displayNavGuide = false;
 			}
 			else if (params.get('explore')) {
 				document.getElementById('explore-btn').click();
@@ -107,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		var setting = { cat: [], stopword: true, dark: false };
 
 		if (typeof (Storage) !== 'undefined') {
-			if (localStorage.getItem('dark')) {
+			if (localStorage.getItem('spk-dark')) {
 				ELM.body.classList.add('dark-mode');
 				document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
 				setting.dark = true;
@@ -124,12 +126,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		document.getElementById('search-btn').addEventListener('click', function () { search(ELM.search.value); }, false);
 		const search = keyword => {
 
-			let stopwords = ['di','ia','ke','se','ada','apa','dan','hal','ini','itu','kan','lah','mau','nah','per','pun','sub','tak','agak','agar','akan','asal','atas','atau','bagi','baik','beri','bila','buat','cara','cuma','dari','demi','dulu','guna','ikut','jadi','jauh','jika','juga','kala','kini','kira','lagi','lama','maka','mana','mula','naik','oleh','pada','para','pula','saat','saja','sama','sana','satu','sela','sini','soal','tadi','tapi','tiap','tiba','usai','yang','bagai','bahwa','biasa','dalam','dapat','hanya','ialah','macam','masih','meski','namun','suatu','tidak','untuk','yaitu','adalah','antara','berupa','dengan','kepada','sampai','kelompok','kategori','golongan','subgolongan'],
+			let stopwords = ['di', 'ia', 'ke', 'se', 'ada', 'apa', 'dan', 'hal', 'ini', 'itu', 'kan', 'lah', 'mau', 'nah', 'per', 'pun', 'sub', 'tak', 'agak', 'agar', 'akan', 'asal', 'atas', 'atau', 'bagi', 'baik', 'beri', 'bila', 'buat', 'cara', 'cuma', 'dari', 'demi', 'dulu', 'guna', 'ikut', 'jadi', 'jauh', 'jika', 'juga', 'kala', 'kini', 'kira', 'lagi', 'lama', 'maka', 'mana', 'mula', 'naik', 'oleh', 'pada', 'para', 'pula', 'saat', 'saja', 'sama', 'sana', 'satu', 'sela', 'sini', 'soal', 'tadi', 'tapi', 'tiap', 'tiba', 'usai', 'yang', 'bagai', 'bahwa', 'biasa', 'dalam', 'dapat', 'hanya', 'ialah', 'macam', 'masih', 'meski', 'namun', 'suatu', 'tidak', 'untuk', 'yaitu', 'adalah', 'antara', 'berupa', 'dengan', 'kepada', 'sampai', 'kelompok', 'kategori', 'golongan', 'subgolongan'],
 				keysUnfiltered = [...new Set(keyword.trim().toLowerCase().replace(/,/g, ' ').replace(/\"(\w+) (\w+)\"/g, '$1+$2').split(/[\s,]+/))].filter(a => a.length),
 				keys = [...keysUnfiltered],
 				keysExcluded = [],
 				findById = keys.length === 1 && /^\d{2,10}$/.test(keys[0]);
-			
+
 			if (!findById && setting.stopword) {
 				keysUnfiltered.forEach(key => {
 					for (let i = 0, z = stopwords.length; i < z; i++) {
@@ -182,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
 								current_fid = p.parent_fid;
 							}
 							res = [...parents, { ...node, displayed: true }, ...childs.map(a => ({ ...a, last: true }))];
+							if (setting.cat.length) res = res.filter(a => setting.cat.some(cat => a.fid.startsWith(cat)));
 						}
 					}
 					else {
@@ -205,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						});
 						if (res.length) {
 							res = res.filter((a, i, self) => i === self.findIndex(b => b.fid === a.fid));
+							if (setting.cat.length) res = res.filter(a => setting.cat.some(cat => a.fid.startsWith(cat)));
 							res.sort((a, b) => a.fid < b.fid ? -1 : 1);
 						}
 					}
@@ -246,6 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
 								}, 2000);
 							}, false);
 						});
+						if (displayNavGuide) ELM.result_loading.nextElementSibling.style.display = '';
 					}
 					else {
 						ELM.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Tidak ada hasil untuk pencarian ${b(keyword)}</div>`;
@@ -259,6 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				ELM.result_table.style.display = 'none';
 				ELM.result_summary.style.display = 'none';
 				ELM.result_loading.style.display = '';
+				ELM.result_loading.nextElementSibling.style.display = 'none';
 				ELM.body.classList.add('search-active');
 				$('#result').slideDown();
 				ELM.search_tooltip.tooltip('hide');
@@ -274,90 +280,68 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const updateSetting = (newSetting = false) => {
 			if (newSetting) setting = newSetting;
-			else setting = { cat: [], dark: false };
-			document.getElementById('setting-btn').classList[setting.cat.length === 0 ? 'remove' : 'add']('text-secondary');
+			else setting = { cat: [], stopword: true, dark: false };
+			document.getElementById('setting-btn').classList[setting.cat.length === 0 && setting.stopword ? 'remove' : 'add']('text-info');
 		}
 		document.getElementById('setting-btn').addEventListener('click', function () {
 			ELM.search_tooltip.tooltip('hide');
-			// let { lv, pr, dark, prefix } = setting;
-			// utils.modal.init({
-			// 	title: 'Pengaturan',
-			// 	body: /*html*/`
-			// 		<div class="fw-6 mb-2">Cari sampai tingkat:</div>
-			// 		<div>
-			// 			<div class="custom-control custom-radio custom-control-inline d-block d-sm-inline-flex">
-			// 				<input type="radio" id="setting-lv-1" name="setting-lv" value="1" class="custom-control-input"${lv === '1' ? ' checked' : ''}>
-			// 				<label class="custom-control-label d-block cur-p" for="setting-lv-1">Kabupaten/Kota</label>
-			// 			</div>
-			// 			<div class="custom-control custom-radio custom-control-inline d-block d-sm-inline-flex">
-			// 				<input type="radio" id="setting-lv-2" name="setting-lv" value="2" class="custom-control-input"${lv === '2' ? ' checked' : ''}>
-			// 				<label class="custom-control-label d-block cur-p" for="setting-lv-2">Kecamatan</label>
-			// 			</div>
-			// 			<div class="custom-control custom-radio custom-control-inline d-block d-sm-inline-flex">
-			// 				<input type="radio" id="setting-lv-3" name="setting-lv" value="3" class="custom-control-input"${lv === '3' ? ' checked' : ''}>
-			// 				<label class="custom-control-label d-block cur-p" for="setting-lv-3">Desa/Kelurahan</label>
-			// 			</div>
-			// 		</div>
-			// 		<div class="fw-6 mt-4 mb-2">Cari di:</div>
-			// 		<div>
-			// 			<select id="setting-pr" class="selectpicker" title="Semua Provinsi" data-width="100%" data-live-search="true" multiple>${data.map(a => `<option value="${a.id}" data-subtext="(${a.id})"${pr.includes(a.id) ? ' selected' : ''}>${a.name}</option>`).join('')}</select>
-			// 		</div>
-			// 		<div class="mx--3 mt-3 mb--3 py-3 border-top" id="dark-mode-wrapper">
-			// 			<div class="px-3">
-			// 				<div class="fw-6 mb-2">Tampilan:</div>
-			// 				<div class="custom-control custom-switch">
-			// 					<input type="checkbox" class="custom-control-input" id="dark-mode-toggle"${dark ? ' checked' : ''}>
-			// 					<label class="custom-control-label cur-p d-block" for="dark-mode-toggle">Mode gelap</label>
-			// 				</div>
-			// 				<div class="custom-control custom-switch">
-			// 					<input type="checkbox" class="custom-control-input" id="prefix-toggle"${prefix ? ' checked' : ''}>
-			// 					<label class="custom-control-label cur-p d-block" for="prefix-toggle">Tampilkan prefix<div class="fz-12 fw-3">(Misal: "Kayong Utara" ditampilkan dengan "<span class="fw-4">Kabupaten</span> Kayong Utara")</div></label>
-			// 				</div>
-			// 			</div>
-			// 		</div>
-			// 	`,
-			// 	btnLabel: 'Simpan',
-			// 	show: () => {
-			// 		document.getElementById('dark-mode-toggle').addEventListener('change', function (e) {
-			// 			if (this.checked) {
-			// 				ELM.body.classList.add('dark-mode');
-			// 				document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
-			// 			} else {
-			// 				ELM.body.classList.remove('dark-mode');
-			// 				document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');
-			// 			}
-			// 		}, false);
-			// 	},
-			// 	action: () => {
-			// 		updateSetting({
-			// 			lv: $('[name="setting-lv"]:checked').val(),
-			// 			pr: $('#setting-pr').val(),
-			// 			dark: document.getElementById('dark-mode-toggle').checked,
-			// 			prefix: document.getElementById('prefix-toggle').checked,
-			// 		});
-			// 		utils.modal.hide();
-			// 		dbg(setting);
-			// 	},
-			// 	hide: () => {
-			// 		if (ELM.result_summary.style.display === '') search(ELM.search.value);
-			// 		if (setting.dark) {
-			// 			ELM.body.classList.add('dark-mode');
-			// 			document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
-			// 			if (typeof (Storage) !== 'undefined') localStorage.setItem('dark', 1);
-			// 		} else {
-			// 			ELM.body.classList.remove('dark-mode');
-			// 			document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');
-			// 			if (typeof (Storage) !== 'undefined') localStorage.removeItem('dark');
-			// 		}
-			// 		if (setting.prefix) {
-			// 			ELM.result_table_body.classList.add('with-prefix');
-			// 			if (typeof (Storage) !== 'undefined') localStorage.setItem('prefix', 1);
-			// 		} else {
-			// 			ELM.result_table_body.classList.remove('with-prefix');
-			// 			if (typeof (Storage) !== 'undefined') localStorage.removeItem('prefix');
-			// 		}
-			// 	},
-			// });
+			let { cat, stopword, dark } = setting;
+			utils.modal.init({
+				title: 'Pengaturan',
+				body: /*html*/`
+					<div class="fw-6 mb-2">Cari pada kategori:</div>
+					<div class="selectpicker-in-modal selectpicker-no-hscroll">
+						<select id="setting-cat" class="selectpicker" title="Semua Kategori" data-width="100%" data-live-search="true" multiple>${data.filter(a => a.id === '').map(a => `<option value="${a.fid}" data-subtext="(${a.title})"${cat.includes(a.fid) ? ' selected' : ''}>${a.fid}</option>`).join('')}</select>
+					</div>
+					<div class="fw-6 mb-2 mt-4">Kata umum atau <i>stopwords</i>:</div>
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input" id="stopword-toggle"${stopword ? ' checked' : ''}>
+						<label class="custom-control-label cur-p d-block" for="stopword-toggle">Abaikan kata kunci umum<div class="fz-12 fw-3">(Kata-kata umum seperti "yang", "dan", "dalam", "dari", dan lain-lain akan dikeluarkan dalam pencarian)</div></label>
+					</div>
+					<div class="mx--3 mt-3 mb--3 py-3 border-top" id="dark-mode-wrapper">
+						<div class="px-3">
+							<div class="fw-6 mb-2">Tampilan:</div>
+							<div class="custom-control custom-switch">
+								<input type="checkbox" class="custom-control-input" id="dark-mode-toggle"${dark ? ' checked' : ''}>
+								<label class="custom-control-label cur-p d-block" for="dark-mode-toggle">Mode gelap</label>
+							</div>
+						</div>
+					</div>
+				`,
+				btnLabel: 'Simpan',
+				show: () => {
+					document.getElementById('dark-mode-toggle').addEventListener('change', function (e) {
+						if (this.checked) {
+							ELM.body.classList.add('dark-mode');
+							document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
+						} else {
+							ELM.body.classList.remove('dark-mode');
+							document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');
+						}
+					}, false);
+				},
+				action: () => {
+					updateSetting({
+						cat: $('#setting-cat').val(),
+						stopword: document.getElementById('stopword-toggle').checked,
+						dark: document.getElementById('dark-mode-toggle').checked,
+					});
+					utils.modal.hide();
+					dbg(setting);
+				},
+				hide: () => {
+					if (setting.dark) {
+						ELM.body.classList.add('dark-mode');
+						document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
+						if (typeof (Storage) !== 'undefined') localStorage.setItem('spk-dark', 1);
+					} else {
+						ELM.body.classList.remove('dark-mode');
+						document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');
+						if (typeof (Storage) !== 'undefined') localStorage.removeItem('spk-dark');
+					}
+					if (ELM.result_summary.style.display === '') search(ELM.search.value);
+				},
+			});
 		}, false);
 	}
 
@@ -367,10 +351,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		ELM.result_summary.style.display = 'none';
 		ELM.result_table.style.display = 'none';
 		ELM.result_loading.style.display = '';
+		ELM.result_loading.nextElementSibling.style.display = 'none';
 		ELM.search_tooltip.tooltip('hide');
 		setTimeout(() => {
 			ELM.result_table_body.innerHTML = data.filter(a => a.id === '').map(a => `<tr data-lv="0" class="toggle toggle-explore desc" data-fid="${a.fid}"><td><div>${a.fid}</div></td><td><div class="desc-toggle">${a.title}</div><span class="desc-container">${descHtml(a.desc)}</span></td></tr>`).join('');
 			ELM.result_loading.style.display = 'none';
+			if (displayNavGuide) ELM.result_loading.nextElementSibling.style.display = '';
 			ELM.result_table.style.display = '';
 		}, ELM.body.classList.contains('search-active') ? 200 : 600);
 		ELM.body.classList.add('search-active');
@@ -451,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				.replace(/( \w\) )/g, '<br><span class="text-gray">$1</span>&nbsp;')
 				.replace(/(\d{3,9})/g, '<a href="javascript:void(0)" data-id="$1">$1</a>')
 				.replace(/(\<br\>)+/g, '<br>')
-			+ (id ? `<a href="javascript:void(0)" class="btn btn-outline-warning copy-btn" data-text="${id}"><i class="fas fa-link mr-15"></i>Bagikan</a>` : '');
+				+ (id ? `<a href="javascript:void(0)" class="btn btn-outline-warning copy-btn" data-text="${id}"><i class="fas fa-link mr-15"></i>Bagikan</a>` : '');
 		}
 		return '';
 	}
@@ -479,10 +465,10 @@ document.addEventListener('DOMContentLoaded', function () {
 					action: () => {
 						document.getElementById('modal-btn').innerHTML = '<i class="fas fa-check mr-2"></i>Tautan berhasil disalin';
 						document.getElementById('modal-btn').classList.add('btn-success');
-						document.getElementById('modal-btn').classList.remove('btn-warning');
+						document.getElementById('modal-btn').classList.remove('btn-info');
 						setTimeout(() => {
 							document.getElementById('modal-btn').innerHTML = '<i class="fas fa-share-alt mr-2"></i>Bagikan';
-							document.getElementById('modal-btn').classList.add('btn-warning');
+							document.getElementById('modal-btn').classList.add('btn-info');
 							document.getElementById('modal-btn').classList.remove('btn-success');
 						}, 2000);
 					},
@@ -517,11 +503,18 @@ document.addEventListener('DOMContentLoaded', function () {
 			dialogClass: 'modal-sm',
 			title: 'Tentang',
 			body: /*html*/`
-				<div class="mb-3">Lorem ipsum ... yang dikembangkan oleh <span class="fw-6">Muhammad Afifudin</span> (Staf IPDS BPS Kabupaten Kayong Utara). 😎</div>
-				<div>Dolor sit amet lalalala~</div>`,
+				<div class="mb-3"><span class="fw-7">Sistem Pencarian Kode Klasifikasi</span> (<i>unofficial</i>) merupakan aplikasi berbasis website (WebApp) yang dapat dimanfaatkan untuk pencarian kode berbagai jenis klasifikasi statistik seperti <span class="text-info">KBLI</span>, <span class="text-info">KBJI</span>, dan <span class="text-info">KBKI</span>.</div>
+				<div>WebApp ini dikembangkan oleh <span class="fw-6">Muhammad Afifudin</span> — Staf IPDS BPS Kabupaten Kayong Utara. WebApp ini memiliki fitur pencarian klasifikasi dengan memasukkan kata kunci ataupun kode klasifikasi. Terdapat juga fitur eksplorasi yang memungkinkan pengguna melihat hierarki klasifikasi.</div>`,
 			btnCloseLabel: 'Tutup',
 			btnClass: 'd-none',
 		});
+	}, false);
+
+	// NavGuide
+	document.getElementById('nav-guide-dismiss').addEventListener('click', function () {
+		displayNavGuide = false;
+		ELM.result_loading.nextElementSibling.firstElementChild.classList.add('animated', 'fadeOutLeft');
+		setTimeout(() => { $('#result-loading+div').slideUp(); }, 100);
 	}, false);
 
 	// Shortcut

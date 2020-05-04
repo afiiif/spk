@@ -3,4 +3,40 @@
         white-space: nowrap;
         text-overflow: ellipsis;
     }
+
+    .dropdown-item:active .text-muted {
+        color: #eee !important;
+    }
+}
+
+.selectpicker-in-modal {
+    .bootstrap-select .dropdown-menu {
+        min-width: unset !important;
+        max-width: 500px - 16px * 2 !important;
+        width: calc(100vw - 32px - 8px) !important;
+    }
+}
+
+.selectpicker-no-hscroll {
+    .dropdown-menu {
+        >.inner {
+            overflow-x: hidden;
+        }
+
+        .dropdown-item {
+            padding-right: 48px;
+
+            &.selected>span.check-mark {
+                right: 28px;
+            }
+
+            >.text {
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                margin-right: 0 !important;
+            }
+        }
+    }
 }

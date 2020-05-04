@@ -34,7 +34,7 @@ const utils = (function () {
 		},
 	};
 
-	const modalInit = ({ title = '', body, btnLabel = 'Ok', btnClass = 'btn-warning', btnDisabled = false, btnCloseLabel = 'Batal', btnCloseClass = 'btn-warning btn-border', data = {}, dialogClass = '', backdrop = true, action = null, show = null, shown = null, hide = null, hidden = null }) => {
+	const modalInit = ({ title = '', body, btnLabel = 'Ok', btnClass = 'btn-info', btnDisabled = false, btnCloseLabel = 'Batal', btnCloseClass = 'btn-info btn-border', data = {}, dialogClass = '', backdrop = true, action = null, show = null, shown = null, hide = null, hidden = null }) => {
 
 		$modal.data = data;
 		$modal.btn = btnLabel;
