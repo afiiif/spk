@@ -20,6 +20,66 @@ body.dark-mode {
     background: var(--dark1) !important;
     color: #eee;
 
+    .text {
+        &-primary {
+            color: lighten(#1572e8, 12) !important;
+        }
+
+        &-danger {
+            color: lighten(#F25961, 12) !important;
+        }
+
+        &-black {
+            color: #fff;
+        }
+
+        &-muted {
+            color: #bbb !important;
+        }
+    }
+
+    a {
+        color: #48ABF7;
+    }
+
+    .placeholder-black {
+        &::-webkit-input-placeholder {
+            /* WebKit, Blink, Edge */
+            color: #fff;
+            opacity: .5;
+        }
+
+        &:-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #fff;
+            opacity: .5;
+        }
+
+        &::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #fff;
+            opacity: .5;
+        }
+
+        &:-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: #fff;
+            opacity: .5;
+        }
+
+        &::-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: #fff;
+            opacity: .5;
+        }
+
+        &::placeholder {
+            /* Most modern browsers support this now. */
+            color: #fff;
+            opacity: .5;
+        }
+    }
+
     .modal {
         &-content {
             background: var(--dark2);
@@ -74,59 +134,6 @@ body.dark-mode {
         }
     }
 
-    header {
-        background: var(--dark2) !important;
-    }
-
-    .footer {
-        background: var(--dark2);
-        border-color: var(--dark3) !important;
-        color: #fff;
-    }
-
-    table {
-
-        th,
-        td {
-            border-color: var(--dark3) !important;
-        }
-    }
-
-    .table-tree {
-        @mixin tr($x, $color) {
-            &.lv-#{$x} {
-                color: lighten($color, 12);
-            }
-        }
-
-        tr {
-            @include tr(0, #f25961);
-            @include tr(1, #6861ce);
-            @include tr(2, #23903c);
-            @include tr(3, #aaa);
-        }
-    }
-
-    &.search-active .search-form {
-        &-wrapper {
-            border-bottom-color: var(--dark3);
-
-            @media (min-width: $breakpoint-md) {
-                border-bottom-color: #fff;
-            }
-        }
-    }
-
-    .text {
-        &-primary {
-            color: lighten(#1572e8, 12) !important;
-        }
-
-        &-danger {
-            color: lighten(#F25961, 12) !important;
-        }
-    }
-
     .btn-primary {
         background: lighten(#1572e8, 12) !important;
         border-color: lighten(#1572e8, 12) !important;
@@ -143,9 +150,62 @@ body.dark-mode {
         background-color: lighten(#007bff, 12);
     }
 
-    #result-summary .text-danger .icon-ban {
-        color: #fff !important;
-        opacity: .2 !important;
+    header {
+        background: var(--dark2) !important;
+    }
+
+    .alert {
+        background: var(--dark2) !important;
+
+        [data-notify="title"] {
+            color: #fff;
+        }
+
+        .close {
+            color: #eee;
+            text-shadow: 0 1px 0 var(--dark1);
+        }
+    }
+
+    #nav-brand,
+    #loading {
+        color: #fff;
+    }
+
+    .search-form {
+        &-wrapper {
+            border-bottom-color: #fff;
+        }
+
+        &-input,
+        &-btn,
+        &-setting-btn {
+            color: #fff;
+        }
+    }
+
+    &.search-active .search-form {
+        &-wrapper {
+            border-bottom-color: var(--dark3);
+
+            @media (min-width: $breakpoint-md) {
+                border-bottom-color: #fff;
+            }
+        }
+    }
+
+    .footer {
+        background: var(--dark2);
+        border-color: var(--dark3) !important;
+        color: #fff;
+    }
+
+    table {
+
+        th,
+        td {
+            border-color: var(--dark3) !important;
+        }
     }
 
 }

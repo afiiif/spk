@@ -65,7 +65,7 @@
                     padding-right: 12px;
                     max-height: 220px;
                     overflow-y: auto;
-                    border-top: 1px dashed #dee2e6;
+                    border-top: 1px solid #999;
                     color: #575962;
                     cursor: auto;
 
@@ -109,6 +109,10 @@
                     color: $color;
                 }
 
+                >td:last-child>span {
+                    border-top-color: rgba($color, .7);
+                }
+
                 @media (min-width: $breakpoint-md) {
                     >td:first-child {
                         padding-left: 10px * ($x+1) + 9px;
@@ -142,8 +146,9 @@
         @include tr(2, #28a745);
         @include tr(3, #6861ce);
         @include tr(4, #fd7e14);
-        @include tr(5, #777);
+        @include tr(5, #FF69B4);
         @include tr(6, #777);
+        @include tr(7, #777);
 
         &.toggle-exp>td:first-child {
             &::after {
@@ -340,6 +345,60 @@
             color: #48ABF7 !important;
             background: transparent !important;
             border-color: transparent !important;
+        }
+    }
+}
+
+.dark-mode .table-tree {
+    @mixin tr($x, $color) {
+        &[data-lv="#{$x}"] {
+            >td:first-child {
+                color: lighten($color, 12);
+            }
+
+            >td:last-child>span {
+                border-top-color: lighten($color, 24);
+            }
+        }
+    }
+
+    tr {
+        @include tr(1, #f25961);
+        @include tr(2, #28a745);
+        @include tr(3, #6861ce);
+        @include tr(4, #fd7e14);
+        @include tr(5, #FF69B4);
+        @include tr(6, #777);
+        @include tr(7, #777);
+
+        td:first-child {
+            border-left-color: var(--dark1) !important;
+        }
+
+        td:last-child {
+            border-right-color: var(--dark1) !important;
+
+            >span {
+                color: #ddd;
+            }
+        }
+
+        &[data-lv="0"] {
+            background: var(--dark2);
+            color: #fff;
+
+            td:first-child {
+                border-left-color: var(--dark2) !important;
+            }
+
+            td:last-child {
+                border-right-color: var(--dark2) !important;
+
+                >span {
+                    border-top-color: $theme-yellow;
+                }
+            }
+
         }
     }
 }

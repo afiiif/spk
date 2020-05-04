@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		displayNavGuide = true;
 
 	{
-		const ext = 'json';
+		const [filename, ext] = FILE.split('.');
 
 		const success = filecontent => {
-			dbg(`Success read ${FILE}.${ext}`, 0);
+			dbg(`Success read ${filename}.${ext}`, 0);
 
 			if (ext === 'csv') {
 				$.csv.toArrays(filecontent).forEach(a => {
@@ -41,6 +41,14 @@ document.addEventListener('DOMContentLoaded', function () {
 								parent_id = parent.id;
 								parent_fid = parent.fid;
 							}
+							else {
+								test_id = fid.substr(0, fid.length - 3);
+								parent = data.find(b => b.fid === test_id);
+								if (parent) {
+									parent_id = parent.id;
+									parent_fid = parent.fid;
+								}
+							}
 						}
 					}
 					data.push({
@@ -53,12 +61,14 @@ document.addEventListener('DOMContentLoaded', function () {
 					});
 				});
 				data.sort((a, b) => a.fid < b.fid ? -1 : 1);
+				// dbg(data.map(a => a.fid));
 			}
 			else if (ext === 'json') {
 				data = JSON.parse(filecontent);
 			}
 
 			let digits = [...new Set(data.map(a => a.fid.length))];
+			dbg(digits);
 			data.forEach(a => {
 				a.lv = digits.findIndex(b => b === a.fid.length);
 				a.last = a.lv === digits.length - 1;
@@ -80,6 +90,17 @@ document.addEventListener('DOMContentLoaded', function () {
 				document.getElementById('explore-btn').click();
 			}
 			else ELM.search.focus();
+
+			if (DEV && params.get('save-json') == 1) {
+				function download(content, fileName, contentType) {
+					var a = document.createElement('a');
+					var file = new Blob([content], { type: contentType });
+					a.href = URL.createObjectURL(file);
+					a.download = fileName;
+					a.click();
+				}
+				download(JSON.stringify(data), filename + '.json', 'text/plain');
+			}
 		}
 
 		const error = err => {
@@ -88,9 +109,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.getElementsByTagName('header')[0].className = 'header bg-danger-gradient pb-6';
 		}
 
-		dbg(`Requesting zipped ${ext}...\nassets/${ext}/` + FILE, 2);
+		dbg(`Requesting data...\nassets/${ext}/${filename}.zip`, 2);
 		let promise = new JSZip.external.Promise(function (resolve, reject) {
-			JSZipUtils.getBinaryContent(`assets/${ext}/${FILE}.zip`, function (err, data) {
+			JSZipUtils.getBinaryContent(`assets/${ext}/${filename}.zip`, function (err, data) {
 				if (err) reject(err);
 				else resolve(data);
 			});
@@ -99,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		promise.then(JSZip.loadAsync)
 			.then(function (zip) {
 				dbg(zip);
-				return zip.file(`${FILE}.${ext}`).async('string');
+				return zip.file(`${filename}.${ext}`).async('string');
 			})
 			.then(success, error);
 	}
@@ -126,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		document.getElementById('search-btn').addEventListener('click', function () { search(ELM.search.value); }, false);
 		const search = keyword => {
 
-			let stopwords = ['di', 'ia', 'ke', 'se', 'ada', 'apa', 'dan', 'hal', 'ini', 'itu', 'kan', 'lah', 'mau', 'nah', 'per', 'pun', 'sub', 'tak', 'agak', 'agar', 'akan', 'asal', 'atas', 'atau', 'bagi', 'baik', 'beri', 'bila', 'buat', 'cara', 'cuma', 'dari', 'demi', 'dulu', 'guna', 'ikut', 'jadi', 'jauh', 'jika', 'juga', 'kala', 'kini', 'kira', 'lagi', 'lama', 'maka', 'mana', 'mula', 'naik', 'oleh', 'pada', 'para', 'pula', 'saat', 'saja', 'sama', 'sana', 'satu', 'sela', 'sini', 'soal', 'tadi', 'tapi', 'tiap', 'tiba', 'usai', 'yang', 'bagai', 'bahwa', 'biasa', 'dalam', 'dapat', 'hanya', 'ialah', 'macam', 'masih', 'meski', 'namun', 'suatu', 'tidak', 'untuk', 'yaitu', 'adalah', 'antara', 'berupa', 'dengan', 'kepada', 'sampai', 'kelompok', 'kategori', 'golongan', 'subgolongan'],
+			let stopwords = ['di', 'ia', 'ke', 'se', 'ada', 'apa', 'dan', 'hal', 'ini', 'itu', 'kan', 'lah', 'mau', 'nah', 'per', 'pun', 'sub', 'tak', 'agak', 'agar', 'akan', 'asal', 'atas', 'atau', 'bagi', 'baik', 'beri', 'bila', 'buat', 'cara', 'cuma', 'dari', 'demi', 'dulu', 'guna', 'ikut', 'jadi', 'jauh', 'jika', 'juga', 'kala', 'kini', 'kira', 'lagi', 'lama', 'maka', 'mana', 'mula', 'naik', 'oleh', 'pada', 'para', 'pula', 'saat', 'saja', 'sama', 'sana', 'satu', 'sela', 'sini', 'soal', 'tadi', 'tapi', 'tiap', 'tiba', 'usai', 'yang', 'bagai', 'bahwa', 'biasa', 'dalam', 'dapat', 'hanya', 'ialah', 'macam', 'masih', 'meski', 'namun', 'suatu', 'tidak', 'untuk', 'yaitu', 'adalah', 'antara', 'berupa', 'dengan', 'kepada', 'sampai', 'lihat', 'kelompok', 'kategori', 'golongan', 'subgolongan', 'subkelas'],
 				keysUnfiltered = [...new Set(keyword.trim().toLowerCase().replace(/,/g, ' ').replace(/\"(\w+) (\w+)\"/g, '$1+$2').split(/[\s,]+/))].filter(a => a.length),
 				keys = [...keysUnfiltered],
 				keysExcluded = [],
@@ -159,10 +180,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 				ELM.result_summary.style.display = '';
 				ELM.result_loading.style.display = 'none';
+				ELM.result_loading.nextElementSibling.style.display = 'none';
 				ELM.result_table.style.display = 'none';
 				ELM.body.classList.add('search-active');
 				$('#result').slideDown();
 			}
+
 			else if (keys.filter(a => a.length > 2).length || keys.filter(a => a.length > 1).length > 1 || keys.length > 3 || findById) {
 				dbg('Good keyword :)', 1);
 
@@ -219,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 						let html = res.map(b => `
 							<tr data-lv="${b.lv}" data-fid="${b.fid}"
-								class="${b.desc.length ? 'desc' : ''} ${b.displayed ? 'desc-exp' : 'mini'} ${b.last || b.hidden ? '' : (b.collapsed ? 'toggle' : 'toggle toggle-exp')}"
+								class="desc ${b.displayed ? (b.desc.length ? 'desc-exp' : '') : 'mini'} ${b.last || b.hidden ? '' : (b.collapsed ? 'toggle' : 'toggle toggle-exp')}"
 								${b.hidden ? 'style="display:none"' : ''}>
 								<td><div>${b.parent_id}<b>${b.id.substr(b.parent_id.length) || b.fid}</b></div></td>
 								<td><div class="desc-toggle">${b.title}</div><span class="desc-container">${descHtml(b.desc, b.id)}</span></td>
@@ -390,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						.filter(a => a.parent_fid === d.fid)
 						.map(b => `
 							<tr data-lv="${b.lv}" data-fid="${b.fid}"
-								class="${b.last ? '' : 'toggle toggle-explore'} ${b.desc.length ? 'desc' : ''}">
+								class="desc ${b.last ? '' : 'toggle toggle-explore'}">
 								<td>${b.parent_id}<b>${b.id.substr(b.parent_id.length)}</b></td>
 								<td><div class="desc-toggle">${b.title}</div><span class="desc-container">${descHtml(b.desc, b.id)}</span></td>
 							</tr>`
@@ -426,7 +449,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Beautify description
 	const descHtml = (desc, id = '') => {
 		if (desc) {
-			if ((desc.match(/\D\s+-\s+\D/g) || []).length > 1 && (desc.match(/yaitu:|adalah:|meliputi:/g) || []).length > 0) desc = desc.replace(/(\D)\s+-\s+(\D)/g, '$1<br>•&nbsp;&nbsp; $2');
+			if ((desc.match(/yaitu:|adalah:|meliputi:/g) || []).length > 0) desc = desc.replace(/(\D)\s+-\s+(\D)/g, '$1<br>•&nbsp;&nbsp; $2');
 			return desc
 				.replace(/yaitu \:/g, 'yaitu:')
 				.replace(/adalah \:/g, 'adalah:')
@@ -479,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						<div class="d-flex justify-content-center flex-wrap">
 							<div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>
 						</div>
-						<div class="w-100 text-danger text-center mt--2">Sistem tidak dapat menemukan kode <span class="fw-7">0123</span></div>
+						<div class="w-100 text-danger text-center mt--2">Sistem tidak dapat menemukan kode <span class="fw-7">${id}</span></div>
 					`,
 					dialogClass: 'modal-sm',
 					btnCloseLabel: 'Tutup',

@@ -30,15 +30,15 @@ else if (preg_match('/^\/spk\/(kbli-2015|kbji-2014|kbki-2012-barang|kbki-2013-ja
 			'kbli-2005' => 'Klasifikasi Baku Lapangan Usaha Indonesia 2005',
 			'kbji-2002' => 'Klasifikasi Baku Jabatan Indonesia 2002',
 		][S[1]],
-		'title-short' => explode('-', S[1]),
+		'title-segment' => explode('-', S[1]),
 		'file' => [
-			'kbli-2015' => 'kbli-2015',
-			'kbji-2014' => 'kbji-2014',
-			'kbki-2012-barang' => 'kbki-2012-barang',
-			'kbki-2013-jasa' => 'kbki-2013-jasa',
-			'kbli-2009' => 'kbli-2009',
-			'kbli-2005' => 'kbli-2005',
-			'kbji-2002' => 'kbji-2002',
+			'kbli-2015' => 'kbli-2015.json',
+			'kbji-2014' => 'kbji-2014.json',
+			'kbki-2012-barang' => 'kbki-2012-barang.json',
+			'kbki-2013-jasa' => 'kbki-2013-jasa.json',
+			'kbli-2009' => 'kbli-2009.json',
+			'kbli-2005' => 'kbli-2005.json',
+			'kbji-2002' => 'kbji-2002.json',
 		][S[1]],
 	];
 	include 'views/main.php'; die;

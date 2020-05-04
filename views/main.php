@@ -27,10 +27,10 @@
 	<header class="header bg-yellow-gradient pb-6">
 		<nav class="p-a p-md-3">
 			<a id="nav-brand" href="" class="d-block lh-120 animated animated-1s bounceInDown">
-<?php if ($data['title-short'][2]) { ?>
-				<i class="icon-arrow-left-circle"></i><span class="fw-8"><?= $data['title-short'][0] ?></span><div><?= $data['title-short'][1] ?></div><div><?= $data['title-short'][2] ?></div>
+<?php if ($data['title-segment'][2]) { ?>
+				<i class="icon-arrow-left-circle"></i><span class="fw-8"><?= $data['title-segment'][0] ?></span><div><?= $data['title-segment'][1] ?></div><div><?= $data['title-segment'][2] ?></div>
 <?php } else { ?>
-				<i class="icon-arrow-left-circle"></i><span class="fw-8"><?= $data['title-short'][0] ?></span><span class="fw-3"><?= $data['title-short'][1] ?></span>
+				<i class="icon-arrow-left-circle"></i><span class="fw-8"><?= $data['title-segment'][0] ?></span><span class="fw-3"><?= $data['title-segment'][1] ?></span>
 <?php } ?>
 			</a>
 		</nav>
@@ -98,7 +98,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
 	<script src="assets/js/main.js?v=<?php include 'views/partials/_version.php'; ?>"></script>
 	<script>
-		const DEV = <?= json_encode(SITE === 'http://localhost' || $_GET['debug'] == 1) ?>, FILE = '<?= $data['path'] ?>';
+		const DEV = <?= json_encode(SITE === 'http://localhost' || $_GET['debug'] == 1) ?>, FILE = '<?= $data['file'] ?>';
 	</script>
 
 </body>
