@@ -63,8 +63,11 @@
 					<div class="row row-8">
 						<div class="col-auto pt-1"><i class="far fa-lightbulb text-white bg-info fz-22 rounded-circle text-center" style="width: 35px; height: 35px; line-height: 35px;"></i></div>
 						<div class="col">
-							<div data-notify="title">Panduan Navigasi</div>
-							<div data-notify="message" class="text-muted">Klik pada kode klasifikasi untuk membuka sub-kategori.<br>Klik pada judul untuk menampilkan keterangan lengkap.</div>
+							<div data-notify="title" class="mb-2">Tips!</div>
+							<div data-notify="message" class="text-muted">
+								<div>Klik pada kode klasifikasi untuk membuka sub-kategori. <div class="d-lg-inline">Klik pada judul untuk menampilkan keterangan lengkap.</div></div>
+								<div class="mt-2">Gunakan tanda petik dua (<span class="fw-7 text-info">"</span>) untuk pencarian kata gabung.<br>Contoh kasus: Dengan kata kunci <span class="fw-7">kaca mata</span>, sistem akan mencari data yang mengandung kata kaca dan kata mata secara terpisah. Sedangkan dengan kata kunci <span class="fw-7">"kaca mata"</span> (dengan tanda petik), sistem akan mencari data yang mengandung kata kaca mata.</div>
+							</div>
 						</div>
 					</div>
 				</div>

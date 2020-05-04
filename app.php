@@ -15,6 +15,7 @@ ROUTES
 */
 
 if (PATH === '/spk') {
+	$data['og-img'] = 'og-img/bps-spk.png';
 	include 'views/home.php'; die;
 }
 
@@ -40,6 +41,15 @@ else if (preg_match('/^\/spk\/(kbli-2015|kbji-2014|kbki-2012-barang|kbki-2013-ja
 			'kbli-2005' => 'kbli-2005.json',
 			'kbji-2002' => 'kbji-2002.json',
 		][S[1]],
+		'og-img' => [
+			'kbli-2015' => 'og-img/spk-kbli-2015.png',
+			'kbji-2014' => 'og-img/spk-kbji-2014.png',
+			'kbki-2012-barang' => 'og-img/spk-kbki-2012-barang.png',
+			'kbki-2013-jasa' => 'og-img/spk-kbki-2013-jasa.png',
+			'kbli-2009' => 'og-img/spk-kbli-2009.png',
+			'kbli-2005' => 'og-img/spk-kbli-2005.png',
+			'kbji-2002' => 'og-img/spk-kbji-2002.png',
+		][S[1]],
 	];
 	include 'views/main.php'; die;
 }
@@ -53,5 +63,6 @@ else if (preg_match('/^\/spk\/(kbli-2015|kbji-2014|kbki-2012-barang|kbki-2013-ja
 
 else {
 	http_response_code(404);
+	$data['og-img'] = 'og-img/bps-spk.png';
 	include 'views/404.php';
 }

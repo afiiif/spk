@@ -141,10 +141,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		ELM.search.addEventListener('keypress', function (e) {
 			ELM.search_tooltip.tooltip('hide');
-			if (e.which === 13) search(ELM.search.value);
+			if (e.which === 13) {
+				window.scrollTo(0, 0);
+				search(ELM.search.value);
+			}
 		}, false);
 		ELM.search.addEventListener('blur', function () { ELM.search_tooltip.tooltip('hide'); }, false);
-		document.getElementById('search-btn').addEventListener('click', function () { search(ELM.search.value); }, false);
+		document.getElementById('search-btn').addEventListener('click', function () {
+			window.scrollTo(0, 0);
+			search(ELM.search.value);
+		}, false);
 		const search = keyword => {
 
 			let stopwords = ['di', 'ia', 'ke', 'se', 'ada', 'apa', 'dan', 'hal', 'ini', 'itu', 'kan', 'lah', 'mau', 'nah', 'per', 'pun', 'sub', 'tak', 'agak', 'agar', 'akan', 'asal', 'atas', 'atau', 'bagi', 'baik', 'beri', 'bila', 'buat', 'cara', 'cuma', 'dari', 'demi', 'dulu', 'guna', 'ikut', 'jadi', 'jauh', 'jika', 'juga', 'kala', 'kini', 'kira', 'lagi', 'lama', 'maka', 'mana', 'mula', 'naik', 'oleh', 'pada', 'para', 'pula', 'saat', 'saja', 'sama', 'sana', 'satu', 'sela', 'sini', 'soal', 'tadi', 'tapi', 'tiap', 'tiba', 'usai', 'yang', 'bagai', 'bahwa', 'biasa', 'dalam', 'dapat', 'hanya', 'ialah', 'macam', 'masih', 'meski', 'namun', 'suatu', 'tidak', 'untuk', 'yaitu', 'adalah', 'antara', 'berupa', 'dengan', 'kepada', 'sampai', 'lihat', 'kelompok', 'kategori', 'golongan', 'subgolongan', 'subkelas'],
@@ -375,6 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Explore
 	document.getElementById('explore-btn').addEventListener('click', function () {
+		window.scrollTo(0, 0);
 		ELM.search.value = '';
 		ELM.result_summary.style.display = 'none';
 		ELM.result_table.style.display = 'none';
@@ -465,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				.replace(/( \w\) )/g, '<br><span class="text-gray">$1</span>&nbsp;')
 				.replace(/(\d{3,9})/g, '<a href="javascript:void(0)" data-id="$1">$1</a>')
 				.replace(/(\<br\>)+/g, '<br>')
-				+ (id ? `<a href="javascript:void(0)" class="btn btn-outline-warning copy-btn" data-text="${id}"><i class="fas fa-link mr-15"></i>Bagikan</a>` : '');
+				+ (id ? `<a href="javascript:void(0)" class="btn btn-outline-warning copy-btn" data-text="${id}"><i class="fas fa-share-alt mr-15"></i>Bagikan</a>` : '');
 		}
 		return '';
 	}

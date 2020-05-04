@@ -7,4 +7,4 @@
 	<meta name="theme-color" content="#F8D800">
 	<link rel="shortcut icon" href="assets/img/spk-online-icon.png" type="image/x-icon">
 	<meta property="og:site_name" content="Sistem Pencarian Kode Klasifikasi (SPK) Online - Redesign!">
-	<meta property="og:image" content="<?= SITE ?>/spk/assets/img/bps-spk-og-img.png">
+	<meta property="og:image" content="<?= SITE ?>/spk/assets/img/<?= $data['og-img'] ?>">
