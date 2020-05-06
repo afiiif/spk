@@ -23,6 +23,9 @@
 		.col-auto>a { display: inline-block; width: 135px; text-decoration: none; position: relative; top: 0; }
 		.col-auto>a:hover { top: -4px; }
 		.col-auto>a:hover i { color: #F8D800 !important; }
+		.bg-white-op-8 { background-color: rgba(255,255,255,.8); }
+		body.dark-mode header { color: #fff; background: transparent !important; }
+		body.dark-mode .bg-white-op-8 { background-color: rgb(53,54,58,.4); }
 	</style>
 </head>
 
@@ -75,7 +78,7 @@
 			</div>
 			<div class="w-100"></div>
 			<div class="col-auto mb-3 mb-md-35">
-				<a href="kbli-2009" class="text-reset card h-100 mb-0 animated animated-1s flipInY" style="background-color: rgba(255,255,255,.8);" title="Klasifikasi Baku Lapangan Usaha Indonesia 2009" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+				<a href="kbli-2009" class="text-reset card h-100 mb-0 bg-white-op-8 animated animated-1s flipInY" title="Klasifikasi Baku Lapangan Usaha Indonesia 2009" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
 					<div class="card-body">
 						<i class="fas fa-fw fa-briefcase fz-64 text-muted"></i>
 						<h2 class="fw-9 mb-0 mt-2 fz-16 lh-120">KBLI 2009</h2>
@@ -83,7 +86,7 @@
 				</a>
 			</div>
 			<div class="col-auto mb-3 mb-md-35">
-				<a href="kbli-2005" class="text-reset card h-100 mb-0 animated animated-1s flipInY" style="background-color: rgba(255,255,255,.8);" title="Klasifikasi Baku Lapangan Usaha Indonesia 2005" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+				<a href="kbli-2005" class="text-reset card h-100 mb-0 bg-white-op-8 animated animated-1s flipInY" title="Klasifikasi Baku Lapangan Usaha Indonesia 2005" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
 					<div class="card-body">
 						<i class="fas fa-fw fa-briefcase fz-64 text-muted"></i>
 						<h2 class="fw-9 mb-0 mt-2 fz-16 lh-120">KBLI 2005</h2>
@@ -91,7 +94,7 @@
 				</a>
 			</div>
 			<div class="col-auto mb-3 mb-md-35">
-				<a href="kbji-2002" class="text-reset card h-100 mb-0 animated animated-1s flipInY" style="background-color: rgba(255,255,255,.8);" title="Klasifikasi Baku Jabatan Indonesia 2002" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+				<a href="kbji-2002" class="text-reset card h-100 mb-0 bg-white-op-8 animated animated-1s flipInY" title="Klasifikasi Baku Jabatan Indonesia 2002" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
 					<div class="card-body">
 						<i class="fab fa-fw fa-black-tie fz-64 text-muted"></i>
 						<h2 class="fw-9 mb-0 mt-2 fz-16 lh-120">KBJI 2002</h2>
@@ -107,6 +110,12 @@
 		$(() => {
 			console.log('© Muhammad Afifudin, 2020');
 			$('body').tooltip({ selector: '[data-toggle="tooltip"]', html: true });
+			if (typeof (Storage) !== 'undefined') {
+				if (localStorage.getItem('spk-dark')) {
+					document.getElementsByTagName('body')[0].classList.add('dark-mode');
+					document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
+				}
+			}
 		});
 	</script>
 

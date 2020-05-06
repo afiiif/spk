@@ -101,6 +101,11 @@ body.dark-mode {
         }
     }
 
+    .card {
+        background: var(--dark2);
+        color: #fff;
+    }
+
     .dropdown {
         &-menu {
             background: var(--dark2);
