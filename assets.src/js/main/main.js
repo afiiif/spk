@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.getElementById('loading').style.display = 'none';
 			document.getElementById('search-form-wrapper-outer').className = 'search-form-wrapper-outer animated animated-1s bounceIn';
 			document.getElementById('explore-wrapper').className = 'explore-wrapper animated animated-1s bounceInUp';
+			document.getElementById('about-wrapper').className = 'about-wrapper animated animated-1s bounceInUp';
 
 			let params = (new URL(location.href)).searchParams;
 			if (params.get('q')) {
@@ -533,14 +534,16 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	// About
-	document.getElementById('about-btn').addEventListener('click', function () {
-		utils.modal.init({
-			title: 'Tentang',
-			body: document.getElementById('about').innerHTML,
-			btnCloseLabel: 'Tutup',
-			btnClass: 'd-none',
-		});
-	}, false);
+	Array.from(document.getElementsByClassName('about-btn')).forEach(function (elm) {
+		elm.addEventListener('click', function () {
+			utils.modal.init({
+				title: 'Tentang',
+				body: document.getElementById('about').innerHTML,
+				btnCloseLabel: 'Tutup',
+				btnClass: 'd-none',
+			});
+		}, false);
+	});
 
 	// NavGuide
 	document.getElementById('nav-guide-dismiss').addEventListener('click', function () {

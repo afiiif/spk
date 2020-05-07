@@ -26,6 +26,16 @@ function js_main() {
 		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest('assets/js'));
 }
+function js_utils() {
+	return gulp
+		.src(['assets.src/js/utilities.js'])
+		.pipe(sourcemaps.init())
+		.pipe(concat('utils.js'))
+		.pipe(babel({ presets: ['@babel/env'] }).on('error', function (e) { console.log(e) }))
+		.pipe(uglify())
+		.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest('assets/js'));
+}
 
 // Watch files
 function watchFiles() {
@@ -38,5 +48,6 @@ function watchFiles() {
 // Export
 exports.css_main = css_main;
 exports.js_main = js_main;
+exports.js_utils = js_utils;
 exports.watch = watchFiles;
 exports.default = gulp.series(css_main, js_main);

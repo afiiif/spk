@@ -79,10 +79,40 @@
             &:hover {
                 opacity: 1;
 
-                &>i {
+                >i {
                     animation-name: tada;
                     animation-duration: 1s;
                     animation-fill-mode: both;
+                }
+            }
+        }
+    }
+
+    .about-wrapper {
+        position: absolute;
+        bottom: 18px;
+        left: 15px;
+        opacity: .7;
+        font-size: 18px;
+        transition: left .5s ease-in-out;
+
+        >a {
+            text-decoration: none;
+            display: inline-block;
+            padding: 8px 0;
+
+            >i {
+                display: inline-block;
+            }
+
+            &:hover {
+                color: unset;
+                opacity: 1;
+
+                >i {
+                    animation-duration: 1s;
+                    animation-fill-mode: both;
+                    animation-name: rubberBand;
                 }
             }
         }
@@ -121,6 +151,7 @@
                     font-size: 16px;
                     margin-left: 2px;
                 }
+
                 &:last-child {
                     display: block;
                     margin-left: 28px;
@@ -132,6 +163,10 @@
     .explore-wrapper {
         bottom: 55px;
         font-size: 12px;
+    }
+
+    .about-wrapper {
+        left: -100px;
     }
 
     @media (min-width: $breakpoint-md) {

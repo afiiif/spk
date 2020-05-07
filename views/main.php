@@ -47,6 +47,9 @@
 		<div id="explore-wrapper" class="explore-wrapper d-none"><!-- animated animated-1s bounceInUp delay-1s -->
 			<button type="button" id="explore-btn" class="btn p-2 text-black"><i class="icon-book-open"></i><span>Eksplor</span></button>
 		</div>
+		<div id="about-wrapper" class="about-wrapper d-none"><!-- animated animated-1s bounceInUp delay-1s -->
+			<a href="javascript:void(0)" class="about-btn text-black"><i class="icon-info mr-2"></i>Tentang</a>
+		</div>
 		<div id="loading" class="text-center fz-32 fw-3 animated animated-1s fadeIn">
 			<i class="icon-refresh mr-35 fas fa-counter-spin"></i><div class="d-inline-block dotty" style="width: 141px;">Memuat</div>
 		</div>
@@ -90,7 +93,7 @@
 	</section>
 
 	<footer class="footer">
-		<a id="about-btn" class="p-2 px-md-3 text-reset ml-auto" href="javascript:void(0)"><i class="fas fa-lightbulb mr-2" style="color: #ffc107;"></i>Tentang Aplikasi</a>
+		<a id="about-btn" class="about-btn p-2 px-md-3 text-reset ml-auto" href="javascript:void(0)"><i class="icon-info d-inline-block mr-2"></i>Tentang WebApp</a>
 	</footer>
 
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
