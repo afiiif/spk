@@ -270,11 +270,11 @@ document.addEventListener('DOMContentLoaded', function () {
 						document.querySelectorAll('.copy-btn').forEach(a => {
 							new ClipboardJS(a, { text: () => location.origin + location.pathname + '?q=' + a.dataset.text });
 							a.addEventListener('click', function () {
-								a.innerHTML = '<i class="fas fa-check mr-2"></i>Tautan berhasil disalin';
+								a.innerHTML = '<i class="fas fa-check mr-15"></i>Tautan berhasil disalin';
 								a.classList.add('btn-success');
 								a.classList.remove('btn-outline-warning');
 								setTimeout(() => {
-									a.innerHTML = '<i class="fas fa-share-alt mr-2"></i>Bagikan';
+									a.innerHTML = '<i class="fas fa-share-alt mr-15"></i>Bagikan';
 									a.classList.add('btn-outline-warning');
 									a.classList.remove('btn-success');
 								}, 2000);
@@ -435,11 +435,11 @@ document.addEventListener('DOMContentLoaded', function () {
 					document.querySelectorAll('.copy-btn').forEach(a => {
 						new ClipboardJS(a, { text: () => location.origin + location.pathname + '?q=' + a.dataset.text });
 						a.addEventListener('click', function () {
-							a.innerHTML = '<i class="fas fa-check mr-2"></i>Tautan berhasil disalin';
+							a.innerHTML = '<i class="fas fa-check mr-15"></i>Tautan berhasil disalin';
 							a.classList.add('btn-success');
 							a.classList.remove('btn-outline-warning');
 							setTimeout(() => {
-								a.innerHTML = '<i class="fas fa-share-alt mr-2"></i>Bagikan';
+								a.innerHTML = '<i class="fas fa-share-alt mr-15"></i>Bagikan';
 								a.classList.add('btn-outline-warning');
 								a.classList.remove('btn-success');
 							}, 2000);
@@ -467,12 +467,15 @@ document.addEventListener('DOMContentLoaded', function () {
 				.replace(/yaitu \:/g, 'yaitu:')
 				.replace(/adalah \:/g, 'adalah:')
 				.replace(/meliputi \:/g, 'meliputi:')
+				.replace(/Sub ?golongan ini mencakup ?\:/g, '<br> <br>Subgolongan ini mencakup:')
+				.replace(/Sub ?golongan ini tidak mencakup ?\:/g, '<br> <br>Subgolongan ini tidak mencakup:')
 				.replace(/(CATATAN|Catatan)\s?\:/g, '<br>$1:')
 				.replace(/\s+(CATATAN|Catatan)/g, '.<br>$1')
 				.replace(/ -\s?\t/g, '<br>•&nbsp;&nbsp; ')
-				.replace(/( \w\) )/g, '<br><span class="text-gray">$1</span>&nbsp;')
+				.replace(/( \w\) )/g, '<br><span class="text-gray">$1</span> ')
 				.replace(/(\d{3,9})/g, '<a href="javascript:void(0)" data-id="$1">$1</a>')
 				.replace(/(\<br\>)+/g, '<br>')
+				.replace(/^(\<br\> ?\<br\>)/g, '')
 				+ (id ? `<a href="javascript:void(0)" class="btn btn-outline-warning copy-btn" data-text="${id}"><i class="fas fa-share-alt mr-15"></i>Bagikan</a>` : '');
 		}
 		return '';

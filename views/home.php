@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="lib/atlantis-lite/mod/atlantis.mod.css?v=<?php include 'views/partials/_version.php'; ?>">
 	<link rel="stylesheet" href="assets/css/main.css?v=<?php include 'views/partials/_version.php'; ?>">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<style>
 		body {
@@ -139,7 +139,7 @@
 			</div>
 		</main>
 		<footer class="text-center mt-45 mt-md-5">
-			<a id="about-btn" href="javascript:void(0)" class="text-reset"><i class="icon-info d-inline-block mr-2"></i>Tentang</a>
+			<a id="about-btn" href="javascript:void(0)" class="text-reset fz-md-16"><i class="icon-info d-inline-block mr-2"></i>Tentang</a>
 		</footer>
 	</div>
 
