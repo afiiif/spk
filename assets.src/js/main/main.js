@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		}, false);
 		const search = keyword => {
 
-			let stopwords = ['di', 'ia', 'ke', 'se', 'ada', 'apa', 'dan', 'hal', 'ini', 'itu', 'kan', 'lah', 'mau', 'nah', 'per', 'pun', 'sub', 'tak', 'agak', 'agar', 'akan', 'asal', 'atas', 'atau', 'bagi', 'baik', 'beri', 'bila', 'buat', 'cara', 'cuma', 'dari', 'demi', 'dulu', 'guna', 'ikut', 'jadi', 'jauh', 'jika', 'juga', 'kala', 'kini', 'kira', 'lagi', 'lama', 'maka', 'mana', 'mula', 'naik', 'oleh', 'pada', 'para', 'pula', 'saat', 'saja', 'sama', 'sana', 'satu', 'sela', 'sini', 'soal', 'tadi', 'tapi', 'tiap', 'tiba', 'usai', 'yang', 'bagai', 'bahwa', 'biasa', 'dalam', 'dapat', 'hanya', 'ialah', 'macam', 'masih', 'meski', 'namun', 'suatu', 'tidak', 'untuk', 'yaitu', 'adalah', 'antara', 'berupa', 'dengan', 'kepada', 'sampai', 'lihat', 'kelompok', 'kategori', 'golongan', 'subgolongan', 'subkelas'],
+			let stopwords = ['di', 'ia', 'ke', 'se', 'ada', 'apa', 'dan', 'hal', 'ini', 'itu', 'kan', 'lah', 'mau', 'nah', 'per', 'pun', 'sub', 'tak', 'agak', 'agar', 'akan', 'asal', 'atas', 'atau', 'bagi', 'baik', 'beri', 'bila', 'buat', 'cara', 'cuma', 'dari', 'demi', 'dulu', 'guna', 'ikut', 'jadi', 'jauh', 'jika', 'juga', 'kala', 'kini', 'kira', 'lagi', 'lama', 'maka', 'mana', 'mula', 'naik', 'oleh', 'pada', 'para', 'pula', 'saat', 'saja', 'sama', 'sana', 'satu', 'sela', 'sini', 'soal', 'tadi', 'tapi', 'tiap', 'tiba', 'usai', 'yang', 'bagai', 'bahwa', 'biasa', 'dalam', 'dapat', 'hanya', 'ialah', 'macam', 'masih', 'meski', 'namun', 'suatu', 'tidak', 'untuk', 'yaitu', 'adalah', 'antara', 'berupa', 'dengan', 'kepada', 'sampai', 'lihat', 'kelompok', 'kategori', 'golongan', 'subgolongan', 'subkelas', 'mencakup'],
 				keysUnfiltered = [...new Set(keyword.trim().toLowerCase().replace(/,/g, ' ').replace(/\"(\w+) (\w+)\"/g, '$1+$2').split(/[\s,]+/))].filter(a => a.length),
 				keys = [...keysUnfiltered],
 				keysExcluded = [],
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			dbg({ keysUnfiltered, keys, keysExcluded });
 
 			if ((keysUnfiltered.filter(a => a.length > 2).length || keysUnfiltered.filter(a => a.length > 1).length > 1 || keysUnfiltered.length > 3) && (setting.stopword && keysUnfiltered.length === keysExcluded.length)) {
-				ELM.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Kata kunci terlalu umum<div class="mt-15 text-muted fz-12 font-italic">Kata kunci yang terlalu umum tidak diikutkan dalam pencarian: ${keysExcluded.join(', ')}<br>Anda dapat mengubah pengaturan ini pada menu pengaturan<i class="icon-settings ml-15"></i></div></div>`;
+				ELM.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Kata kunci terlalu umum<div class="mt-15 text-muted fz-12 font-italic">Kata kunci yang terlalu umum tidak diikutkan dalam pencarian: ${keysExcluded.join(', ')}<br>Anda dapat mengubah pengaturan ini pada menu <span class="setting-btn-alt cur-p">pengaturan<i class="icon-settings ml-15"></i></span></div></div>`;
 
 				setTimeout(() => {
 					ELM.search_tooltip.tooltip('show');
@@ -378,6 +378,14 @@ document.addEventListener('DOMContentLoaded', function () {
 				},
 			});
 		}, false);
+		ELM.result_summary.addEventListener('click', function (e) {
+			for (var target = e.target; target && target != this; target = target.parentNode) {
+				if (target.matches('.setting-btn-alt')) {
+					document.getElementById('setting-btn').click();
+					break;
+				}
+			}
+		}, false);
 	}
 
 	// Explore
@@ -467,15 +475,15 @@ document.addEventListener('DOMContentLoaded', function () {
 				.replace(/yaitu \:/g, 'yaitu:')
 				.replace(/adalah \:/g, 'adalah:')
 				.replace(/meliputi \:/g, 'meliputi:')
-				.replace(/Sub ?golongan ini mencakup ?\:/g, '<br> <br>Subgolongan ini mencakup:')
-				.replace(/Sub ?golongan ini tidak mencakup ?\:/g, '<br> <br>Subgolongan ini tidak mencakup:')
+				.replace(/Sub ?golongan ini mencakup ?\:/g, '<div class="mb-25"></div><u>Subgolongan ini mencakup:</u>')
+				.replace(/Sub ?golongan ini tidak mencakup ?\:/g, '<div class="mb-25"></div><u>Subgolongan ini tidak mencakup:</u>')
 				.replace(/(CATATAN|Catatan)\s?\:/g, '<br>$1:')
 				.replace(/\s+(CATATAN|Catatan)/g, '.<br>$1')
 				.replace(/ -\s?\t/g, '<br>•&nbsp;&nbsp; ')
 				.replace(/( \w\) )/g, '<br><span class="text-gray">$1</span> ')
 				.replace(/(\d{3,9})/g, '<a href="javascript:void(0)" data-id="$1">$1</a>')
 				.replace(/(\<br\>)+/g, '<br>')
-				.replace(/^(\<br\> ?\<br\>)/g, '')
+				.replace(/^(\<div class\=\"mb-25\"\>\<\/div\>)/g, '')
 				+ (id ? `<a href="javascript:void(0)" class="btn btn-outline-warning copy-btn" data-text="${id}"><i class="fas fa-share-alt mr-15"></i>Bagikan</a>` : '');
 		}
 		return '';
