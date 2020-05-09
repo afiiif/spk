@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				.replace(/Sub ?golongan ini tidak mencakup ?\:/g, '<div class="mb-25"></div><u>Subgolongan ini tidak mencakup:</u>')
 				.replace(/(CATATAN|Catatan)\s?\:/g, '<br>$1:')
 				.replace(/\s+(CATATAN|Catatan)/g, '.<br>$1')
-				.replace(/ -\s?\t/g, '<br>•&nbsp;&nbsp; ')
+				.replace(/ -\s*\t/g, '<br>•&nbsp;&nbsp; ')
 				.replace(/( \w\) )/g, '<br><span class="text-gray">$1</span> ')
 				.replace(/(\d{3,9})/g, '<a href="javascript:void(0)" data-id="$1">$1</a>')
 				.replace(/(\<br\>)+/g, '<br>')
