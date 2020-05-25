@@ -335,6 +335,7 @@
         font-weight: 400 !important;
         text-decoration: none !important;
         margin-top: 24px;
+        margin-left: 64px;
 
         &:hover {
             background: #48ABF7 !important;
@@ -345,6 +346,7 @@
             color: #48ABF7 !important;
             background: transparent !important;
             border-color: transparent !important;
+            margin-left: 0;
         }
     }
 }

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-	const ELM = {
+	const $$ = {
 		body: document.getElementsByTagName('body')[0],
 		search: document.getElementById('search'),
 		search_tooltip: $('#search-form-tooltip'),
@@ -83,14 +83,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			let params = (new URL(location.href)).searchParams;
 			if (params.get('q')) {
-				ELM.search.value = params.get('q');
+				$$.search.value = params.get('q');
 				document.getElementById('search-btn').click();
 				displayNavGuide = false;
 			}
 			else if (params.get('explore')) {
 				document.getElementById('explore-btn').click();
 			}
-			else ELM.search.focus();
+			else $$.search.focus();
 
 			if (DEV && params.get('save-json') == 1) {
 				function download(content, fileName, contentType) {
@@ -132,25 +132,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		if (typeof (Storage) !== 'undefined') {
 			if (localStorage.getItem('spk-dark')) {
-				ELM.body.classList.add('dark-mode');
+				$$.body.classList.add('dark-mode');
 				document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
 				setting.dark = true;
 			}
 		}
 
-		const markInstance = new Mark(ELM.result_table_body);
+		const markInstance = new Mark($$.result_table_body);
 
-		ELM.search.addEventListener('keypress', function (e) {
-			ELM.search_tooltip.tooltip('hide');
+		$$.search.addEventListener('keypress', function (e) {
+			$$.search_tooltip.tooltip('hide');
 			if (e.which === 13) {
 				window.scrollTo(0, 0);
-				search(ELM.search.value);
+				search($$.search.value);
 			}
 		}, false);
-		ELM.search.addEventListener('blur', function () { ELM.search_tooltip.tooltip('hide'); }, false);
+		$$.search.addEventListener('blur', function () { $$.search_tooltip.tooltip('hide'); }, false);
 		document.getElementById('search-btn').addEventListener('click', function () {
 			window.scrollTo(0, 0);
-			search(ELM.search.value);
+			search($$.search.value);
 		}, false);
 		const search = keyword => {
 
@@ -179,17 +179,17 @@ document.addEventListener('DOMContentLoaded', function () {
 			dbg({ keysUnfiltered, keys, keysExcluded });
 
 			if ((keysUnfiltered.filter(a => a.length > 2).length || keysUnfiltered.filter(a => a.length > 1).length > 1 || keysUnfiltered.length > 3) && (setting.stopword && keysUnfiltered.length === keysExcluded.length)) {
-				ELM.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Kata kunci terlalu umum<div class="mt-15 text-muted fz-12 font-italic">Kata kunci yang terlalu umum tidak diikutkan dalam pencarian: ${keysExcluded.join(', ')}<br>Anda dapat mengubah pengaturan ini pada menu <span class="setting-btn-alt cur-p">pengaturan<i class="icon-settings ml-15"></i></span></div></div>`;
+				$$.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Kata kunci terlalu umum<div class="mt-15 text-muted fz-12 font-italic">Kata kunci yang terlalu umum tidak diikutkan dalam pencarian: ${keysExcluded.join(', ')}<br>Anda dapat mengubah pengaturan ini pada menu <span class="setting-btn-alt cur-p">pengaturan<i class="icon-settings ml-15"></i></span></div></div>`;
 
 				setTimeout(() => {
-					ELM.search_tooltip.tooltip('show');
-				}, ELM.body.classList.contains('search-active') ? 200 : 600);
+					$$.search_tooltip.tooltip('show');
+				}, $$.body.classList.contains('search-active') ? 200 : 600);
 
-				ELM.result_summary.style.display = '';
-				ELM.result_loading.style.display = 'none';
-				ELM.result_loading.nextElementSibling.style.display = 'none';
-				ELM.result_table.style.display = 'none';
-				ELM.body.classList.add('search-active');
+				$$.result_summary.style.display = '';
+				$$.result_loading.style.display = 'none';
+				$$.result_loading.nextElementSibling.style.display = 'none';
+				$$.result_table.style.display = 'none';
+				$$.body.classList.add('search-active');
 				$('#result').slideDown();
 			}
 
@@ -258,12 +258,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 						keysExcluded = keysExcluded.length ? `<div class="mt-15 text-muted fz-12 font-italic">Sebagian kata kunci yang terlalu umum tidak diikutkan dalam pencarian: ${keysExcluded.join(', ')}<br>Anda dapat mengubah pengaturan ini pada menu pengaturan<i class="icon-settings ml-15"></i></div>` : '';
 
-						ELM.search.blur();
-						ELM.result_summary.innerHTML = findById ?
+						$$.search.blur();
+						$$.result_summary.innerHTML = findById ?
 							`<div>Menampilkan hasil pencarian dengan kode <span class="text-info">${b(keyword)}</span></div>` :
 							`<div class="text-info">Menemukan ${b(res.filter(a => a.displayed).length)} hasil.${keysExcluded}</div>`;
-						ELM.result_table_body.innerHTML = html;
-						ELM.result_table.style.display = '';
+						$$.result_table_body.innerHTML = html;
+						$$.result_table.style.display = '';
 						if (!findById && setting.highlight) keys.forEach(a => markInstance.mark(a, { separateWordSearch: false }));
 
 						// Clipboard.js
@@ -280,31 +280,31 @@ document.addEventListener('DOMContentLoaded', function () {
 								}, 2000);
 							}, false);
 						});
-						if (displayNavGuide) ELM.result_loading.nextElementSibling.style.display = '';
+						if (displayNavGuide) $$.result_loading.nextElementSibling.style.display = '';
 					}
 					else {
-						ELM.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Tidak ada hasil untuk pencarian ${b(keyword)}</div>`;
+						$$.result_summary.innerHTML = `<div class="text-danger text-center pt-45 pt-sm-5 pl-md-55"><div class="mb-4 fz-72 fz-sm-80"><div class="icon-stack-file-times animated animated-1s swing"><div></div></div></div>Tidak ada hasil untuk pencarian ${b(keyword)}</div>`;
 					}
 
-					ELM.result_loading.style.display = 'none';
-					ELM.result_summary.style.display = '';
+					$$.result_loading.style.display = 'none';
+					$$.result_summary.style.display = '';
 
-				}, ELM.body.classList.contains('search-active') ? 200 : 600);
+				}, $$.body.classList.contains('search-active') ? 200 : 600);
 
-				ELM.result_table.style.display = 'none';
-				ELM.result_summary.style.display = 'none';
-				ELM.result_loading.style.display = '';
-				ELM.result_loading.nextElementSibling.style.display = 'none';
-				ELM.body.classList.add('search-active');
+				$$.result_table.style.display = 'none';
+				$$.result_summary.style.display = 'none';
+				$$.result_loading.style.display = '';
+				$$.result_loading.nextElementSibling.style.display = 'none';
+				$$.body.classList.add('search-active');
 				$('#result').slideDown();
-				ELM.search_tooltip.tooltip('hide');
+				$$.search_tooltip.tooltip('hide');
 			}
 			else {
 				if (keyword) {
 					dbg('Bad keyword :(', 1);
-					ELM.search_tooltip.tooltip('show');
+					$$.search_tooltip.tooltip('show');
 				}
-				ELM.search.focus();
+				$$.search.focus();
 			}
 		}
 
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.getElementById('setting-btn').classList[setting.cat.length === 0 && setting.stopword ? 'remove' : 'add']('text-info');
 		}
 		document.getElementById('setting-btn').addEventListener('click', function () {
-			ELM.search_tooltip.tooltip('hide');
+			$$.search_tooltip.tooltip('hide');
 			let { cat, stopword, highlight, dark } = setting;
 			utils.modal.init({
 				title: 'Pengaturan',
@@ -346,10 +346,10 @@ document.addEventListener('DOMContentLoaded', function () {
 				show: () => {
 					document.getElementById('dark-mode-toggle').addEventListener('change', function (e) {
 						if (this.checked) {
-							ELM.body.classList.add('dark-mode');
+							$$.body.classList.add('dark-mode');
 							document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
 						} else {
-							ELM.body.classList.remove('dark-mode');
+							$$.body.classList.remove('dark-mode');
 							document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');
 						}
 					}, false);
@@ -366,19 +366,19 @@ document.addEventListener('DOMContentLoaded', function () {
 				},
 				hide: () => {
 					if (setting.dark) {
-						ELM.body.classList.add('dark-mode');
+						$$.body.classList.add('dark-mode');
 						document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
 						if (typeof (Storage) !== 'undefined') localStorage.setItem('spk-dark', 1);
 					} else {
-						ELM.body.classList.remove('dark-mode');
+						$$.body.classList.remove('dark-mode');
 						document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');
 						if (typeof (Storage) !== 'undefined') localStorage.removeItem('spk-dark');
 					}
-					if (ELM.result_summary.style.display === '') search(ELM.search.value);
+					if ($$.result_summary.style.display === '') search($$.search.value);
 				},
 			});
 		}, false);
-		ELM.result_summary.addEventListener('click', function (e) {
+		$$.result_summary.addEventListener('click', function (e) {
 			for (var target = e.target; target && target != this; target = target.parentNode) {
 				if (target.matches('.setting-btn-alt')) {
 					document.getElementById('setting-btn').click();
@@ -391,24 +391,24 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Explore
 	document.getElementById('explore-btn').addEventListener('click', function () {
 		window.scrollTo(0, 0);
-		ELM.search.value = '';
-		ELM.result_summary.style.display = 'none';
-		ELM.result_table.style.display = 'none';
-		ELM.result_loading.style.display = '';
-		ELM.result_loading.nextElementSibling.style.display = 'none';
-		ELM.search_tooltip.tooltip('hide');
+		$$.search.value = '';
+		$$.result_summary.style.display = 'none';
+		$$.result_table.style.display = 'none';
+		$$.result_loading.style.display = '';
+		$$.result_loading.nextElementSibling.style.display = 'none';
+		$$.search_tooltip.tooltip('hide');
 		setTimeout(() => {
-			ELM.result_table_body.innerHTML = data.filter(a => a.id === '').map(a => `<tr data-lv="0" class="toggle toggle-explore desc" data-fid="${a.fid}"><td><div>${a.fid}</div></td><td><div class="desc-toggle">${a.title}</div><span class="desc-container">${descHtml(a.desc)}</span></td></tr>`).join('');
-			ELM.result_loading.style.display = 'none';
-			if (displayNavGuide) ELM.result_loading.nextElementSibling.style.display = '';
-			ELM.result_table.style.display = '';
-		}, ELM.body.classList.contains('search-active') ? 200 : 600);
-		ELM.body.classList.add('search-active');
+			$$.result_table_body.innerHTML = data.filter(a => a.id === '').map(a => `<tr data-lv="0" class="toggle toggle-explore desc" data-fid="${a.fid}"><td><div>${a.fid}</div></td><td><div class="desc-toggle">${a.title}</div><span class="desc-container">${descHtml(a.desc)}</span></td></tr>`).join('');
+			$$.result_loading.style.display = 'none';
+			if (displayNavGuide) $$.result_loading.nextElementSibling.style.display = '';
+			$$.result_table.style.display = '';
+		}, $$.body.classList.contains('search-active') ? 200 : 600);
+		$$.body.classList.add('search-active');
 		$('#result').slideDown();
 	}, false);
 
 	// Toggle
-	ELM.result_table_body.addEventListener('click', function (e) {
+	$$.result_table_body.addEventListener('click', function (e) {
 		for (var target = e.target; target && target != this; target = target.parentNode) {
 
 			if (target.matches('a[data-id]') || target.matches('.desc-container')) break;
@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// Modal
-	ELM.body.addEventListener('click', function (e) {
+	$$.body.addEventListener('click', function (e) {
 		for (var target = e.target; target && target != this; target = target.parentNode) {
 
 			if (target.matches('a[data-id]')) {
@@ -538,7 +538,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}, false);
 
 	// Tooltip
-	ELM.search_tooltip.tooltip({
+	$$.search_tooltip.tooltip({
 		title: 'Gunakan kata kunci yang lebih spesifik',
 		trigger: 'manual',
 		placement: 'bottom',
@@ -559,13 +559,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	// NavGuide
 	document.getElementById('nav-guide-dismiss').addEventListener('click', function () {
 		displayNavGuide = false;
-		ELM.result_loading.nextElementSibling.firstElementChild.classList.add('animated', 'fadeOutLeft');
+		$$.result_loading.nextElementSibling.firstElementChild.classList.add('animated', 'fadeOutLeft');
 		setTimeout(() => { $('#result-loading+div').slideUp(); }, 100);
 	}, false);
 
 	// Shortcut
 	document.addEventListener('keypress', function (e) {
-		if (e.target !== ELM.search && e.key.toLocaleLowerCase() === 'f') ELM.search.select();
+		if (e.target !== $$.search && e.key.toLocaleLowerCase() === 'f') $$.search.select();
 	});
 
 });
