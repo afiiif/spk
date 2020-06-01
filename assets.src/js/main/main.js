@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
 	const $$ = {
-		body: document.getElementsByTagName('body')[0],
 		search: document.getElementById('search'),
 		search_tooltip: $('#search-form-tooltip'),
 		result_loading: document.getElementById('result-loading'),
@@ -132,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		if (typeof (Storage) !== 'undefined') {
 			if (localStorage.getItem('spk-dark')) {
-				$$.body.classList.add('dark-mode');
+				document.body.classList.add('dark-mode');
 				document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
 				setting.dark = true;
 			}
@@ -183,13 +182,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 				setTimeout(() => {
 					$$.search_tooltip.tooltip('show');
-				}, $$.body.classList.contains('search-active') ? 200 : 600);
+				}, document.body.classList.contains('search-active') ? 200 : 600);
 
 				$$.result_summary.style.display = '';
 				$$.result_loading.style.display = 'none';
 				$$.result_loading.nextElementSibling.style.display = 'none';
 				$$.result_table.style.display = 'none';
-				$$.body.classList.add('search-active');
+				document.body.classList.add('search-active');
 				$('#result').slideDown();
 			}
 
@@ -289,13 +288,13 @@ document.addEventListener('DOMContentLoaded', function () {
 					$$.result_loading.style.display = 'none';
 					$$.result_summary.style.display = '';
 
-				}, $$.body.classList.contains('search-active') ? 200 : 600);
+				}, document.body.classList.contains('search-active') ? 200 : 600);
 
 				$$.result_table.style.display = 'none';
 				$$.result_summary.style.display = 'none';
 				$$.result_loading.style.display = '';
 				$$.result_loading.nextElementSibling.style.display = 'none';
-				$$.body.classList.add('search-active');
+				document.body.classList.add('search-active');
 				$('#result').slideDown();
 				$$.search_tooltip.tooltip('hide');
 			}
@@ -346,10 +345,10 @@ document.addEventListener('DOMContentLoaded', function () {
 				show: () => {
 					document.getElementById('dark-mode-toggle').addEventListener('change', function (e) {
 						if (this.checked) {
-							$$.body.classList.add('dark-mode');
+							document.body.classList.add('dark-mode');
 							document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
 						} else {
-							$$.body.classList.remove('dark-mode');
+							document.body.classList.remove('dark-mode');
 							document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');
 						}
 					}, false);
@@ -366,11 +365,11 @@ document.addEventListener('DOMContentLoaded', function () {
 				},
 				hide: () => {
 					if (setting.dark) {
-						$$.body.classList.add('dark-mode');
+						document.body.classList.add('dark-mode');
 						document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
 						if (typeof (Storage) !== 'undefined') localStorage.setItem('spk-dark', 1);
 					} else {
-						$$.body.classList.remove('dark-mode');
+						document.body.classList.remove('dark-mode');
 						document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');
 						if (typeof (Storage) !== 'undefined') localStorage.removeItem('spk-dark');
 					}
@@ -402,8 +401,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			$$.result_loading.style.display = 'none';
 			if (displayNavGuide) $$.result_loading.nextElementSibling.style.display = '';
 			$$.result_table.style.display = '';
-		}, $$.body.classList.contains('search-active') ? 200 : 600);
-		$$.body.classList.add('search-active');
+		}, document.body.classList.contains('search-active') ? 200 : 600);
+		document.body.classList.add('search-active');
 		$('#result').slideDown();
 	}, false);
 
@@ -490,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// Modal
-	$$.body.addEventListener('click', function (e) {
+	document.body.addEventListener('click', function (e) {
 		for (var target = e.target; target && target != this; target = target.parentNode) {
 
 			if (target.matches('a[data-id]')) {
