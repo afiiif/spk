@@ -1,0 +1,40 @@
+.ribbon {
+    &-wrapper {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 200px;
+        overflow-x: hidden;
+        pointer-events: none;
+        transition: top .5s ease-in-out;
+    }
+
+    &-top-right {
+        position: absolute;
+        font-size: 10px;
+        right: -69px;
+        top: 18px;
+        width: 200px;
+        text-align: center;
+        padding: 4px;
+        transform: rotate(45deg);
+        pointer-events: all;
+
+        @media (min-width: $breakpoint-sm) {
+            font-size: 12px;
+            right: -60px;
+            top: 25px;
+        }
+
+        @media (min-width: $breakpoint-md) {
+            font-size: 14px;
+            right: -50px;
+            top: 30px;
+        }
+    }
+}
+
+.search-active .ribbon-wrapper {
+    top: -150px;
+}
