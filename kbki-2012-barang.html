@@ -2,11 +2,20 @@
 <html lang="en" class="h-100">
 
 <head>
-<?php include 'views/partials/meta.php'; ?>
-	<meta property="og:title" content="<?= $data['title'] ?> · Sistem Pencarian Kode Klasifikasi">
-	<meta property="og:url" content="<?= SITE . PATH ?>/">
-	<base href="<?= SITE ?>/spk/">
-	<title><?= $data['title'] ?> · Sistem Pencarian Kode Klasifikasi</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Muhammad Afifudin">
+	<meta name="description" content="Sistem Pencarian Kode Klasifikasi (unofficial) merupakan aplikasi berbasis website (WebApp) BPS Kabupaten Kayong Utara yang dapat dimanfaatkan untuk pencarian kode berbagai jenis klasifikasi statistik seperti KBLI, KBJI, dan KBKI.">
+	<meta name="keywords" content="BPS, Badan Pusat Statistik, WebApp, WebApps, Sistem Pencarian Kode, Klasifikasi, SPK, Online, Redesign, KBLI, Lapangan Usaha, KBJI, Jabatan, Susenas, Sakernas">
+	<meta name="theme-color" content="#F8D800">
+	<link rel="shortcut icon" href="assets/img/spk-online-icon.png" type="image/x-icon">
+	<meta property="og:site_name" content="Sistem Pencarian Kode Klasifikasi (SPK) Online - Redesign!">
+	<meta property="og:description" content="Sistem Pencarian Kode Klasifikasi (unofficial) merupakan aplikasi berbasis website (WebApp) BPS Kabupaten Kayong Utara yang dapat dimanfaatkan untuk pencarian kode berbagai jenis klasifikasi statistik seperti KBLI, KBJI, dan KBKI.">
+	<meta property="og:image" content="https://afiiif.github.io/spk/assets/img/og-img/spk-kbki-2012-barang.png">
+	<meta property="og:title" content="Klasifikasi Baku Komoditi Indonesia Indonesia - Barang · Sistem Pencarian Kode Klasifikasi">
+	<meta property="og:url" content="https://afiiif.github.io/spk/kbki-2012-barang/">
+	<title>Klasifikasi Baku Komoditi Indonesia Indonesia - Barang · Sistem Pencarian Kode Klasifikasi</title>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
@@ -14,23 +23,31 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
 	<link rel="stylesheet" href="lib/atlantis-lite/mod-2/atlantis.mod.css">
-	<link rel="stylesheet" href="assets/css/main<?= SITE === 'http://localhost' || $_GET['debug'] == 1 ? '' : '.min' ?>.css?v=<?php include 'views/partials/_version.php'; ?>">
+	<link rel="stylesheet" href="assets/css/main.css?v=1.3.1">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
 
-<?php include 'views/partials/modal.php'; ?>
+	<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+		<div class="modal-dialog" id="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-title"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Batal"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body" id="modal-body"></div>
+				<div class="border-top text-danger text-right" id="modal-error" style="display: none;"></div>
+				<div class="modal-footer" id="modal-footer"></div>
+			</div>
+		</div>
+	</div>
 
 	<header class="header bg-yellow-gradient pb-6">
 		<nav class="p-a p-md-3">
 			<a id="nav-brand" href="" class="d-block lh-120 animated animated-1s bounceInDown">
-<?php if ($data['title-segment'][2]) { ?>
-				<i class="icon-arrow-left-circle"></i><span class="fw-8"><?= $data['title-segment'][0] ?></span><div><?= $data['title-segment'][1] ?></div><div><?= $data['title-segment'][2] ?></div>
-<?php } else { ?>
-				<i class="icon-arrow-left-circle"></i><span class="fw-8"><?= $data['title-segment'][0] ?></span><span class="fw-3"><?= $data['title-segment'][1] ?></span>
-<?php } ?>
+				<i class="icon-arrow-left-circle"></i><span class="fw-8">kbki</span><div>2012</div><div>barang</div>
 			</a>
 		</nav>
 		<div id="search-form-wrapper-outer" class="search-form-wrapper-outer d-none"><!-- animated animated-1s bounceIn -->
@@ -103,9 +120,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
-	<script src="assets/js/main<?= SITE === 'http://localhost' || $_GET['debug'] == 1 ? '' : '.min' ?>.js?v=<?php include 'views/partials/_version.php'; ?>"></script>
+	<script src="assets/js/main.js?v=1.3.1"></script>
 	<script>
-		const DEV = <?= json_encode(SITE === 'http://localhost' || $_GET['debug'] == 1) ?>, FILE = '<?= $data['file'] ?>';
+		const DEV = false, FILE = 'kbki-2012-barang.json';
 	</script>
 
 </body>

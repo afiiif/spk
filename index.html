@@ -2,10 +2,19 @@
 <html lang="en" class="h-100">
 
 <head>
-<?php include 'views/partials/meta.php'; ?>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Muhammad Afifudin">
+	<meta name="description" content="Sistem Pencarian Kode Klasifikasi (unofficial) merupakan aplikasi berbasis website (WebApp) BPS Kabupaten Kayong Utara yang dapat dimanfaatkan untuk pencarian kode berbagai jenis klasifikasi statistik seperti KBLI, KBJI, dan KBKI.">
+	<meta name="keywords" content="BPS, Badan Pusat Statistik, WebApp, WebApps, Sistem Pencarian Kode, Klasifikasi, SPK, Online, Redesign, KBLI, Lapangan Usaha, KBJI, Jabatan, Susenas, Sakernas">
+	<meta name="theme-color" content="#F8D800">
+	<link rel="shortcut icon" href="assets/img/spk-online-icon.png" type="image/x-icon">
+	<meta property="og:site_name" content="Sistem Pencarian Kode Klasifikasi (SPK) Online - Redesign!">
+	<meta property="og:description" content="Sistem Pencarian Kode Klasifikasi (unofficial) merupakan aplikasi berbasis website (WebApp) BPS Kabupaten Kayong Utara yang dapat dimanfaatkan untuk pencarian kode berbagai jenis klasifikasi statistik seperti KBLI, KBJI, dan KBKI.">
+	<meta property="og:image" content="https://afiiif.github.io/spk/assets/img/og-img/bps-spk.png">
 	<meta property="og:title" content="Sistem Pencarian Kode Klasifikasi · SPK Online Redesign!">
-	<meta property="og:url" content="<?= SITE . PATH ?>/">
-	<base href="<?= SITE ?>/spk/">
+	<meta property="og:url" content="https://afiiif.github.io/spk/">
 	<title>Sistem Pencarian Kode Klasifikasi · SPK Online Redesign!</title>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
@@ -13,7 +22,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap">
 	<link rel="stylesheet" href="lib/atlantis-lite/mod-2/atlantis.mod.css">
-	<link rel="stylesheet" href="assets/css/main<?= SITE === 'http://localhost' || $_GET['debug'] == 1 ? '' : '.min' ?>.css?v=<?php include 'views/partials/_version.php'; ?>">
+	<link rel="stylesheet" href="assets/css/main.css?v=1.3.1">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -56,7 +65,19 @@
 
 <body class="bg-yellow-gradient text-black d-flex align-items-center justify-content-center px-3 pt-5 pb-4 pb-md-35">
 
-<?php include 'views/partials/modal.php'; ?>
+	<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+		<div class="modal-dialog" id="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-title"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Batal"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body" id="modal-body"></div>
+				<div class="border-top text-danger text-right" id="modal-error" style="display: none;"></div>
+				<div class="modal-footer" id="modal-footer"></div>
+			</div>
+		</div>
+	</div>
 
 	<div>
 		<header>
@@ -150,7 +171,7 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
-	<script src="assets/js/utils<?= SITE === 'http://localhost' || $_GET['debug'] == 1 ? '' : '.min' ?>.js?v=<?php include 'views/partials/_version.php'; ?>"></script>
+	<script src="assets/js/utils.js?v=1.3.1"></script>
 	<script>
 		$(() => {
 			$('body').tooltip({
