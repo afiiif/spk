@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const error = err => {
 			console.error(err);
-			document.getElementById('loading').innerHTML = '<div class="animated animated-1s swing"><i class="icon-exclamation mr-35"></i>Terjadi kesalahan :(</div><div class="animated fast fadeInUp delay-1s fz-14 fw-4 mt-45 px-a"><div class="fz-20">Silakan coba refresh halaman ini.</div>Jika masih terjadi masalah, hubungi Admin (<span class="text-warning">muhammad.afifudin@bps.go.id</span>)</div>';
+			document.getElementById('loading').innerHTML = '<div class="animated animated-1s swing"><i class="icon-exclamation mr-35"></i>Terjadi kesalahan :(</div><div class="animated fast fadeInUp delay-1s fz-14 fw-4 mt-45 px-a"><div class="fz-20">Silakan coba refresh halaman ini.</div>Jika masih terjadi masalah, hubungi developer situs ini melalui <a href="https://github.com/afiiif/spk/issues" class="text-warning">GitHub</a>.</div>';
 			document.getElementsByTagName('header')[0].className = 'header bg-danger-gradient pb-6';
 		}
 
@@ -367,7 +367,10 @@ document.addEventListener('DOMContentLoaded', function () {
 					if (setting.dark) {
 						document.body.classList.add('dark-mode');
 						document.querySelector('meta[name="theme-color"]').setAttribute('content', '#202124');
-						if (typeof (Storage) !== 'undefined') localStorage.setItem('spk-dark', 1);
+						if (typeof (Storage) !== 'undefined') {
+							try { localStorage.setItem('spk-dark', 1); }
+							catch (error) { dbg('Cannot set local storage'); }
+						}
 					} else {
 						document.body.classList.remove('dark-mode');
 						document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F8D800');

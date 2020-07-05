@@ -72,5 +72,5 @@ exports.css_main = css_main;
 exports.js_main = js_main;
 exports.js_utils = js_utils;
 exports.watch = watchFiles;
-exports.build = gulp.series(css_main_min, js_main_min, js_utils_min);
+exports.build = gulp.series(css_main, css_main_min, js_main, js_main_min, js_utils, js_utils_min);
 exports.default = gulp.series(css_main, js_main);
