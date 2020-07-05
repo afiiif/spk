@@ -92,11 +92,11 @@
         position: absolute;
         bottom: 18px;
         left: 15px;
-        opacity: .7;
         font-size: 18px;
         transition: left .5s ease-in-out;
-
+        
         >a {
+            opacity: .7;
             text-decoration: none;
             display: inline-block;
             padding: 8px 0;
