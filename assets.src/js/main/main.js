@@ -567,7 +567,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Shortcut
 	document.addEventListener('keypress', function (e) {
-		if (e.target !== $$.search && e.key.toLocaleLowerCase() === 'f') $$.search.select();
+		if (e.target !== $$.search && e.key.toLowerCase() === 'f') $$.search.select();
 	});
 
 });
